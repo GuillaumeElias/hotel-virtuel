@@ -23,12 +23,7 @@ class CanvasImage extends React.Component {
     // save to "this" to remove "load" handler on unmount
     this.image1 = new window.Image();
     this.image1.src = this.props.src + "_0.png";
-
-    this.image2 = new window.Image();
-    this.image2.src = this.props.src + "_1.png";
-
     this.image1.addEventListener("load", this.handleLoad1);
-    this.image2.addEventListener("load", this.handleLoad2);
   }
 
   handleLoad1 = () => {
@@ -49,6 +44,10 @@ class CanvasImage extends React.Component {
     } else {
       this.image1.height = this.image1.height * (this.props.percent / 100.0);
     }
+
+    this.image2 = new window.Image();
+    this.image2.src = this.props.src + "_1.png";
+    this.image2.addEventListener("load", this.handleLoad2);
   };
 
   handleLoad2 = () => {
