@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -39,8 +39,6 @@ class ImgLink extends React.Component {
 
   componentDidMount() {
     this.timerID = setInterval(() => this.tick(), 1000);
-
-    this.props;
   }
 
   componentWillUnmount() {

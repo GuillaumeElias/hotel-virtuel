@@ -7,45 +7,68 @@ class CanvasImage extends React.Component {
     image: null
   };
   componentDidMount() {
-    this.loadImage();
+    this.loadImages();
   }
   componentDidUpdate(oldProps) {
     if (oldProps.src !== this.props.src) {
-      this.loadImage();
+      this.loadImages();
     }
   }
   componentWillUnmount() {
-    this.image.removeEventListener("load", this.handleLoad);
+    this.image1.removeEventListener("load", this.handleLoad);
+    this.image2.removeEventListener("load", this.handleLoad);
+    clearInterval(this.timerID);
   }
-  loadImage() {
+  loadImages() {
     // save to "this" to remove "load" handler on unmount
-    this.image = new window.Image();
-    this.image.src = this.props.src;
+    this.image1 = new window.Image();
+    this.image1.src = this.props.src + "_0.png";
 
-    this.image.addEventListener("load", this.handleLoad);
+    this.image2 = new window.Image();
+    this.image2.src = this.props.src + "_1.png";
+
+    this.image1.addEventListener("load", this.handleLoad1);
+    this.image2.addEventListener("load", this.handleLoad2);
   }
 
-  handleLoad = () => {
-    // after setState react-konva will update canvas and redraw the layer
-    // because "image" property is changed
+  handleLoad1 = () => {
     this.setState({
-      image: this.image
+      image: this.image1
     });
 
     if (this.props.width) {
-      let ratio = this.image.width / parseFloat(this.image.height);
-      this.image.width = this.props.width;
-      this.image.height = this.image.width * ratio;
+      let ratio = this.image1.width / parseFloat(this.image1.height);
+      this.image1.width = this.props.width;
+      this.image1.height = this.image1.width * ratio;
     } else {
-      this.image.width = this.image.width * (this.props.percent / 100.0);
+      this.image1.width = this.image.width * (this.props.percent / 100.0);
     }
 
     if (this.props.height) {
-      this.image.height = this.props.height;
+      this.image1.height = this.props.height;
     } else {
-      this.image.height = this.image.height * (this.props.percent / 100.0);
+      this.image1.height = this.image1.height * (this.props.percent / 100.0);
     }
   };
+
+  handleLoad2 = () => {
+    this.image2.width = this.image1.width;
+    this.image2.height = this.image1.height;
+
+    this.timerID = setInterval(() => this.tick(), 1000);
+  };
+
+  tick() {
+    if (this.state.image === this.image1) {
+      this.setState({
+        image: this.image2
+      });
+    } else {
+      this.setState({
+        image: this.image1
+      });
+    }
+  }
 
   render() {
     const handleClick = () => {

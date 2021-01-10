@@ -7,15 +7,15 @@ const BackButton = ({ history, match, location }) => {
 
   console.log("location", location);
 
-  if (location.pathname == "/") {
+  if (location.pathname === "/") {
     return <div />;
   }
 
   return (
     <div>
-      <button onClick={goBack} className="btn btn-outline-light">
-        Back
-      </button>
+      <a onClick={goBack}>
+        <img src="/images/back.png" alt="back" />
+      </a>
     </div>
   );
 };

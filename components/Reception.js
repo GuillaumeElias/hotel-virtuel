@@ -25,11 +25,20 @@ export default class Reception extends React.Component {
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
           <CanvasImage
-            src="https://hotelvirtuel.space/images/lobby_0.png"
-            x={50}
+            src="/images/lobby"
+            x={window.innerWidth / 2}
             width={window.innerWidth / 3}
             onClick={() => {
               this.props.history.push("/lobby");
+            }}
+          />
+          <CanvasImage
+            src="/images/elevator"
+            x={10}
+            y={210}
+            width={window.innerWidth / 4}
+            onClick={() => {
+              this.props.history.push("/elevator");
             }}
           />
         </Layer>
