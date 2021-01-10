@@ -57,16 +57,16 @@ class CanvasImage extends React.Component {
         x={this.props.x}
         y={this.props.y}
         image={this.state.image}
-        ref={node => {
+        ref={(node) => {
           this.imageNode = node;
         }}
         onClick={handleClick}
-        onMouseEnter={e => {
+        onMouseEnter={(e) => {
           // style stage container:
           const container = e.target.getStage().container();
           container.style.cursor = "pointer";
         }}
-        onMouseLeave={e => {
+        onMouseLeave={(e) => {
           const container = e.target.getStage().container();
           container.style.cursor = "default";
         }}

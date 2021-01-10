@@ -7,7 +7,7 @@ const divStyle = {
 
 const Home = () => (
   <div style={divStyle}>
-    <ImgLink to="/reception" src="https://hotelvirtuel.space/images/hotel" />
+    <ImgLink to="/reception" src="/images/hotel" />
   </div>
 );
 

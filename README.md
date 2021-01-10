@@ -1,3 +1,9 @@
-# hotel-virtuel-6
+# hotel-virtuel
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/hotel-virtuel-6)
+Navigate through a virtual hotel.
+
+## Libraries
+
+- react
+- react-router
+- konva

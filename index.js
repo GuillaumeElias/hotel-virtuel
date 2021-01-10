@@ -1,11 +1,10 @@
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter, Route, Link, withRouter } from "react-router-dom";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
 
 import Reception from "./components/Reception";
 import Home from "./components/Home";
 import Lobby from "./components/Lobby";
-import Home from "./components/Home";
 import Elevator from "./components/Elevator";
 import Escalator from "./components/Escalator";
 import Floor1 from "./components/Floors/Floor1";
