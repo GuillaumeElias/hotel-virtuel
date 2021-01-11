@@ -14,35 +14,54 @@ const StyledDiv = styled.div`
   }
 `;
 
-export default class Reception extends React.Component {
-  constructor() {
-    super();
-    this.state = { text: "Try Click on Me." };
-  }
+const Reception = ({ history }) => (
+  <Stage width={window.innerWidth} height={window.innerHeight * 1.5}>
+    <Layer>
+      <CanvasImage
+        src="/images/frontdesk"
+        x={0}
+        width={window.innerWidth / 3}
+        onClick={() => {
+          history.push("/frontdesk");
+        }}
+      />
+      <CanvasImage
+        src="/images/lobby"
+        x={window.innerWidth / 2}
+        width={window.innerWidth / 3}
+        onClick={() => {
+          history.push("/lobby");
+        }}
+      />
+      <CanvasImage
+        src="/images/elevator"
+        x={10}
+        y={window.innerHeight / 2}
+        width={window.innerWidth / 4}
+        onClick={() => {
+          history.push("/elevator");
+        }}
+      />
+      <CanvasImage
+        src="/images/escalator"
+        x={window.innerWidth / 2}
+        y={window.innerHeight / 2}
+        width={window.innerWidth / 3.2}
+        onClick={() => {
+          history.push("/escalator/0");
+        }}
+      />
+      <CanvasImage
+        src="/images/exit"
+        x={10}
+        y={window.innerHeight}
+        percent={40}
+        onClick={() => {
+          history.push("/");
+        }}
+      />
+    </Layer>
+  </Stage>
+);
 
-  render() {
-    return (
-      <Stage width={window.innerWidth} height={window.innerHeight}>
-        <Layer>
-          <CanvasImage
-            src="/images/lobby"
-            x={window.innerWidth / 2}
-            width={window.innerWidth / 3}
-            onClick={() => {
-              this.props.history.push("/lobby");
-            }}
-          />
-          <CanvasImage
-            src="/images/elevator"
-            x={10}
-            y={210}
-            width={window.innerWidth / 4}
-            onClick={() => {
-              this.props.history.push("/elevator");
-            }}
-          />
-        </Layer>
-      </Stage>
-    );
-  }
-}
+export default Reception;

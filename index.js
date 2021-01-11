@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
 
 import Reception from "./components/Reception";
+import FrontDesk from "./components/FrontDesk";
 import Home from "./components/Home";
 import Lobby from "./components/Lobby";
 import Elevator from "./components/Elevator";
@@ -19,6 +20,7 @@ const BaseRoute = () => {
       <div>
         <Route exact path="/" component={Home} />
         <Route path="/reception" component={Reception} />
+        <Route path="/frontdesk" component={FrontDesk} />
         <Route path="/lobby" component={Lobby} />
         <Route path="/elevator" component={Elevator} />
         <Route path="/escalator/:floorNb" component={Escalator} />

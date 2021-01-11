@@ -16,7 +16,7 @@ class CanvasImage extends React.Component {
   }
   componentWillUnmount() {
     this.image1.removeEventListener("load", this.handleLoad);
-    this.image2.removeEventListener("load", this.handleLoad);
+    this.image2.removeEventListener("load", this.handleLoad2);
     clearInterval(this.timerID);
   }
   loadImages() {
@@ -32,11 +32,11 @@ class CanvasImage extends React.Component {
     });
 
     if (this.props.width) {
-      let ratio = this.image1.width / parseFloat(this.image1.height);
+      let ratio = this.props.width / parseFloat(this.image1.width);
       this.image1.width = this.props.width;
-      this.image1.height = this.image1.width * ratio;
+      this.image1.height = this.image1.height * ratio;
     } else {
-      this.image1.width = this.image.width * (this.props.percent / 100.0);
+      this.image1.width = this.image1.width * (this.props.percent / 100.0);
     }
 
     if (this.props.height) {
