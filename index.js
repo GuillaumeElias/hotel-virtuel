@@ -10,6 +10,9 @@ import Elevator from "./components/Elevator";
 import Escalator from "./components/Escalator";
 import Floor1 from "./components/Floors/Floor1";
 import BackButton from "./components/ui/BackButton";
+
+import Player from "./components/sound/Player.js";
+
 import "./style.css";
 
 const BaseRoute = () => {
@@ -27,6 +30,8 @@ const BaseRoute = () => {
         <Route path="/floor/1" component={Floor1} />
 
         <BackBtn />
+
+        <Player url="https://hotelvirtuel.space/sound/CalmAction.mp3" />
       </div>
     </BrowserRouter>
   );
