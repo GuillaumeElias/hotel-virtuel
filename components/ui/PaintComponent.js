@@ -1,9 +1,12 @@
 import React from "react";
 import { Stage, Layer, Line } from "react-konva";
 
-const PaintComponent = ({ x, y, width, height }) => {
+const PaintComponent = ({ x, y, width, height, lines, onChange }) => {
   const [tool] = React.useState("pen");
-  const [lines, setLines] = React.useState([]);
+
+  const setLines = (lines) => {
+    onChange(lines);
+  };
 
   const isDrawing = React.useRef(false);
 

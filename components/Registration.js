@@ -1,6 +1,7 @@
 import React from "react";
 import PaintComponent from "./ui/PaintComponent";
 import ImgLink from "./ui/ImgLink";
+
 import { useGlobalState } from "./utils/GlobalState";
 
 const Registration = ({ history }) => {
@@ -58,6 +59,8 @@ const Registration = ({ history }) => {
       </table>
 
       <PaintComponent
+        lines={state.catLines}
+        onChange={(lines) => dispatch({ catLines: lines })}
         x={0}
         y={0}
         width={
@@ -70,6 +73,7 @@ const Registration = ({ history }) => {
         to="/frontdesk"
         src="images/frontdesk/ok"
         onClick={() => {
+          state.registered = true;
           dispatch(state);
         }}
       />

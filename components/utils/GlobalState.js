@@ -2,7 +2,9 @@ import React from "react";
 
 const defaultGlobalState = {
   name: "",
-  forename: ""
+  forename: "",
+  catLines: [],
+  registeted: false
 };
 
 const GlobalStateContext = React.createContext(defaultGlobalState);
