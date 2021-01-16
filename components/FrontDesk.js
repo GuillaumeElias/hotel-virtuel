@@ -1,53 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import PaintComponent from "./ui/PaintComponent";
+import ImageMapper from "react-image-mapper";
 
-const FrontDesk = ({ history }) => {
-  let width = window.innerWidth / 2;
-  let height = window.innerHeight / 2;
+const Home = ({ history }) => (
+  <div>
+    <ImageMapper
+      width={window.innerWidth}
+      imgWidth={446}
+      src="images/frontdesk/frontdeskguy.png"
+      onClick={() => {
+        history.push("/registration");
+      }}
+      map={{
+        name: "",
+        areas: [{ href: "#", coords: [63, 62, 143, 167], shape: "rect" }]
+      }}
+    />
+  </div>
+);
 
-  return (
-    <div>
-      <table>
-        <tr>
-          <td>
-            <img alt="nom" width={width / 2} src="images/frontdesk/name.png" />
-          </td>
-          <td>
-            <input type="text" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <img
-              alt="prenom"
-              width={width / 2}
-              src="images/frontdesk/forename.png"
-            />
-          </td>
-          <td>
-            <input type="text" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <img
-              alt="prenom"
-              width={width / 2}
-              src="images/frontdesk/drawacat.png"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <PaintComponent x={0} y={0} width={width} height={height} />
-          </td>
-        </tr>
-      </table>
-
-      <Link to={"/reception"}>Reception</Link>
-    </div>
-  );
-};
-
-export default FrontDesk;
+export default Home;

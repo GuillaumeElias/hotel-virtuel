@@ -58,10 +58,16 @@ class ImgLink extends React.Component {
   }
 
   render() {
+    const linkClicked = () => {
+      if (this.props.onClick) {
+        this.props.onClick();
+      }
+    };
+
     return (
       <StyledImgLink>
         <div className="imgWrapper">
-          <Link to={this.props.to} background="">
+          <Link to={this.props.to} background="" onClick={linkClicked}>
             <img src={this.state.imgSrc} style={this.props.style} />
           </Link>
         </div>

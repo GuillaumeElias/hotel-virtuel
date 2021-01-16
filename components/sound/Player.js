@@ -17,6 +17,7 @@ const StyledDiv = styled.div`
   border-radius: 5px;
   padding: 10px;
   border: 1px solid #ccc !important;
+  z-index: 2;
 `;
 
 const iconStyle = {

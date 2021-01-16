@@ -41,13 +41,22 @@ const PaintComponent = ({ x, y, width, height }) => {
   return (
     <div>
       <Stage
-        width={width}
+        width={width - 20}
         height={height}
         x={x}
         y={y}
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
+        onMouseEnter={(e) => {
+          // style stage container:
+          const container = e.target.getStage().container();
+          container.style.cursor = "crosshair";
+        }}
+        onMouseLeave={(e) => {
+          const container = e.target.getStage().container();
+          container.style.cursor = "default";
+        }}
       >
         <Layer>
           {lines.map((line, i) => (
