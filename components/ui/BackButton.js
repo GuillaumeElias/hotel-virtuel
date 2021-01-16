@@ -5,8 +5,6 @@ const BackButton = ({ history, match, location }) => {
     history.goBack();
   };
 
-  console.log("location", location);
-
   if (location.pathname === "/") {
     return <div />;
   }

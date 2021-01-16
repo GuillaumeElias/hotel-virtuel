@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
 
 const iconStyle = {
   width: "20px",
-  "margin-bottom": "-15px"
+  marginBottom: "-15px"
 };
 
 const VolumeSlider = withStyles({
@@ -59,15 +59,17 @@ const useAudio = (url) => {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
 
+  audio.loop = true;
+
   const toggle = () => setPlaying(!playing);
 
   useEffect(() => {
     playing ? audio.play() : audio.pause();
-  }, [playing]);
+  }, [playing, audio]);
 
   useEffect(() => {
     audio.volume = volume;
-  }, [volume]);
+  }, [volume, audio]);
 
   useEffect(() => {
     audio.addEventListener("ended", () => setPlaying(false));

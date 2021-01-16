@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Stage, Layer, Text } from "react-konva";
+import { Stage, Layer } from "react-konva";
 import CanvasImage from "./ui/CanvasImage";
 
 const StyledDiv = styled.div`

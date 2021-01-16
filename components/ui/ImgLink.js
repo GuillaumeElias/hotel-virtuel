@@ -60,7 +60,7 @@ class ImgLink extends React.Component {
   render() {
     return (
       <StyledImgLink>
-        <div class="imgWrapper">
+        <div className="imgWrapper">
           <Link to={this.props.to} background="">
             <img src={this.state.imgSrc} style={this.props.style} />
           </Link>

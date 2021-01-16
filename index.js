@@ -31,7 +31,7 @@ const BaseRoute = () => {
 
         <BackBtn />
 
-        <Player url="https://hotelvirtuel.space/sound/CalmAction.mp3" />
+        <Player url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
       </div>
     </BrowserRouter>
   );
