@@ -2,6 +2,8 @@ import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
 
+import { GlobalStateProvider } from "./components/utils/GlobalState";
+
 import Reception from "./components/Reception";
 import FrontDesk from "./components/FrontDesk";
 import Registration from "./components/Registration";
@@ -20,22 +22,24 @@ const BaseRoute = () => {
   const BackBtn = withRouter(BackButton);
 
   return (
-    <BrowserRouter>
-      <div>
-        <Route exact path="/" component={Home} />
-        <Route path="/reception" component={Reception} />
-        <Route path="/frontdesk" component={FrontDesk} />
-        <Route path="/registration" component={Registration} />
-        <Route path="/lobby" component={Lobby} />
-        <Route path="/elevator" component={Elevator} />
-        <Route path="/escalator/:floorNb" component={Escalator} />
-        <Route path="/floor/1" component={Floor1} />
+    <GlobalStateProvider>
+      <BrowserRouter>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/reception" component={Reception} />
+          <Route path="/frontdesk" component={FrontDesk} />
+          <Route path="/registration" component={Registration} />
+          <Route path="/lobby" component={Lobby} />
+          <Route path="/elevator" component={Elevator} />
+          <Route path="/escalator/:floorNb" component={Escalator} />
+          <Route path="/floor/1" component={Floor1} />
 
-        <BackBtn />
+          <BackBtn />
 
-        <Player url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
-      </div>
-    </BrowserRouter>
+          <Player url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
+        </div>
+      </BrowserRouter>
+    </GlobalStateProvider>
   );
 };
 

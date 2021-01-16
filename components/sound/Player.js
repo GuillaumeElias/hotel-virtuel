@@ -77,7 +77,7 @@ const useAudio = (url) => {
     return () => {
       audio.removeEventListener("ended", () => setPlaying(false));
     };
-  }, []);
+  });
 
   return [playing, toggle, volume, setVolume];
 };

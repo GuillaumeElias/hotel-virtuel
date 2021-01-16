@@ -1,10 +1,13 @@
 import React from "react";
 import PaintComponent from "./ui/PaintComponent";
 import ImgLink from "./ui/ImgLink";
+import { useGlobalState } from "./utils/GlobalState";
 
 const Registration = ({ history }) => {
   let width = window.innerWidth;
   let height = window.innerHeight / 2;
+
+  const [state, dispatch] = useGlobalState();
 
   return (
     <div>
@@ -19,7 +22,11 @@ const Registration = ({ history }) => {
               />
             </td>
             <td>
-              <input type="text" />
+              <input
+                type="text"
+                value={state.name}
+                onChange={(e) => dispatch({ name: e.target.value })}
+              />
             </td>
           </tr>
           <tr>
@@ -31,7 +38,11 @@ const Registration = ({ history }) => {
               />
             </td>
             <td>
-              <input type="text" />
+              <input
+                type="text"
+                value={state.forename}
+                onChange={(e) => dispatch({ forename: e.target.value })}
+              />
             </td>
           </tr>
           <tr>
@@ -55,7 +66,13 @@ const Registration = ({ history }) => {
         height={height}
       />
 
-      <ImgLink to="/frontdesk" src="images/frontdesk/ok" onClick={() => {}} />
+      <ImgLink
+        to="/frontdesk"
+        src="images/frontdesk/ok"
+        onClick={() => {
+          dispatch(state);
+        }}
+      />
     </div>
   );
 };
