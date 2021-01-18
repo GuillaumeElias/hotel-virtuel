@@ -3,16 +3,22 @@ import ImageMapper from "react-image-mapper";
 
 import { useGlobalState } from "./utils/GlobalState";
 import styled from "styled-components";
+import ImgLink from "./ui/ImgLink";
 
 const imgY = window.innerWidth / 5;
+const imgX = window.innerWidth / 5;
+const imgWidth = window.innerWidth / 10;
 
 const StyledDiv = styled.div`
   img.drawnImage {
     position: absolute;
-    width: 8%;
-    left: 21%;
+    width: ${imgWidth}px;
+    left: ${imgX}px;
     top: ${imgY}px;
     z-index: 2;
+  }
+  div.backToReception {
+    width: 50%;
   }
 `;
 
@@ -52,6 +58,7 @@ const FrontDesk = ({ history }) => {
           onClick={() => {
             history.push("/registration");
           }}
+          style={{ cursor: "pointer" }}
           onMouseEnter={(e) => {
             if (imageMapper.current) {
               let area = computeArea(e);
@@ -65,6 +72,14 @@ const FrontDesk = ({ history }) => {
             }
           }}
         />
+        <br />
+        <div className="backToReception">
+          <ImgLink
+            alt=""
+            src="images/frontdesk/backToReception"
+            to="/reception"
+          />
+        </div>
       </StyledDiv>
     );
   }

@@ -68,7 +68,7 @@ class ImgLink extends React.Component {
       <StyledImgLink>
         <div className="imgWrapper">
           <Link to={this.props.to} background="" onClick={linkClicked}>
-            <img src={this.state.imgSrc} style={this.props.style} />
+            <img alt="" src={this.state.imgSrc} style={this.props.style} />
           </Link>
         </div>
       </StyledImgLink>

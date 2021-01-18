@@ -99,7 +99,6 @@ const PaintComponent = ({
           ))}
         </Layer>
       </Stage>
-
       <img
         style={{ position: "relative", left: width + "px", top: -20 }}
         alt="clear"
