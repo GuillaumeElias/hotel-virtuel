@@ -87,10 +87,14 @@ class CanvasImage extends React.Component {
           // style stage container:
           const container = e.target.getStage().container();
           container.style.cursor = "pointer";
+          e.target.setOpacity(0.8);
+          e.target.getStage().draw();
         }}
         onMouseLeave={(e) => {
           const container = e.target.getStage().container();
           container.style.cursor = "default";
+          e.target.setOpacity(1);
+          e.target.getStage().draw();
         }}
       />
     );
