@@ -4,6 +4,7 @@ const defaultGlobalState = {
   name: "",
   forename: "",
   catLines: [],
+  catImage: null,
   registeted: false
 };
 

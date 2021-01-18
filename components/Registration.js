@@ -61,6 +61,7 @@ const Registration = ({ history }) => {
       <PaintComponent
         lines={state.catLines}
         onChange={(lines) => dispatch({ catLines: lines })}
+        onImageBuilt={(image) => image && dispatch({ catImage: image })}
         x={0}
         y={0}
         width={

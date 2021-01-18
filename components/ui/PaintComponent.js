@@ -1,8 +1,17 @@
 import React from "react";
 import { Stage, Layer, Line } from "react-konva";
 
-const PaintComponent = ({ x, y, width, height, lines, onChange }) => {
+const PaintComponent = ({
+  x,
+  y,
+  width,
+  height,
+  lines,
+  onChange,
+  onImageBuilt
+}) => {
   const [tool] = React.useState("pen");
+  let stageRef = React.useRef();
 
   const setLines = (lines) => {
     onChange(lines);
@@ -35,15 +44,30 @@ const PaintComponent = ({ x, y, width, height, lines, onChange }) => {
 
   const handleMouseUp = () => {
     isDrawing.current = false;
+    buildImage();
   };
 
   const clear = () => {
     setLines([]);
   };
 
+  const buildImage = () => {
+    if (stageRef.current == null) {
+      console.warn("stage is null");
+      return null;
+    }
+    return stageRef.current.toDataURL({
+      mimeType: "image/png",
+      quality: 0.1,
+      pixelRatio: 0.2,
+      callback: onImageBuilt
+    });
+  };
+
   return (
     <div>
       <Stage
+        ref={stageRef}
         width={width - 20}
         height={height}
         x={x}
@@ -70,9 +94,7 @@ const PaintComponent = ({ x, y, width, height, lines, onChange }) => {
               strokeWidth={4}
               tension={0.5}
               lineCap="round"
-              globalCompositeOperation={
-                line.tool === "eraser" ? "destination-out" : "source-over"
-              }
+              globalCompositeOperation="source-over"
             />
           ))}
         </Layer>
