@@ -6,8 +6,12 @@ class CanvasImage extends React.Component {
   state = {
     image: null
   };
+  interval = 1000;
   componentDidMount() {
     this.loadImages();
+    if (this.props.interval && this.props.interval > 0) {
+      this.interval = this.props.interval;
+    }
   }
   componentDidUpdate(oldProps) {
     if (oldProps.src !== this.props.src) {
@@ -54,7 +58,7 @@ class CanvasImage extends React.Component {
     this.image2.width = this.image1.width;
     this.image2.height = this.image1.height;
 
-    this.timerID = setInterval(() => this.tick(), 1000);
+    this.timerID = setInterval(() => this.tick(), this.interval);
   };
 
   tick() {
@@ -67,6 +71,10 @@ class CanvasImage extends React.Component {
         image: this.image1
       });
     }
+  }
+
+  move(c) {
+    this.imageNode.move(c);
   }
 
   render() {

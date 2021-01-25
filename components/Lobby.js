@@ -10,11 +10,11 @@ const Lobby = ({ history }) => {
         <Layer>
           <CanvasImage
             src="/images/lobby/bar"
-            x={0}
+            x={window.innerWidth / 8}
             y={0}
             width={window.innerWidth / 1.5}
             onClick={() => {
-              history.push("/frontdesk");
+              history.push("/bar");
             }}
           />
           <CanvasImage
@@ -23,7 +23,7 @@ const Lobby = ({ history }) => {
             y={window.innerWidth / 3}
             width={window.innerWidth / 4.2}
             onClick={() => {
-              history.push("/frontdesk");
+              history.push("/manandplant");
             }}
           />
           <CanvasImage
@@ -32,7 +32,7 @@ const Lobby = ({ history }) => {
             y={window.innerWidth / 3}
             width={window.innerWidth / 3}
             onClick={() => {
-              history.push("/frontdesk");
+              history.push("/plant");
             }}
           />
         </Layer>

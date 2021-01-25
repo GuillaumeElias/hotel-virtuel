@@ -9,6 +9,8 @@ import FrontDesk from "./components/FrontDesk";
 import Registration from "./components/Registration";
 import Home from "./components/Home";
 import Lobby from "./components/Lobby";
+import Plant from "./components/Plant";
+import ManAndPlant from "./components/ManAndPlant";
 import Elevator from "./components/Elevator";
 import Escalator from "./components/Escalator";
 import Floor1 from "./components/Floors/Floor1";
@@ -33,6 +35,8 @@ const BaseRoute = () => {
           <Route path="/elevator" component={Elevator} />
           <Route path="/escalator/:floorNb" component={Escalator} />
           <Route path="/floor/1" component={Floor1} />
+          <Route path="/plant" component={Plant} />
+          <Route path="/manandplant" component={ManAndPlant} />
 
           <BackBtn />
 
