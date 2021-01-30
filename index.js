@@ -26,7 +26,7 @@ const BaseRoute = () => {
   return (
     <GlobalStateProvider>
       <BrowserRouter>
-        <div>
+        <div id="content">
           <Route exact path="/" component={Home} />
           <Route path="/reception" component={Reception} />
           <Route path="/frontdesk" component={FrontDesk} />

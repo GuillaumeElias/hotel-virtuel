@@ -4,8 +4,10 @@ import ImgLink from "./ui/ImgLink";
 
 import { useGlobalState } from "./utils/GlobalState";
 
+import { WINDOW_WIDTH } from "./../contants.js";
+
 const Registration = ({ history }) => {
-  let width = window.innerWidth;
+  let width = WINDOW_WIDTH;
   let height = window.innerHeight / 2;
 
   const [state, dispatch] = useGlobalState();
@@ -64,9 +66,7 @@ const Registration = ({ history }) => {
         onImageBuilt={(image) => image && dispatch({ catImage: image })}
         x={0}
         y={0}
-        width={
-          width - (window.innerWidth / 8 > 40 ? window.innerWidth / 8 : 40)
-        }
+        width={width - (WINDOW_WIDTH / 8 > 40 ? WINDOW_WIDTH / 8 : 40)}
         height={height}
       />
 

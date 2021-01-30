@@ -6,3 +6,9 @@ p {
 #root {
   overflow-x: hidden;
 }
+
+#content {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+}

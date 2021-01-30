@@ -5,9 +5,11 @@ import { useGlobalState } from "./utils/GlobalState";
 import styled from "styled-components";
 import ImgLink from "./ui/ImgLink";
 
-const imgY = window.innerWidth / 5;
-const imgX = window.innerWidth / 5;
-const imgWidth = window.innerWidth / 10;
+import { WINDOW_WIDTH } from "./../contants.js";
+
+const imgY = WINDOW_WIDTH / 5;
+const imgX = WINDOW_WIDTH / 5;
+const imgWidth = WINDOW_WIDTH / 10;
 
 const StyledDiv = styled.div`
   img.drawnImage {
@@ -39,7 +41,7 @@ const FrontDesk = ({ history }) => {
       <StyledDiv>
         <ImageMapper
           ref={imageMapper}
-          width={window.innerWidth / 2}
+          width={WINDOW_WIDTH / 2}
           imgWidth={446}
           src="images/frontdesk/frontdeskguy_registered.png"
           onClick={() => {
@@ -87,7 +89,7 @@ const FrontDesk = ({ history }) => {
   return (
     <div>
       <ImageMapper
-        width={window.innerWidth}
+        width={WINDOW_WIDTH}
         imgWidth={446}
         src="images/frontdesk/frontdeskguy.png"
         onClick={() => {
