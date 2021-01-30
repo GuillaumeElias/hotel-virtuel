@@ -5,7 +5,7 @@ import { Stage, Layer } from "react-konva";
 import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
-import { WINDOW_WIDTH, WINDOW_LEFT_MARGIN } from "./../contants.js";
+import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 
 class ManAndPlant extends React.Component {
   mouseX = 0;
@@ -43,7 +43,7 @@ class ManAndPlant extends React.Component {
   }
 
   handleMouseMove = (e) => {
-    this.mouseX = e.pageX - WINDOW_LEFT_MARGIN;
+    this.mouseX = e.pageX - windowLeftMargin;
     this.mouseY = e.pageY;
   };
 
@@ -51,7 +51,7 @@ class ManAndPlant extends React.Component {
     return (
       <div onMouseMove={this.handleMouseMove}>
         <ScrollTop />
-        <Stage width={WINDOW_WIDTH} height={window.innerHeight}>
+        <Stage width={windowWidth} height={window.innerHeight}>
           <Layer ref={(node) => (this.layer = node)}>
             <CanvasImage
               ref={(node) => (this.imgRef = node)}

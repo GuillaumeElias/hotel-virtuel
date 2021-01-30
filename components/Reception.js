@@ -4,36 +4,36 @@ import { Stage, Layer } from "react-konva";
 import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
-import { WINDOW_WIDTH, WINDOW_LEFT_MARGIN } from "./../contants.js";
+import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 
 const Reception = ({ history }) => {
   const [addX, setAddX] = React.useState(0);
   const [addY, setAddY] = React.useState(0);
 
   const handleMouseMove = (e) => {
-    setAddX((e.pageX - WINDOW_LEFT_MARGIN) / 30);
+    setAddX((e.pageX - windowLeftMargin) / 30);
     setAddY(e.pageY / 30);
   };
 
   return (
     <div onMouseMove={handleMouseMove}>
       <ScrollTop />
-      <Stage width={WINDOW_WIDTH} height={window.innerHeight * 1.5}>
+      <Stage width={windowWidth} height={window.innerHeight * 1.5}>
         <Layer>
           <CanvasImage
             src="/images/frontdesk"
             x={0 + addX}
             y={addY}
-            width={WINDOW_WIDTH / 3}
+            width={windowWidth / 3}
             onClick={() => {
               history.push("/frontdesk");
             }}
           />
           <CanvasImage
             src="/images/lobby"
-            x={WINDOW_WIDTH / 2 + addX / 3}
+            x={windowWidth / 2 + addX / 3}
             y={addY / 3}
-            width={WINDOW_WIDTH / 3}
+            width={windowWidth / 3}
             onClick={() => {
               history.push("/lobby");
             }}
@@ -42,16 +42,16 @@ const Reception = ({ history }) => {
             src="/images/elevator"
             x={10 + addX / 3}
             y={window.innerHeight / 2 + addY / 3}
-            width={WINDOW_WIDTH / 4}
+            width={windowWidth / 4}
             onClick={() => {
               history.push("/elevator");
             }}
           />
           <CanvasImage
             src="/images/escalator"
-            x={WINDOW_WIDTH / 2 + addX / 2}
+            x={windowWidth / 2 + addX / 2}
             y={window.innerHeight / 2 + addY / 2}
-            width={WINDOW_WIDTH / 3.2}
+            width={windowWidth / 3.2}
             onClick={() => {
               history.push("/escalator/0");
             }}
@@ -60,7 +60,7 @@ const Reception = ({ history }) => {
             src="/images/exit"
             x={10}
             y={window.innerHeight}
-            width={WINDOW_WIDTH / 6}
+            width={windowWidth / 6}
             onClick={() => {
               history.push("/");
             }}

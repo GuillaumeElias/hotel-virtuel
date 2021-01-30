@@ -2,7 +2,7 @@ import React from "react";
 import ImgLink from "./ui/ImgLink";
 import styled from "styled-components";
 
-import { WINDOW_WIDTH } from "./../contants.js";
+import { windowWidth } from "./utils/screen.js";
 
 const StyledDiv = styled.div`
   display: "block";
@@ -22,7 +22,7 @@ const Plant = () => (
       <ImgLink
         src="/images/lobby"
         to="/lobby"
-        style={{ width: WINDOW_WIDTH / 4 }}
+        style={{ width: windowWidth / 4 }}
       />
     </div>
   </StyledDiv>

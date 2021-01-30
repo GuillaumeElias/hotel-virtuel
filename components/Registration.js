@@ -4,10 +4,10 @@ import ImgLink from "./ui/ImgLink";
 
 import { useGlobalState } from "./utils/GlobalState";
 
-import { WINDOW_WIDTH } from "./../contants.js";
+import { windowWidth } from "./utils/screen.js";
 
 const Registration = ({ history }) => {
-  let width = WINDOW_WIDTH;
+  let width = windowWidth;
   let height = window.innerHeight / 2;
 
   const [state, dispatch] = useGlobalState();
