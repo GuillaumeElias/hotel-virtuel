@@ -14,6 +14,8 @@ class CanvasImage extends React.Component {
   };
 
   interval = 1000;
+  maxSizeRatio = 1;
+  shrink = false;
 
   componentDidMount() {
     this.loadImages();
@@ -23,11 +25,19 @@ class CanvasImage extends React.Component {
 
     let deltaRatio = 0.5;
     this.anim = new Konva.Animation((frame) => {
-      if (this.state.sizeRatio > 1) {
-        this.anim.stop();
+      if (this.shrink && this.state.sizeRatio < this.maxSizeRatio) {
+        this.shrink = false;
+      } else if (!this.shrink && this.state.sizeRatio > this.maxSizeRatio) {
+        //do nothing
       } else {
-        let sizeRatio =
-          this.state.sizeRatio + deltaRatio * (frame.timeDiff / 1000);
+        let ratioInc = deltaRatio * (frame.timeDiff / 1000);
+        let sizeRatio;
+        if (this.shrink) {
+          sizeRatio = this.state.sizeRatio - ratioInc;
+        } else {
+          sizeRatio = this.state.sizeRatio + ratioInc;
+        }
+
         let margin = (this.state.width / 2) * (1 - sizeRatio);
 
         this.setState({
@@ -123,12 +133,15 @@ class CanvasImage extends React.Component {
           container.style.cursor = "pointer";
           e.target.setOpacity(0.8);
           e.target.getStage().draw();
+          this.maxSizeRatio = 1.1;
         }}
         onMouseLeave={(e) => {
           const container = e.target.getStage().container();
           container.style.cursor = "default";
           e.target.setOpacity(1);
           e.target.getStage().draw();
+          this.maxSizeRatio = 1.0;
+          this.shrink = true;
         }}
       />
     );
