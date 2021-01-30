@@ -20,8 +20,8 @@ class ManAndPlant extends React.Component {
 
   componentDidMount() {
     this.anim = new Konva.Animation((frame) => {
-      let aimedPosX = this.mouseX + 155;
-      let aimedPosY = this.mouseY + 155;
+      let aimedPosX = this.mouseX + window.innerWidth / 3;
+      let aimedPosY = this.mouseY + window.innerHeight / 3;
 
       let deltaX = aimedPosX - this.state.x;
       let deltaY = aimedPosY - this.state.y;

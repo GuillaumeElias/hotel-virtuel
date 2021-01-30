@@ -58,7 +58,7 @@ const Reception = ({ history }) => (
           src="/images/exit"
           x={10}
           y={window.innerHeight}
-          percent={40}
+          width={window.innerWidth / 6}
           onClick={() => {
             history.push("/");
           }}

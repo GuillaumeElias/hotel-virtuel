@@ -1,17 +1,44 @@
 import React from "react";
 
+import Konva from "konva";
 import { Image } from "react-konva";
 
 class CanvasImage extends React.Component {
   state = {
-    image: null
+    image: null,
+    width: 0,
+    height: 0,
+    marginLeft: 0,
+    marginTop: 0,
+    sizeRatio: 0.2
   };
+
   interval = 1000;
+
   componentDidMount() {
     this.loadImages();
     if (this.props.interval && this.props.interval > 0) {
       this.interval = this.props.interval;
     }
+
+    let deltaRatio = 0.5;
+    this.anim = new Konva.Animation((frame) => {
+      if (this.state.sizeRatio > 1) {
+        this.anim.stop();
+      } else {
+        let sizeRatio =
+          this.state.sizeRatio + deltaRatio * (frame.timeDiff / 1000);
+        let margin = (this.state.width / 2) * (1 - sizeRatio);
+
+        this.setState({
+          sizeRatio: sizeRatio,
+          marginLeft: margin,
+          marginTop: margin
+        });
+      }
+    }, this.layer);
+
+    this.anim.start();
   }
   componentDidUpdate(oldProps) {
     if (oldProps.src !== this.props.src) {
@@ -22,6 +49,7 @@ class CanvasImage extends React.Component {
     this.image1.removeEventListener("load", this.handleLoad);
     this.image2.removeEventListener("load", this.handleLoad2);
     clearInterval(this.timerID);
+    this.anim.stop();
   }
   loadImages() {
     // save to "this" to remove "load" handler on unmount
@@ -37,16 +65,15 @@ class CanvasImage extends React.Component {
 
     if (this.props.width) {
       let ratio = this.props.width / parseFloat(this.image1.width);
-      this.image1.width = this.props.width;
-      this.image1.height = this.image1.height * ratio;
+      this.setState({
+        width: this.props.width,
+        height: this.image1.height * ratio
+      });
     } else {
-      this.image1.width = this.image1.width * (this.props.percent / 100.0);
-    }
-
-    if (this.props.height) {
-      this.image1.height = this.props.height;
-    } else {
-      this.image1.height = this.image1.height * (this.props.percent / 100.0);
+      this.setState({
+        width: this.image1.width,
+        height: this.image1.height
+      });
     }
 
     this.image2 = new window.Image();
@@ -55,9 +82,6 @@ class CanvasImage extends React.Component {
   };
 
   handleLoad2 = () => {
-    this.image2.width = this.image1.width;
-    this.image2.height = this.image1.height;
-
     this.timerID = setInterval(() => this.tick(), this.interval);
   };
 
@@ -84,8 +108,10 @@ class CanvasImage extends React.Component {
 
     return (
       <Image
-        x={this.props.x}
-        y={this.props.y}
+        x={this.props.x + this.state.marginLeft}
+        y={this.props.y + this.state.marginTop}
+        width={this.state.width * this.state.sizeRatio}
+        height={this.state.height * this.state.sizeRatio}
         image={this.state.image}
         ref={(node) => {
           this.imageNode = node;
@@ -110,7 +136,8 @@ class CanvasImage extends React.Component {
 }
 
 CanvasImage.defaultProps = {
-  percent: 100
+  x: 0,
+  y: 0
 };
 
 export default CanvasImage;
