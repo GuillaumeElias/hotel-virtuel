@@ -66,7 +66,7 @@ const Registration = ({ history }) => {
         onImageBuilt={(image) => image && dispatch({ catImage: image })}
         x={0}
         y={0}
-        width={width - (WINDOW_WIDTH / 8 > 40 ? WINDOW_WIDTH / 8 : 40)}
+        width={width - (windowWidth / 8 > 40 ? windowWidth / 8 : 40)}
         height={height}
       />
 

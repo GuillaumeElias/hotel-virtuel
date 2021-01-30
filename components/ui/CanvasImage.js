@@ -126,13 +126,18 @@ class CanvasImage extends React.Component {
         ref={(node) => {
           this.imageNode = node;
         }}
-        onClick={handleClick}
+        onClick={() => {
+          if (this.state.sizeRatio >= 1.1) {
+            handleClick();
+          }
+        }}
         onMouseEnter={(e) => {
           // style stage container:
           const container = e.target.getStage().container();
           container.style.cursor = "pointer";
           e.target.setOpacity(0.8);
           e.target.getStage().draw();
+
           this.maxSizeRatio = 1.1;
         }}
         onMouseLeave={(e) => {
