@@ -1,5 +1,6 @@
 import React from "react";
 import ImageMapper from "react-image-mapper";
+import Konva from "konva";
 
 import { useGlobalState } from "./utils/GlobalState";
 import styled from "styled-components";
@@ -27,6 +28,23 @@ const StyledDiv = styled.div`
 const FrontDesk = ({ history }) => {
   const [state] = useGlobalState();
   const imageMapper = React.useRef();
+  const [imgRatio, setImgRatio] = React.useState(0.1);
+
+  React.useEffect(() => {
+    const anim = new Konva.Animation((frame) => {
+      if (imgRatio > 1) {
+        anim.stop();
+      } else {
+        setImgRatio(imgRatio + frame.timeDiff / 2000);
+      }
+    });
+
+    anim.start();
+
+    return () => {
+      anim.stop();
+    };
+  });
 
   if (state.registered) {
     const catImage = state.catImage;
@@ -89,7 +107,7 @@ const FrontDesk = ({ history }) => {
   return (
     <div>
       <ImageMapper
-        width={windowWidth}
+        width={windowWidth * imgRatio}
         imgWidth={446}
         src="images/frontdesk/frontdeskguy.png"
         onClick={() => {
