@@ -59,7 +59,12 @@ class ManAndPlant extends React.Component {
               x={this.state.x}
               y={this.state.y}
               interval={100}
-              onClick={() => {}}
+              onClick={() => {
+                this.imgRef.setState({ sizeRatio: 10 });
+                setTimeout(() => {
+                  this.props.history.push("/lobby");
+                }, 1000);
+              }}
             />
           </Layer>
         </Stage>

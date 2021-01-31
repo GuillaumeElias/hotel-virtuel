@@ -19,11 +19,7 @@ const Plant = () => (
   <StyledDiv>
     <div>
       <img className="plantImg" to="/Lobby" src="/images/lobby/plant_0.png" />
-      <ImgLink
-        src="/images/lobby"
-        to="/lobby"
-        style={{ width: windowWidth / 4 }}
-      />
+      <ImgLink src="/images/lobby" to="/lobby" width={windowWidth / 4} />
     </div>
   </StyledDiv>
 );

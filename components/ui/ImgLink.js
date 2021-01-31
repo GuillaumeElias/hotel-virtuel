@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Img from "./Img";
 
 const StyledImgLink = styled.div`
   display: block;
@@ -17,12 +18,6 @@ const StyledImgLink = styled.div`
     margin-right: auto;
   }
 
-  img {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-  }
-
   img:hover {
     background-color: #c37500;
     opacity: 0.7 !important;
@@ -31,50 +26,23 @@ const StyledImgLink = styled.div`
   }
 `;
 
-class ImgLink extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { imgSrc: this.props.src + "_0.png", frameNb: 0 };
-  }
+const ImgLink = ({ width, to, src, onClick }) => {
+  const linkClicked = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
 
-  componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    let newFrameNb =
-      this.state.frameNb >= this.props.nbFrames - 1
-        ? 0
-        : this.state.frameNb + 1;
-
-    this.setState({
-      frameNb: newFrameNb,
-      imgSrc: `${this.props.src}_${newFrameNb}.png`
-    });
-  }
-
-  render() {
-    const linkClicked = () => {
-      if (this.props.onClick) {
-        this.props.onClick();
-      }
-    };
-
-    return (
-      <StyledImgLink>
-        <div className="imgWrapper">
-          <Link to={this.props.to} background="" onClick={linkClicked}>
-            <img alt="" src={this.state.imgSrc} style={this.props.style} />
-          </Link>
-        </div>
-      </StyledImgLink>
-    );
-  }
-}
+  return (
+    <StyledImgLink>
+      <div className="imgWrapper">
+        <Link to={to} background="" onClick={linkClicked}>
+          <Img src={src} width={width} />
+        </Link>
+      </div>
+    </StyledImgLink>
+  );
+};
 
 ImgLink.defaultProps = {
   nbFrames: 2

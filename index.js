@@ -9,6 +9,7 @@ import FrontDesk from "./components/FrontDesk";
 import Registration from "./components/Registration";
 import Home from "./components/Home";
 import Lobby from "./components/Lobby";
+import Bar from "./components/Bar";
 import Plant from "./components/Plant";
 import ManAndPlant from "./components/ManAndPlant";
 import Elevator from "./components/Elevator";
@@ -32,6 +33,7 @@ const BaseRoute = () => {
           <Route path="/frontdesk" component={FrontDesk} />
           <Route path="/registration" component={Registration} />
           <Route path="/lobby" component={Lobby} />
+          <Route path="/bar" component={Bar} />
           <Route path="/elevator" component={Elevator} />
           <Route path="/escalator/:floorNb" component={Escalator} />
           <Route path="/floor/1" component={Floor1} />
