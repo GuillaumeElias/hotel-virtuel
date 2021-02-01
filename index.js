@@ -34,7 +34,7 @@ const BaseRoute = () => {
           <Route path="/registration" component={Registration} />
           <Route path="/lobby" component={Lobby} />
           <Route path="/bar" component={Bar} />
-          <Route path="/elevator" component={Elevator} />
+          <Route path="/elevator/:floorNb" component={Elevator} />
           <Route path="/escalator/:floorNb" component={Escalator} />
           <Route path="/floor/1" component={Floor1} />
           <Route path="/plant" component={Plant} />

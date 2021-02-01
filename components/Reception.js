@@ -44,7 +44,7 @@ const Reception = ({ history }) => {
             y={window.innerHeight / 2 + addY / 3}
             width={windowWidth / 4}
             onClick={() => {
-              history.push("/elevator");
+              history.push("/elevator/0");
             }}
           />
           <CanvasImage
