@@ -24,12 +24,10 @@ const Bar = () => {
   const [bottleX, setBottleX] = React.useState(initBottleX);
   const [bottleY, setBottleY] = React.useState(initBottleY);
 
-  let BottleImg = styled.div`
-    img.bottle {
-      left: ${bottleX}px;
-      top: ${bottleY}px;
-    }
-  `;
+  let divStyle = {
+    'left': bottleX + 'px',
+    'top': bottleY+ 'px'
+  };
 
   const onMouseMove = (e) => {
     if (bottlePickedUp) {
@@ -40,14 +38,13 @@ const Bar = () => {
 
   return (
     <BarDivStyle onMouseMove={onMouseMove}>
-      <BottleImg>
         <img
+          style={divStyle}
           alt=""
           className="bottle"
           src="/images/lobby/bottle.png"
           onClick={() => setBottlePickedUp(!bottlePickedUp)}
         />
-      </BottleImg>
       <Img width={windowWidth} to="/reception" src="/images/lobby/bar" />
     </BarDivStyle>
   );

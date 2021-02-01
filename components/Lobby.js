@@ -23,7 +23,7 @@ const Lobby = ({ history }) => {
           />
           <CanvasImage
             src="/images/lobby/manandplant"
-            x={0}
+            x={windowWidth / 20}
             y={windowWidth / 3}
             width={windowWidth / 4.2}
             onClick={() => {
@@ -32,7 +32,7 @@ const Lobby = ({ history }) => {
           />
           <CanvasImage
             src="/images/lobby/plant"
-            x={windowWidth / 3}
+            x={windowWidth / 2.5}
             y={windowWidth / 3}
             width={windowWidth / 3}
             onClick={() => {
