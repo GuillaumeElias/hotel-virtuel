@@ -10,6 +10,11 @@ const StyledDiv = styled.div`
   margin-left: "auto";
   cursor: url(/images/lobby/wateringcan_t.png) 55 55, auto;
 
+  img.plantImg {
+    margin-left: 22px;
+    margin-top: 22px;
+  }
+
   img.plantImg:active {
     transform: rotate(30deg);
   }
