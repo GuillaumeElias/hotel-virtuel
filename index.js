@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import { BrowserRouter, Route, withRouter, Redirect } from "react-router-dom";
 
 import { GlobalStateProvider } from "./components/utils/GlobalState";
 
@@ -29,6 +29,7 @@ const BaseRoute = () => {
       <BrowserRouter>
         <div id="content">
           <Route exact path="/" component={Home} />
+
           <Route path="/reception" component={Reception} />
           <Route path="/frontdesk" component={FrontDesk} />
           <Route path="/registration" component={Registration} />
@@ -36,6 +37,7 @@ const BaseRoute = () => {
           <Route path="/bar" component={Bar} />
           <Route path="/elevator/:floorNb" component={Elevator} />
           <Route path="/escalator/:floorNb" component={Escalator} />
+          <Route path="/floor/0" render={() => <Redirect to="/reception" />} />
           <Route path="/floor/1" component={Floor1} />
           <Route path="/plant" component={Plant} />
           <Route path="/manandplant" component={ManAndPlant} />

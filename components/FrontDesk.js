@@ -66,7 +66,7 @@ const FrontDesk = ({ history }) => {
             history.push("/registration");
           }}
           map={{
-            name: "",
+            name: "register",
             areas: [{ href: "#", coords: [252, 243, 173, 142], shape: "rect" }]
           }}
           onMouseEnter={() => {}}
@@ -114,7 +114,7 @@ const FrontDesk = ({ history }) => {
           history.push("/registration");
         }}
         map={{
-          name: "",
+          name: "register",
           areas: [{ href: "#", coords: [63, 62, 143, 167], shape: "rect" }]
         }}
       />

@@ -5,6 +5,7 @@ import { Stage, Layer, Circle, Text, Line } from "react-konva";
 
 import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 import UrlImg from "./ui/UrlImg.js";
+import CanvasImage from "./ui/CanvasImage.js";
 
 const initCircleRadius = windowWidth / 40;
 
@@ -18,7 +19,7 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
     const anim = new Konva.Animation((frame) => {
       if (action) {
         setRadius(radius + frame.timeDiff);
-        if (radius > 1000) {
+        if (radius > 3000) {
           setAction(false);
           setRadius(initCircleRadius);
         }
@@ -59,7 +60,7 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
         container.style.cursor = "default";
       }}
       onClick={(e) => {
-        circleRef.current.zIndex(17);
+        circleRef.current.zIndex(18);
 
         onClick();
         setAction(true);
@@ -138,6 +139,15 @@ const Elevator = ({ match, history }) => {
     ]);
 
     setButtonsPos({ x: initButtonsPosX + addX, y: initButtonsPosY + addY });
+  };
+
+  const setActiveCircle = (circleIndex) => {
+    let newcircles = { ...circles };
+    for (var i in newcircles) {
+      newcircles[i].active = false;
+    }
+    newcircles[circleIndex].active = true;
+    setCircles(newcircles);
   };
 
   return (
@@ -230,23 +240,44 @@ const Elevator = ({ match, history }) => {
             src="/images/elevator/elevatorButtons.png"
           />
 
+          <CanvasImage
+            x={buttonsPos.x + buttonBoxWidth + 10}
+            y={buttonsPos.y + buttonBoxWidth + 10}
+            width={buttonBoxWidth / 5}
+            height={buttonBoxWidth / 5}
+            src="/images/elevator/openDoors"
+            onClick={() => history.push(`/floor/${floorNb}`)}
+          />
+
           <ButtonCircle
-            onClick={() => history.push("/elevator/3")}
+            onClick={() => {
+              history.push("/elevator/3");
+              setActiveCircle(0);
+            }}
             mousePos={mousePos}
             circle={circles[0]}
           />
           <ButtonCircle
-            onClick={() => history.push("/elevator/2")}
+            onClick={() => {
+              history.push("/elevator/2");
+              setActiveCircle(1);
+            }}
             mousePos={mousePos}
             circle={circles[1]}
           />
           <ButtonCircle
-            onClick={() => history.push("/elevator/1")}
+            onClick={() => {
+              history.push("/elevator/1");
+              setActiveCircle(2);
+            }}
             mousePos={mousePos}
             circle={circles[2]}
           />
           <ButtonCircle
-            onClick={() => history.push("/elevator/0")}
+            onClick={() => {
+              history.push("/elevator/0");
+              setActiveCircle(3);
+            }}
             mousePos={mousePos}
             circle={circles[3]}
           />
