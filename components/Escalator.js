@@ -4,20 +4,22 @@ import Konva from "konva";
 import { Link } from "react-router-dom";
 import CanvasImage from "./ui/CanvasImage.js";
 
-import { Stage, Layer } from "react-konva";
+import { Stage, Layer, Text } from "react-konva";
 
 import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 
 class Escalator extends React.Component {
   aimedPosX = 0;
+  floorNb = 0;
+  nextFloorNb = 0;
 
   constructor(props) {
     super(props);
 
-    const { match, history } = props;
+    const { match } = props;
 
-    const floorNb = match.params.floorNb;
-    const nextFloorNb = parseInt(floorNb) + 1;
+    this.floorNb = match.params.floorNb;
+    this.nextFloorNb = parseInt(this.floorNb) + 1;
 
     this.state = {
       characterX: windowWidth * 0.1,
@@ -50,13 +52,25 @@ class Escalator extends React.Component {
         let newX = this.state.characterX + (incX * frame.timeDiff) / 10;
         let newY = this.state.characterY + (incY * frame.timeDiff) / 10;
 
-        this.setState({
-          characterX: newX,
-          characterY: newY
-        });
+        if (newX > windowWidth * 0.85) {
+          this.anim.stop();
+          this.props.history.push(`/floor/${this.nextFloorNb}`);
+        } else if (newX < 0.05) {
+          this.anim.stop();
+          this.props.history.push(`/floor/${this.floorNb}`);
+        } else {
+          this.setState({
+            characterX: newX,
+            characterY: newY
+          });
+        }
       }
     });
     this.anim.start();
+  }
+
+  componentWillUnmount() {
+    this.anim.stop();
   }
 
   onMouseDown = (e) => {
@@ -80,6 +94,18 @@ class Escalator extends React.Component {
               y={this.state.characterY}
               width={windowWidth / 15}
               src="/images/escalator/character"
+            />
+
+            <Text
+              x={windowWidth * 0.18}
+              y={windowWidth * 0.35}
+              text={this.floorNb}
+            />
+
+            <Text
+              x={windowWidth * 0.65}
+              y={windowWidth * 0.06}
+              text={this.nextFloorNb}
             />
           </Layer>
         </Stage>
