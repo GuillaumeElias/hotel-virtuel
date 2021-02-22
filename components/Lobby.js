@@ -3,6 +3,7 @@ import { Stage, Layer } from "react-konva";
 
 import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
+import BackButton from "./ui/BackButton";
 
 import { windowWidth } from "./utils/screen.js";
 
@@ -10,7 +11,7 @@ const Lobby = ({ history }) => {
   return (
     <div>
       <ScrollTop />
-      <Stage width={windowWidth} height={window.innerHeight * 1.2}>
+      <Stage width={windowWidth} height={window.innerHeight * 0.8}>
         <Layer>
           <CanvasImage
             src="/images/lobby/bar"
@@ -41,6 +42,7 @@ const Lobby = ({ history }) => {
           />
         </Layer>
       </Stage>
+      <BackButton path="/reception" history={history} />
     </div>
   );
 };

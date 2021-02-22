@@ -6,6 +6,8 @@ import { useGlobalState } from "./utils/GlobalState";
 import styled from "styled-components";
 import ImgLink from "./ui/ImgLink";
 
+import BackButton from "./ui/BackButton";
+
 import { windowWidth } from "./utils/screen.js";
 
 const imgY = windowWidth / 5;
@@ -94,11 +96,7 @@ const FrontDesk = ({ history }) => {
         />
         <br />
         <div className="backToReception">
-          <ImgLink
-            alt=""
-            src="images/frontdesk/backToReception"
-            to="/reception"
-          />
+          <BackButton path="/reception" history={history} />
         </div>
       </StyledDiv>
     );

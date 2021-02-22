@@ -55,7 +55,7 @@ class Escalator extends React.Component {
         if (newX > windowWidth * 0.85) {
           this.anim.stop();
           this.props.history.push(`/floor/${this.nextFloorNb}`);
-        } else if (newX < 0.05) {
+        } else if (newX < 0.07) {
           this.anim.stop();
           this.props.history.push(`/floor/${this.floorNb}`);
         } else {

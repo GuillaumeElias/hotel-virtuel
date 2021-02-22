@@ -1,8 +1,8 @@
 import React from "react";
 
-const BackButton = ({ history, match, location }) => {
+const BackButton = ({ history, match, path }) => {
   const goBack = () => {
-    history.goBack();
+    history.push(path);
   };
 
   if (location.pathname === "/") {
