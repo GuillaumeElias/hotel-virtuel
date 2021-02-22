@@ -18,13 +18,18 @@ class Escalator extends React.Component {
 
     const { match } = props;
 
-    this.floorNb = match.params.floorNb;
-    this.nextFloorNb = parseInt(this.floorNb) + 1;
+    this.floorNb = 0 /*match.params.floorNb*/;
+    this.nextFloorNb = 1 /*parseInt(this.floorNb) + 1*/;
 
     this.state = {
       characterX: windowWidth * 0.1,
       characterY: windowWidth * 0.42
     };
+
+    if (parseInt(match.params.floorNb) === 1) {
+      this.state.characterX = windowWidth * 0.78;
+      this.state.characterY = windowWidth * 0.03;
+    }
 
     this.aimedPosX = this.state.characterX;
     this.aimedPosY = this.state.characterY;
@@ -55,7 +60,7 @@ class Escalator extends React.Component {
         if (newX > windowWidth * 0.85) {
           this.anim.stop();
           this.props.history.push(`/floor/${this.nextFloorNb}`);
-        } else if (newX < 0.07) {
+        } else if (newX < 0.15) {
           this.anim.stop();
           this.props.history.push(`/floor/${this.floorNb}`);
         } else {
