@@ -4,15 +4,14 @@ import Konva from "konva";
 
 import { useGlobalState } from "./utils/GlobalState";
 import styled from "styled-components";
-import ImgLink from "./ui/ImgLink";
 
 import BackButton from "./ui/BackButton";
 
 import { windowWidth } from "./utils/screen.js";
 
 const imgY = windowWidth / 5;
-const imgX = windowWidth / 5;
-const imgWidth = windowWidth / 10;
+const imgX = windowWidth * 0.2;
+const imgWidth = windowWidth * 0.08;
 
 const StyledDiv = styled.div`
   img.drawnImage {

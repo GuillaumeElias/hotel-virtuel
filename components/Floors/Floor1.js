@@ -26,9 +26,6 @@ const Floor1 = ({ history }) => (
           x={windowWidth / 2}
           y={0}
           width={windowWidth * 0.3}
-          onClick={() => {
-            history.push("/room/101");
-          }}
         />
 
         <CanvasImage
