@@ -41,6 +41,11 @@ class UrlImg extends React.Component {
         width={this.props.width}
         height={this.props.height}
         image={this.state.image}
+        draggable={!!this.props.draggable}
+        onDragStart={this.props.onDragStart}
+        onDragEnd={this.props.onDragEnd}
+        scaleX={!this.props.scaleX ? 1 : this.props.scaleX}
+        scaleY={!this.props.scaleY ? 1 : this.props.scaleY}
         ref={(node) => {
           this.imageNode = node;
         }}
