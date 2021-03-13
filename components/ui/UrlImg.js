@@ -23,6 +23,12 @@ class UrlImg extends React.Component {
     this.image.src = this.props.src;
     this.image.addEventListener("load", this.handleLoad);
   }
+  reloadImage() {
+    this.setState({
+      image: this.image
+    });
+  }
+
   handleLoad = () => {
     // after setState react-konva will update canvas and redraw the layer
     // because "image" property is changed
@@ -45,6 +51,9 @@ class UrlImg extends React.Component {
         draggable={!!this.props.draggable}
         onDragStart={this.props.onDragStart}
         onDragEnd={this.props.onDragEnd}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
+        onClick={this.props.onClick}
         scaleX={!this.props.scaleX ? 1 : this.props.scaleX}
         scaleY={!this.props.scaleY ? 1 : this.props.scaleY}
         ref={(node) => {

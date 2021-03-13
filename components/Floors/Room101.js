@@ -41,6 +41,8 @@ const Room101 = ({ history }) => {
     );
   };
 
+  const doorRef = React.useRef();
+
   return (
     <Stage width={window.innerWidth} height={window.innerHeight}>
       <Layer>
@@ -55,6 +57,31 @@ const Room101 = ({ history }) => {
           scaleY={0.5}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
+        />
+
+        <UrlImg
+          key="door"
+          id="door"
+          ref={doorRef}
+          x={windowWidth * 0.7}
+          y={window.innerHeight - windowWidth / 3}
+          opacity={0.8}
+          src="/images/floor1/roomobjects/door.png"
+          scaleX={0.4}
+          scaleY={0.4}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onMouseEnter={(e) => {
+            let imageHover = new window.Image();
+            imageHover.src = "/images/floor1/roomobjects/door_hover.png";
+            imageHover.addEventListener("load", () => {
+              doorRef.current.setState({ image: imageHover });
+            });
+          }}
+          onMouseLeave={(e) => {
+            doorRef.current.reloadImage();
+          }}
+          onClick={(e) => history.push("/floor/1")}
         />
 
         {objects.map((img) => (
