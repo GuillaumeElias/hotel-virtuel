@@ -36,6 +36,7 @@ class UrlImg extends React.Component {
   render() {
     return (
       <Image
+        id={this.props.id}
         x={this.props.x}
         y={this.props.y}
         width={this.props.width}
