@@ -15,7 +15,9 @@ import ManAndPlant from "./components/ManAndPlant";
 import Elevator from "./components/Elevator";
 import Escalator from "./components/Escalator";
 import Floor1 from "./components/Floors/Floor1";
+import Floor2 from "./components/Floors/Floor2";
 import Room101 from "./components/Floors/Room101";
+import JanitorRoom from "./components/Floors/JanitorRoom";
 
 import Player from "./components/sound/Player.js";
 
@@ -39,7 +41,9 @@ const BaseRoute = () => {
           <Route path="/escalator/:floorNb" component={Escalator} />
           <Route path="/floor/0" render={() => <Redirect to="/reception" />} />
           <Route path="/floor/1" component={Floor1} />
+          <Route path="/floor/2" component={Floor2} />
           <Route path="/room/101" component={Room101} />
+          <Route path="/room/janitor" component={JanitorRoom} />
 
           <Player url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
         </div>

@@ -8,7 +8,11 @@ const PaintComponent = ({
   height,
   lines,
   onChange,
-  onImageBuilt
+  onImageBuilt,
+  hideClear,
+  strokeColor,
+  strokeWidth,
+  children
 }) => {
   const [tool] = React.useState("pen");
   let stageRef = React.useRef();
@@ -44,7 +48,9 @@ const PaintComponent = ({
 
   const handleMouseUp = () => {
     isDrawing.current = false;
-    buildImage();
+    if (!!onImageBuilt) {
+      buildImage();
+    }
   };
 
   const clear = () => {
@@ -86,12 +92,13 @@ const PaintComponent = ({
         }}
       >
         <Layer>
+          {children}
           {lines.map((line, i) => (
             <Line
               key={i}
               points={line && line.points}
-              stroke="#000000"
-              strokeWidth={4}
+              stroke={strokeColor}
+              strokeWidth={strokeWidth}
               tension={0.5}
               lineCap="round"
               globalCompositeOperation="source-over"
@@ -99,15 +106,24 @@ const PaintComponent = ({
           ))}
         </Layer>
       </Stage>
-      <img
-        style={{ position: "relative", left: width + "px", top: -20 }}
-        alt="clear"
-        src="images/frontdesk/bin.png"
-        width={20}
-        onClick={clear}
-      />
+
+      {!hideClear && (
+        <img
+          style={{ position: "relative", left: width + "px", top: -20 }}
+          alt="clear"
+          src="images/frontdesk/bin.png"
+          width={20}
+          onClick={clear}
+        />
+      )}
     </div>
   );
+};
+
+PaintComponent.defaultProps = {
+  hideClear: false,
+  strokeColor: "#000000",
+  strokeWidth: 4
 };
 
 export default PaintComponent;
