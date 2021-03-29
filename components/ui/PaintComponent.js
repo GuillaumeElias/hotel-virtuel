@@ -12,6 +12,7 @@ const PaintComponent = ({
   hideClear,
   strokeColor,
   strokeWidth,
+  cursor,
   children
 }) => {
   const [tool] = React.useState("pen");
@@ -82,13 +83,17 @@ const PaintComponent = ({
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
         onMouseEnter={(e) => {
-          // style stage container:
-          const container = e.target.getStage().container();
-          container.style.cursor = "crosshair";
+          if (cursor) {
+            // style stage container:
+            const container = e.target.getStage().container();
+            container.style.cursor = cursor;
+          }
         }}
         onMouseLeave={(e) => {
-          const container = e.target.getStage().container();
-          container.style.cursor = "default";
+          if (cursor) {
+            const container = e.target.getStage().container();
+            container.style.cursor = "default";
+          }
         }}
       >
         <Layer>
@@ -123,7 +128,8 @@ const PaintComponent = ({
 PaintComponent.defaultProps = {
   hideClear: false,
   strokeColor: "#000000",
-  strokeWidth: 4
+  strokeWidth: 4,
+  cursor: "crosshair"
 };
 
 export default PaintComponent;

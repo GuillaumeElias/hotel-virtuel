@@ -15,21 +15,21 @@ const Floor1 = ({ history }) => (
           src="/images/floor2/room201"
           x={windowWidth / 8}
           y={0}
-          width={windowWidth * 0.3}
+          width={windowWidth * 0.25}
         />
 
         <CanvasImage
           src="/images/floor2/room202"
           x={windowWidth / 2}
           y={0}
-          width={windowWidth * 0.3}
+          width={windowWidth * 0.25}
         />
 
         <CanvasImage
           src="/images/elevator"
           x={windowWidth / 8}
-          y={windowWidth * 0.4}
-          width={windowWidth * 0.2}
+          y={windowWidth * 0.34}
+          width={windowWidth * 0.18}
           onClick={() => {
             history.push("/elevator/2");
           }}
@@ -38,8 +38,8 @@ const Floor1 = ({ history }) => (
         <CanvasImage
           src="/images/floor2/janitor"
           x={windowWidth / 2}
-          y={windowWidth * 0.4}
-          width={windowWidth * 0.2}
+          y={windowWidth * 0.34}
+          width={windowWidth * 0.18}
           onClick={() => {
             history.push("/room/janitor");
           }}

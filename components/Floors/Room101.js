@@ -75,7 +75,9 @@ const Room101 = ({ history }) => {
             let imageHover = new window.Image();
             imageHover.src = "/images/floor1/roomobjects/door_hover.png";
             imageHover.addEventListener("load", () => {
-              doorRef.current.setState({ image: imageHover });
+              if (doorRef.current) {
+                doorRef.current.setState({ image: imageHover });
+              }
             });
           }}
           onMouseLeave={(e) => {
