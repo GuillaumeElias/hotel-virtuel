@@ -5,12 +5,19 @@ import ImgLink from "./ui/ImgLink";
 import { useGlobalState } from "./utils/GlobalState";
 
 import { windowWidth } from "./utils/screen.js";
+import { uploadImage } from "./utils/ImageUploader";
 
 const Registration = ({ history }) => {
   let width = windowWidth;
   let height = window.innerHeight / 2;
 
   const [state, dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    return () => {
+      uploadImage(state.catImage, state.name);
+    };
+  }, []);
 
   return (
     <div>

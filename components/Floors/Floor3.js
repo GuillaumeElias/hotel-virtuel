@@ -12,17 +12,20 @@ const Floor3 = ({ history }) => (
     <Stage width={windowWidth} height={windowWidth * 0.8}>
       <Layer>
         <CanvasImage
-          src="/images/floor2/room201"
+          src="/images/floor3/room301"
           x={windowWidth / 8}
           y={0}
           width={windowWidth * 0.25}
         />
 
         <CanvasImage
-          src="/images/floor2/room202"
+          src="/images/floor3/room302"
           x={windowWidth / 2}
           y={0}
           width={windowWidth * 0.25}
+          onClick={() => {
+            history.push("/room/302");
+          }}
         />
 
         <CanvasImage
@@ -31,17 +34,18 @@ const Floor3 = ({ history }) => (
           y={windowWidth * 0.34}
           width={windowWidth * 0.18}
           onClick={() => {
-            history.push("/elevator/2");
+            history.push("/elevator/3");
           }}
         />
 
         <CanvasImage
-          src="/images/floor2/janitor"
+          src="/images/floor3/trapdoor"
           x={windowWidth / 2}
           y={windowWidth * 0.34}
           width={windowWidth * 0.18}
-          onClick={() => {
-            history.push("/room/janitor");
+          onClick={(e) => {
+            console.log("e", e);
+            //history.push("/floor/rooftop");
           }}
         />
       </Layer>
