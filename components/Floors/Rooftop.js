@@ -3,7 +3,7 @@ import Konva from "konva";
 import { Stage, Layer, Image } from "react-konva";
 
 import CanvasImage from "../ui/CanvasImage";
-import ScrollTop from "../utils/ScrollTop.js";
+import * as boids from "../utils/boids";
 
 class Rooftop extends React.Component {
   state = {
@@ -12,10 +12,13 @@ class Rooftop extends React.Component {
     viewAngle: 0,
     velX: 0,
     height: 0,
-    width: 0
+    width: 0,
+    mousePos: { x: 0, y: 0 },
+    birds: []
   };
 
   interval = 1000;
+  numberOfBirds = 10;
 
   componentDidMount() {
     window.addEventListener("focus", this.onWindowFocus);
@@ -23,6 +26,7 @@ class Rooftop extends React.Component {
   }
 
   componentWillUnmount() {
+    clearInterval(this.timerID);
     this.anim.stop();
   }
 
@@ -67,22 +71,45 @@ class Rooftop extends React.Component {
       });
     });
 
+    //INITIALIZE BIRDS
+    var birds = [];
+    for (var i = 0; i < this.numberOfBirds; i++) {
+      birds[i] = {
+        posX: boids.random(this.state.width),
+        posY: boids.random(window.innerHeight * 0.6),
+        size: boids.randomBetween(23, 40),
+        interval: boids.randomBetween(400, 800),
+        direction: 1
+      };
+    }
+    this.setState({ birds });
+
     this.anim.start();
+    this.timerID = setInterval(() => this.tick(), 300);
   };
+
+  tick() {
+    for (var i = 0; i < this.numberOfBirds; i++) {
+      /*this.state.birds[i] = {
+      }*/
+    }
+  }
 
   mouseMoved = (e) => {
     const centerX = window.innerWidth / 2;
-    let vel = Math.abs(e.pageX - centerX) / 200;
+    let vel = Math.abs(e.pageX - centerX) / 400;
     if (vel > 2) {
       vel = 2;
     }
     if (e.pageX < centerX) {
-      this.setState({ velX: vel });
+      //nothing to do
     } else if (e.pageX > centerX) {
-      this.setState({ velX: -vel });
+      vel = -vel;
     } else {
-      this.setState({ velX: 0 });
+      vel = 0;
     }
+
+    this.setState({ velX: vel });
   };
 
   onWindowFocus() {}
@@ -104,6 +131,16 @@ class Rooftop extends React.Component {
               height={this.state.height}
               width={this.state.width}
             />
+            {this.state.birds.map((name, i) => (
+              <CanvasImage
+                key={i}
+                src="/images/rooftop/bird"
+                x={this.state.birds[i].posX + this.state.viewAngle}
+                y={this.state.birds[i].posY}
+                width={this.state.birds[i].size}
+                interval={this.state.birds[i].interval}
+              />
+            ))}
           </Layer>
         </Stage>
       </div>
