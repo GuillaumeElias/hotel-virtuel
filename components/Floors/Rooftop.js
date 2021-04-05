@@ -27,8 +27,12 @@ class Rooftop extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerID);
-    this.anim.stop();
+    if (this.timerID) {
+      clearInterval(this.timerID);
+    }
+    if (this.anim) {
+      this.anim.stop();
+    }
   }
 
   loadImage() {
@@ -134,6 +138,7 @@ class Rooftop extends React.Component {
   };
 
   mouseMoved = (e) => {
+    console.log("e");
     const centerX = window.innerWidth / 2;
     let vel = Math.abs(e.pageX - centerX) / 400;
     if (vel > 2) {
@@ -157,9 +162,16 @@ class Rooftop extends React.Component {
 
   onWindowFocus() {}
 
+  handleTouch(e) {
+    console.log(e);
+  }
+
   render() {
     return (
-      <div onMouseMove={this.mouseMoved} style={{ overflowX: "hidden" }}>
+      <div
+        onTouchEnd={(e) => this.mouseMoved(e.nativeEvent.changedTouches[0])}
+        style={{ overflowX: "hidden" }}
+      >
         <Stage width={window.innerWidth} height={window.innerHeight - 50}>
           <Layer>
             <Image
