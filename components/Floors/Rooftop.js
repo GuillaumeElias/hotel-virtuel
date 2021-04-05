@@ -19,6 +19,7 @@ class Rooftop extends React.Component {
 
   interval = 1000;
   numberOfBirds = 10;
+  followDistance = window.innerWidth * 0.5;
 
   componentDidMount() {
     window.addEventListener("focus", this.onWindowFocus);
@@ -39,7 +40,7 @@ class Rooftop extends React.Component {
 
   handleLoad = () => {
     //COMPUTE WIDTH & HEIGHT
-    let height = window.innerHeight * 0.95;
+    let height = window.innerHeight - 50;
     let ratio = height / this.image.height;
 
     let width = this.image.width * ratio;
@@ -79,21 +80,58 @@ class Rooftop extends React.Component {
         posY: boids.random(window.innerHeight * 0.6),
         size: boids.randomBetween(23, 40),
         interval: boids.randomBetween(400, 800),
-        direction: 1
+        deltaX: 0,
+        deltaY: 0
       };
     }
     this.setState({ birds });
 
     this.anim.start();
-    this.timerID = setInterval(() => this.tick(), 300);
+    this.timerID = setInterval(() => this.tick(), 100);
   };
 
   tick() {
-    for (var i = 0; i < this.numberOfBirds; i++) {
-      /*this.state.birds[i] = {
-      }*/
-    }
+    this.moveBirds();
   }
+
+  lastThink = 0;
+  birdsThink = () => {
+    let now = Date.now();
+    if (now - this.lastThink > 1000) {
+      this.lastThink = now;
+
+      let birds = [...this.state.birds];
+      for (var i = 0; i < birds.length; i++) {
+        if (
+          Math.abs(
+            this.state.mousePos.x - birds[i].posX - this.state.viewAngle
+          ) > this.followDistance
+        ) {
+          birds[i].deltaX = boids.random(birds[i].deltaX) - birds[i].deltaX / 2;
+          birds[i].deltaY = boids.random(birds[i].deltaY) - birds[i].deltaY / 2;
+        } else {
+          let aimedPosX = this.state.mousePos.x + boids.random(0, 20) - 10;
+          let aimedPosY = this.state.mousePos.y + boids.random(0, 20) - 10;
+
+          aimedPosX -= this.state.img1_X;
+
+          birds[i].deltaX = (aimedPosX - birds[i].posX) / 100;
+          birds[i].deltaY = (aimedPosY - birds[i].posY) / 100;
+        }
+      }
+      this.setState({ birds });
+    }
+  };
+
+  lastThink = 0;
+  moveBirds = () => {
+    let birds = [...this.state.birds];
+    for (var i = 0; i < this.numberOfBirds; i++) {
+      birds[i].posX += birds[i].deltaX;
+      birds[i].posY += birds[i].deltaY;
+    }
+    this.setState({ birds });
+  };
 
   mouseMoved = (e) => {
     const centerX = window.innerWidth / 2;
@@ -109,15 +147,20 @@ class Rooftop extends React.Component {
       vel = 0;
     }
 
-    this.setState({ velX: vel });
+    this.setState({
+      velX: vel,
+      mousePos: { x: e.pageX, y: e.pageY }
+    });
+
+    this.birdsThink();
   };
 
   onWindowFocus() {}
 
   render() {
     return (
-      <div onMouseMove={this.mouseMoved}>
-        <Stage width={window.innerWidth} height={window.innerHeight}>
+      <div onMouseMove={this.mouseMoved} style={{ overflowX: "hidden" }}>
+        <Stage width={window.innerWidth} height={window.innerHeight - 50}>
           <Layer>
             <Image
               image={this.image}
