@@ -162,13 +162,10 @@ class Rooftop extends React.Component {
 
   onWindowFocus() {}
 
-  handleTouch(e) {
-    console.log(e);
-  }
-
   render() {
     return (
       <div
+        onMouseMove={this.mouseMoved}
         onTouchEnd={(e) => this.mouseMoved(e.nativeEvent.changedTouches[0])}
         style={{ overflowX: "hidden" }}
       >
