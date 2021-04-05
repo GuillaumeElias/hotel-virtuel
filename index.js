@@ -49,10 +49,10 @@ const BaseRoute = () => {
           <Route path="/room/101" component={Room101} />
           <Route path="/room/302" component={Room302} />
           <Route path="/room/janitor" component={JanitorRoom} />
-          <Route path="/floor/rooftop" component={Rooftop} />
 
           <Player url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
         </div>
+        <Route path="/floor/rooftop" component={Rooftop} />
       </BrowserRouter>
     </GlobalStateProvider>
   );

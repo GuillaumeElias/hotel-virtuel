@@ -222,7 +222,7 @@ const Elevator = ({ match, history }) => {
 
           <Text
             x={buttonsPos.x + buttonBoxWidth / 2 - 10}
-            y={buttonsPos.y - windowWidth / 45}
+            y={buttonsPos.y - windowWidth / 40}
             fontFamily="courier"
             fill="green"
             shadowColor="black"

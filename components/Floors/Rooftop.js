@@ -5,12 +5,11 @@ import { Stage, Layer, Image } from "react-konva";
 import CanvasImage from "../ui/CanvasImage";
 import ScrollTop from "../utils/ScrollTop.js";
 
-import { windowWidth } from "../utils/screen.js";
-
 class Rooftop extends React.Component {
   state = {
     img1_X: 0,
     img2_X: 0,
+    viewAngle: 0,
     velX: 0,
     height: 0,
     width: 0
@@ -21,22 +20,6 @@ class Rooftop extends React.Component {
   componentDidMount() {
     window.addEventListener("focus", this.onWindowFocus);
     this.loadImage();
-
-    this.anim = new Konva.Animation((frame) => {
-      let image1X = this.state.img1_X + this.state.velX * (frame.timeDiff / 5);
-
-      let image2X =
-        this.state.img1_X > windowWidth
-          ? image1X + this.state.width
-          : image1X - this.state.width;
-
-      this.setState({
-        img1_X: image1X,
-        img2_X: image2X
-      });
-    });
-
-    this.anim.start();
   }
 
   componentWillUnmount() {
@@ -51,7 +34,8 @@ class Rooftop extends React.Component {
   }
 
   handleLoad = () => {
-    let height = window.innerHeight * 0.8;
+    //COMPUTE WIDTH & HEIGHT
+    let height = window.innerHeight * 0.95;
     let ratio = height / this.image.height;
 
     let width = this.image.width * ratio;
@@ -59,10 +43,35 @@ class Rooftop extends React.Component {
       height,
       width
     });
+
+    //START ANIMATION
+    this.anim = new Konva.Animation((frame) => {
+      let viewAngle =
+        this.state.viewAngle + this.state.velX * (frame.timeDiff / 5);
+
+      viewAngle = viewAngle % this.state.width;
+
+      let image1X = viewAngle;
+      let image2X = viewAngle % this.state.width;
+
+      if (image1X > 0) {
+        image2X -= this.state.width;
+      } else {
+        image2X += this.state.width;
+      }
+
+      this.setState({
+        img1_X: image1X,
+        img2_X: image2X,
+        viewAngle: viewAngle
+      });
+    });
+
+    this.anim.start();
   };
 
   mouseMoved = (e) => {
-    const centerX = windowWidth / 2;
+    const centerX = window.innerWidth / 2;
     let vel = Math.abs(e.pageX - centerX) / 200;
     if (vel > 2) {
       vel = 2;
@@ -81,7 +90,7 @@ class Rooftop extends React.Component {
   render() {
     return (
       <div onMouseMove={this.mouseMoved}>
-        <Stage width={windowWidth} height={window.innerHeight}>
+        <Stage width={window.innerWidth} height={window.innerHeight}>
           <Layer>
             <Image
               image={this.image}
