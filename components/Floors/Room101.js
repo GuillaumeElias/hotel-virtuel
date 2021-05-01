@@ -1,5 +1,5 @@
 import React from "react";
-import { Stage, Layer, Image } from "react-konva";
+import { Stage, Layer } from "react-konva";
 import UrlImg from "../ui/UrlImg";
 
 import { windowWidth } from "../utils/screen.js";
@@ -55,8 +55,6 @@ const Room101 = ({ history }) => {
           src="/images/floor1/roomobjects/window.png"
           scaleX={0.5}
           scaleY={0.5}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
         />
 
         <UrlImg

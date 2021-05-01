@@ -3,7 +3,7 @@ import CanvasImage from "../ui/CanvasImage";
 import Img from "../ui/Img";
 import PaintComponent from "../ui/PaintComponent";
 
-import { windowWidth } from "../utils/screen.js";
+import { windowWidth, windowLeftMargin } from "../utils/screen.js";
 
 import BackButton from "../ui/BackButton";
 
@@ -16,7 +16,7 @@ const JanitorRoom = ({ history }) => {
 
   const onMouseMove = (e) => {
     if (e.pageY < height) {
-      setMousePos({ x: e.pageX, y: e.pageY });
+      setMousePos({ x: e.pageX - windowLeftMargin, y: e.pageY });
     }
   };
 
@@ -50,7 +50,7 @@ const JanitorRoom = ({ history }) => {
         alt=""
         style={{
           position: "absolute",
-          top: mousePos.y - windowWidth * 0.26,
+          top: mousePos.y - windowWidth * 0.2,
           left: mousePos.x - windowWidth * 0.08,
           pointerEvents: "none"
         }}

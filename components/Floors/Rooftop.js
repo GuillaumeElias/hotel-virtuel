@@ -138,7 +138,6 @@ class Rooftop extends React.Component {
   };
 
   mouseMoved = (e) => {
-    console.log("e");
     const centerX = window.innerWidth / 2;
     let vel = Math.abs(e.pageX - centerX) / 400;
     if (vel > 2) {
