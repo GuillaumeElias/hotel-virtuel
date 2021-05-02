@@ -20,7 +20,8 @@ class Room302 extends React.Component {
     super(props);
     this.state = {
       manX: 0,
-      manY: 0
+      manY: 0,
+      birdPosX: 0
     };
   }
 
@@ -54,6 +55,8 @@ class Room302 extends React.Component {
       if (this.decisionCounter <= 0) {
         this.velX = Math.random() * 6 - 3;
 
+        this.setState({ birdPosX: Math.random() * 15 });
+
         this.decisionCounter = 1000;
       }
     }, this.layer);
@@ -86,6 +89,15 @@ class Room302 extends React.Component {
               scaleX={0.5}
               scaleY={0.5}
             />
+
+            <CanvasImage
+              src="/images/rooftop/bird"
+              x={windowWidth * 0.4 + this.state.birdPosX}
+              y={windowWidth * 0.2}
+              interval={1000}
+              width={20}
+            />
+
             <CanvasImage
               ref={(node) => (this.imgRef = node)}
               src="/images/lobby/man"

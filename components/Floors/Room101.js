@@ -2,6 +2,8 @@ import React from "react";
 import { Stage, Layer } from "react-konva";
 import UrlImg from "../ui/UrlImg";
 
+import CanvasImage from "../ui/CanvasImage";
+
 import { windowWidth } from "../utils/screen.js";
 
 function generateObjects() {
@@ -15,9 +17,25 @@ function generateObjects() {
 }
 
 const INITIAL_STATE = generateObjects();
+let birdGoingRight = true;
 
 const Room101 = ({ history }) => {
   const [objects, setObjects] = React.useState(INITIAL_STATE);
+  const [birdPosX, setBirdPosX] = React.useState(0);
+
+  const moveBird = () => {
+    if (birdPosX === 60) {
+      birdGoingRight = false;
+    } else if (birdPosX === 0) {
+      birdGoingRight = true;
+    }
+
+    if (birdGoingRight) {
+      setBirdPosX(birdPosX + 5);
+    } else {
+      setBirdPosX(birdPosX - 5);
+    }
+  };
 
   const handleDragStart = (e) => {
     const id = e.target.id();
@@ -39,6 +57,7 @@ const Room101 = ({ history }) => {
         };
       })
     );
+    moveBird();
   };
 
   const doorRef = React.useRef();
@@ -55,6 +74,14 @@ const Room101 = ({ history }) => {
           src="/images/floor1/roomobjects/window.png"
           scaleX={0.5}
           scaleY={0.5}
+        />
+
+        <CanvasImage
+          src="/images/rooftop/bird"
+          x={windowWidth * 0.4 + birdPosX}
+          y={windowWidth * 0.2}
+          interval={1000}
+          width={20}
         />
 
         <UrlImg
