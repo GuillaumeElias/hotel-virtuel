@@ -2,6 +2,7 @@ import React from "react";
 
 import Konva from "konva";
 import { Image } from "react-konva";
+import { SoundPlayer } from "../sound/SoundPlayer";
 
 class CanvasImage extends React.Component {
   state = {
@@ -151,6 +152,7 @@ class CanvasImage extends React.Component {
             e.target.getStage().draw();
 
             this.maxSizeRatio = 1.1;
+            SoundPlayer.playSound("/sounds/hover.mp3");
           }
         }}
         onMouseLeave={(e) => {

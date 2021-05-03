@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { SoundPlayer } from "../sound/SoundPlayer";
 import Img from "./Img";
 
 const StyledImgLink = styled.div`
@@ -36,7 +37,11 @@ const ImgLink = ({ width, to, src, onClick }) => {
   return (
     <StyledImgLink>
       <div className="imgWrapper">
-        <Link to={to} background="" onClick={linkClicked}>
+        <Link
+          to={to}
+          background=""
+          onClick={linkClicked}
+        >
           <Img src={src} width={width} />
         </Link>
       </div>
