@@ -98,6 +98,31 @@ class Room302 extends React.Component {
               width={20}
             />
 
+            <UrlImg
+              key="door"
+              id="door"
+              ref={(r) => (this.doorRef = r)}
+              x={windowWidth * 0.7}
+              y={window.innerHeight - windowWidth / 3}
+              opacity={0.8}
+              src="/images/floor1/roomobjects/door.png"
+              scaleX={0.4}
+              scaleY={0.4}
+              onMouseEnter={(e) => {
+                let imageHover = new window.Image();
+                imageHover.src = "/images/floor1/roomobjects/door_hover.png";
+                imageHover.addEventListener("load", () => {
+                  if (this.doorRef) {
+                    this.doorRef.setState({ image: imageHover });
+                  }
+                });
+              }}
+              onMouseLeave={(e) => {
+                this.doorRef.reloadImage();
+              }}
+              onClick={(e) => this.props.history.push("/floor/3")}
+            />
+
             <CanvasImage
               ref={(node) => (this.imgRef = node)}
               src="/images/lobby/man"

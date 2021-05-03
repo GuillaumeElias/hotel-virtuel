@@ -3,6 +3,8 @@ import Konva from "konva";
 import { Stage, Layer, Image } from "react-konva";
 
 import CanvasImage from "../ui/CanvasImage";
+import BackButton from "../ui/BackButton";
+
 import * as boids from "../utils/boids";
 
 class Rooftop extends React.Component {
@@ -194,6 +196,9 @@ class Rooftop extends React.Component {
             ))}
           </Layer>
         </Stage>
+        <div style={{ position: "absolute", bottom: "8px", left: "8px" }}>
+          <BackButton path="/floor/3" history={this.props.history} />
+        </div>
       </div>
     );
   }

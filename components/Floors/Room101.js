@@ -94,8 +94,6 @@ const Room101 = ({ history }) => {
           src="/images/floor1/roomobjects/door.png"
           scaleX={0.4}
           scaleY={0.4}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
           onMouseEnter={(e) => {
             let imageHover = new window.Image();
             imageHover.src = "/images/floor1/roomobjects/door_hover.png";
