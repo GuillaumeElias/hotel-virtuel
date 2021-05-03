@@ -1,6 +1,6 @@
 import React from "react";
 import useAudio from "./useAudio";
-//import useGlobalState from "../utils/GlobalState";
+import useGlobalState from "../utils/GlobalState";
 
 export const SoundPlayer = {
   currentSound: null,
@@ -12,6 +12,8 @@ export const SoundPlayer = {
       this.currentSound = this.loadedSounds.get(url);
       if (this.currentSound.loaded) {
         try {
+          this.currentSound.pause();
+          this.currentSound.currentTime = 0;
           this.currentSound.play();
         } catch (err) {}
       }
