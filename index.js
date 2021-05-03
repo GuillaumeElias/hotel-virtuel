@@ -22,7 +22,7 @@ import Room302 from "./components/Floors/Room302";
 import JanitorRoom from "./components/Floors/JanitorRoom";
 import Rooftop from "./components/Floors/Rooftop";
 
-import Player from "./components/sound/Player.js";
+import MusicPlayer from "./components/sound/MusicPlayer.js";
 
 import "./style.css";
 
@@ -50,7 +50,7 @@ const BaseRoute = () => {
           <Route path="/room/302" component={Room302} />
           <Route path="/room/janitor" component={JanitorRoom} />
 
-          <Player url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
+          <MusicPlayer url="https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3" />
         </div>
         <Route path="/floor/rooftop" component={Rooftop} />
       </BrowserRouter>

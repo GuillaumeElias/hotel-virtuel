@@ -8,6 +8,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import styled from "styled-components";
 
+import { useAudio } from "./useAudio";
+import { useGlobalState } from "../utils/GlobalState";
+
 const StyledDiv = styled.div`
   background: #ffffff;
   position: fixed;
@@ -55,51 +58,29 @@ const VolumeSlider = withStyles({
   }
 })(Slider);
 
-const useAudio = (url) => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
-  const [volume, setVolume] = useState(1);
+const MusicPlayer = ({ url }) => {
+  const [musicPlaying, musicToggle, musicVolume, setMusicVolume] = useAudio(
+    url
+  );
 
-  audio.loop = true;
-
-  const toggle = () => setPlaying(!playing);
-
-  useEffect(() => {
-    playing ? audio.play() : audio.pause();
-  }, [playing, audio]);
-
-  useEffect(() => {
-    audio.volume = volume;
-  }, [volume, audio]);
-
-  useEffect(() => {
-    audio.addEventListener("ended", () => setPlaying(false));
-    return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
-    };
-  });
-
-  return [playing, toggle, volume, setVolume];
-};
-
-const Player = ({ url }) => {
-  const [playing, toggle, volume, setVolume] = useAudio(url);
+  const [state, dispatch] = useGlobalState();
 
   const changeVolume = (e, newValue) => {
-    var volume = newValue;
-    setVolume(parseFloat(volume) / 100);
+    var volume = parseFloat(newValue / 100);
+    setMusicVolume(volume);
+    dispatch({ soundVolume: volume });
   };
 
   return (
     <StyledDiv>
-      <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+      <button onClick={musicToggle}>{musicPlaying ? "Pause" : "Play"}</button>
       <Grid container spacing={1}>
         <Grid item>
           <VolumeDown style={iconStyle} />
         </Grid>
         <Grid item xs>
           <VolumeSlider
-            value={volume * 100}
+            value={musicVolume * 100}
             onChange={changeVolume}
             aria-labelledby="continuous-slider"
           />
@@ -112,4 +93,4 @@ const Player = ({ url }) => {
   );
 };
 
-export default Player;
+export default MusicPlayer;
