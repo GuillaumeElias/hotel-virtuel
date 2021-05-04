@@ -1,7 +1,9 @@
 import React from "react";
+import { SoundPlayer } from "../sound/SoundPlayer";
 
 const BackButton = ({ history, match, path }) => {
   const goBack = () => {
+    SoundPlayer.playSound("/sounds/click.mp3");
     history.push(path);
   };
 

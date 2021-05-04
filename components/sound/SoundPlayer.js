@@ -20,6 +20,7 @@ export const SoundPlayer = {
       this.loadedSounds.set(url, this.currentSound);
       this.currentSound.autoplay = true;
     }
+    this.currentSound.volume = this.volume;
 
     this.currentSound.addEventListener("canplaythrough", (event) => {
       //this.currentSound.play();

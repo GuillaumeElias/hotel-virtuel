@@ -5,6 +5,7 @@ import UrlImg from "../ui/UrlImg";
 import CanvasImage from "../ui/CanvasImage";
 
 import { windowWidth } from "../utils/screen.js";
+import { SoundPlayer } from "../sound/SoundPlayer";
 
 function generateObjects() {
   return [...Array(5)].map((_, i) => ({
@@ -38,6 +39,8 @@ const Room101 = ({ history }) => {
   };
 
   const handleDragStart = (e) => {
+    SoundPlayer.playSound("/sounds/voidClick.mp3");
+
     const id = e.target.id();
     setObjects(
       objects.map((img) => {
@@ -49,6 +52,8 @@ const Room101 = ({ history }) => {
     );
   };
   const handleDragEnd = (e) => {
+    SoundPlayer.playSound("/sounds/dragEnd.mp3");
+
     setObjects(
       objects.map((img) => {
         return {
@@ -95,6 +100,8 @@ const Room101 = ({ history }) => {
           scaleX={0.4}
           scaleY={0.4}
           onMouseEnter={(e) => {
+            SoundPlayer.playSound("/sounds/hover.mp3");
+
             let imageHover = new window.Image();
             imageHover.src = "/images/floor1/roomobjects/door_hover.png";
             imageHover.addEventListener("load", () => {
@@ -106,7 +113,10 @@ const Room101 = ({ history }) => {
           onMouseLeave={(e) => {
             doorRef.current.reloadImage();
           }}
-          onClick={(e) => history.push("/floor/1")}
+          onClick={(e) => {
+            SoundPlayer.playSound("/sounds/click.mp3");
+            history.push("/floor/1");
+          }}
         />
 
         {objects.map((img) => (

@@ -5,8 +5,7 @@ const defaultGlobalState = {
   forename: "",
   catLines: [],
   catImage: null,
-  registeted: false,
-  soundVolume: 1
+  registeted: false
 };
 
 const GlobalStateContext = React.createContext(defaultGlobalState);

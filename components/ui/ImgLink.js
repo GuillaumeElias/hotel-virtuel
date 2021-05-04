@@ -29,6 +29,7 @@ const StyledImgLink = styled.div`
 
 const ImgLink = ({ width, to, src, onClick }) => {
   const linkClicked = () => {
+    SoundPlayer.playSound("/sounds/click.mp3");
     if (onClick) {
       onClick();
     }
@@ -37,11 +38,7 @@ const ImgLink = ({ width, to, src, onClick }) => {
   return (
     <StyledImgLink>
       <div className="imgWrapper">
-        <Link
-          to={to}
-          background=""
-          onClick={linkClicked}
-        >
+        <Link to={to} background="" onClick={linkClicked}>
           <Img src={src} width={width} />
         </Link>
       </div>

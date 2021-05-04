@@ -8,6 +8,8 @@ import UrlImg from "../ui/UrlImg.js";
 
 import { windowWidth, windowLeftMargin } from "../utils/screen.js";
 
+import { SoundPlayer } from "../sound/SoundPlayer";
+
 class Room302 extends React.Component {
   layer = null;
   gravity = 2;
@@ -69,7 +71,10 @@ class Room302 extends React.Component {
 
   onClick = () => {
     if (!this.inAir) {
+      SoundPlayer.playSound("/sounds/click.mp3");
       this.velY = -7;
+    } else {
+      SoundPlayer.playSound("/sounds/voidClick.mp3");
     }
   };
 
@@ -109,6 +114,8 @@ class Room302 extends React.Component {
               scaleX={0.4}
               scaleY={0.4}
               onMouseEnter={(e) => {
+                SoundPlayer.playSound("/sounds/hover.mp3");
+
                 let imageHover = new window.Image();
                 imageHover.src = "/images/floor1/roomobjects/door_hover.png";
                 imageHover.addEventListener("load", () => {
@@ -120,7 +127,10 @@ class Room302 extends React.Component {
               onMouseLeave={(e) => {
                 this.doorRef.reloadImage();
               }}
-              onClick={(e) => this.props.history.push("/floor/3")}
+              onClick={(e) => {
+                SoundPlayer.playSound("/sounds/click.mp3");
+                this.props.history.push("/floor/1");
+              }}
             />
 
             <CanvasImage
