@@ -8,8 +8,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 import styled from "styled-components";
 
-import { useAudio } from "./useAudio";
 import { useGlobalState } from "../utils/GlobalState";
+import { SoundPlayer } from "./SoundPlayer";
 
 const StyledDiv = styled.div`
   background: #ffffff;
@@ -58,6 +58,33 @@ const VolumeSlider = withStyles({
   }
 })(Slider);
 
+const useAudio = (url) => {
+  const [audio] = useState(new Audio(url));
+  const [playing, setPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
+
+  audio.loop = true;
+
+  const toggle = () => setPlaying(!playing);
+
+  useEffect(() => {
+    playing ? audio.play() : audio.pause();
+  }, [playing, audio]);
+
+  useEffect(() => {
+    audio.volume = volume;
+  }, [volume, audio]);
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlaying(false));
+    return () => {
+      audio.removeEventListener("ended", () => setPlaying(false));
+    };
+  });
+
+  return [playing, toggle, volume, setVolume];
+};
+
 const MusicPlayer = ({ url }) => {
   const [musicPlaying, musicToggle, musicVolume, setMusicVolume] = useAudio(
     url
@@ -68,7 +95,7 @@ const MusicPlayer = ({ url }) => {
   const changeVolume = (e, newValue) => {
     var volume = parseFloat(newValue / 100);
     setMusicVolume(volume);
-    dispatch({ soundVolume: volume });
+    SoundPlayer.setVolume(volume);
   };
 
   return (

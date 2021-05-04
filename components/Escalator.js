@@ -6,6 +6,7 @@ import CanvasImage from "./ui/CanvasImage.js";
 
 import { Stage, Layer, Text } from "react-konva";
 
+import { SoundPlayer } from "./sound/SoundPlayer";
 import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 
 class Escalator extends React.Component {
@@ -79,6 +80,8 @@ class Escalator extends React.Component {
   }
 
   onMouseDown = (e) => {
+    SoundPlayer.playSound("/sounds/voidClick.mp3");
+
     this.aimedPosX = e.pageX - windowLeftMargin - windowWidth / 30;
   };
 

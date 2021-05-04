@@ -1,11 +1,9 @@
-import React from "react";
-import useAudio from "./useAudio";
-import useGlobalState from "../utils/GlobalState";
-
 export const SoundPlayer = {
   currentSound: null,
-
+  volume: 1,
   loadedSounds: new Map(),
+
+  //TODO preload sounds
 
   playSound: function (url) {
     if (this.loadedSounds.has(url)) {
@@ -23,11 +21,16 @@ export const SoundPlayer = {
       this.currentSound.autoplay = true;
     }
 
-    //let state = useGlobalState();
-
     this.currentSound.addEventListener("canplaythrough", (event) => {
       //this.currentSound.play();
       this.currentSound.loaded = true;
     });
+  },
+
+  setVolume: function (newVolume) {
+    this.volume = newVolume;
+    if (this.currentSound != null) {
+      this.currentSound.volume = newVolume;
+    }
   }
 };

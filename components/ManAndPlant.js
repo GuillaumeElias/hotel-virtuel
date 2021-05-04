@@ -6,6 +6,7 @@ import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
 import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import { SoundPlayer } from "./sound/SoundPlayer";
 
 class ManAndPlant extends React.Component {
   mouseX = 0;
@@ -49,7 +50,10 @@ class ManAndPlant extends React.Component {
 
   render() {
     return (
-      <div onMouseMove={this.handleMouseMove}>
+      <div
+        onMouseMove={this.handleMouseMove}
+        onClick={() => SoundPlayer.playSound("/sounds/voidClick.mp3")}
+      >
         <ScrollTop />
         <Stage width={windowWidth} height={window.innerHeight}>
           <Layer ref={(node) => (this.layer = node)}>
@@ -62,6 +66,7 @@ class ManAndPlant extends React.Component {
               onClick={() => {
                 this.imgRef.setState({ sizeRatio: 10 });
                 setTimeout(() => {
+                  SoundPlayer.playSound("/sounds/click.mp3");
                   this.props.history.push("/lobby");
                 }, 1000);
               }}

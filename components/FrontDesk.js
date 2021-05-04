@@ -8,6 +8,7 @@ import styled from "styled-components";
 import BackButton from "./ui/BackButton";
 
 import { windowWidth } from "./utils/screen.js";
+import { SoundPlayer } from "./sound/SoundPlayer";
 
 const imgY = windowWidth / 5;
 const imgX = windowWidth * 0.2;
@@ -64,6 +65,7 @@ const FrontDesk = ({ history }) => {
           imgWidth={446}
           src="images/frontdesk/frontdeskguy_registered.png"
           onClick={() => {
+            SoundPlayer.playSound("/sounds/click.mp3");
             history.push("/registration");
           }}
           map={{
@@ -77,6 +79,7 @@ const FrontDesk = ({ history }) => {
           className="drawnImage"
           src={catImage}
           onClick={() => {
+            SoundPlayer.playSound("/sounds/click.mp3");
             history.push("/registration");
           }}
           style={{ cursor: "pointer" }}
