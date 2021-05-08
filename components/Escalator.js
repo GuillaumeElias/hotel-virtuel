@@ -80,7 +80,7 @@ class Escalator extends React.Component {
   }
 
   onMouseDown = (e) => {
-    SoundPlayer.playSound("/sounds/voidClick.mp3");
+    SoundPlayer.playSound("/sounds/click.mp3");
 
     this.aimedPosX = e.pageX - windowLeftMargin - windowWidth / 30;
   };

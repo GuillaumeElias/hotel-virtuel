@@ -6,6 +6,8 @@ import { Stage, Layer, Circle, Text, Line } from "react-konva";
 import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 import UrlImg from "./ui/UrlImg.js";
 import CanvasImage from "./ui/CanvasImage.js";
+import { SoundPlayer } from "./sound/SoundPlayer.js";
+import { Synth } from "./sound/Synth.js";
 
 const initCircleRadius = windowWidth / 40;
 
@@ -20,8 +22,11 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
       if (action) {
         setRadius(radius + frame.timeDiff);
         if (radius > 3000) {
+          Synth.stopNote();
           setAction(false);
           setRadius(initCircleRadius);
+        } else {
+          Synth.setVolume(radius / 3000 - 10);
         }
       }
     });
@@ -139,9 +144,13 @@ const Elevator = ({ match, history }) => {
     ]);
 
     setButtonsPos({ x: initButtonsPosX + addX, y: initButtonsPosY + addY });
+
+    Synth.setFreq(addY);
   };
 
   const setActiveCircle = (circleIndex) => {
+    Synth.playNote();
+
     let newcircles = { ...circles };
     for (var i in newcircles) {
       newcircles[i].active = false;
