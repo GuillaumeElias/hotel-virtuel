@@ -111,6 +111,7 @@ const FrontDesk = ({ history }) => {
         imgWidth={446}
         src="images/frontdesk/frontdeskguy.png"
         onClick={() => {
+          SoundPlayer.playSound("/sounds/click.mp3");
           history.push("/registration");
         }}
         map={{

@@ -15,7 +15,7 @@ export const Synth = {
       sustain: 1,
       release: 0.1
     }*/
-  }).toDestination(),
+  }).chain(new Tone.Reverb({ wet: 0.6 }).toDestination()),
 
   playNote: function () {
     this.synth.triggerAttack(`A2`, "8n");
@@ -33,7 +33,7 @@ export const Synth = {
 
   setVolume: function (volume) {
     this.synth.set({
-      volume: 0
+      volume: volume * 20 - 20
     });
   }
 };

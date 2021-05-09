@@ -10,6 +10,7 @@ import styled from "styled-components";
 
 import { useGlobalState } from "../utils/GlobalState";
 import { SoundPlayer } from "./SoundPlayer";
+import { Synth } from "./Synth";
 
 const StyledDiv = styled.div`
   background: #ffffff;
@@ -96,6 +97,7 @@ const MusicPlayer = ({ url }) => {
     var volume = parseFloat(newValue / 100);
     setMusicVolume(volume);
     SoundPlayer.setVolume(volume);
+    Synth.setVolume(volume);
   };
 
   return (

@@ -6,6 +6,7 @@ import { windowWidth, windowLeftMargin } from "./utils/screen.js";
 import BackButton from "./ui/BackButton";
 
 import styled from "styled-components";
+import { SoundPlayer } from "./sound/SoundPlayer";
 
 const initBottleX = windowWidth / 4;
 const initBottleY = windowWidth / 7;
@@ -45,7 +46,10 @@ const Bar = ({ history }) => {
         alt=""
         className="bottle"
         src="/images/lobby/bottle.png"
-        onClick={() => setBottlePickedUp(!bottlePickedUp)}
+        onClick={() => {
+          SoundPlayer.playSound("/sounds/voidClick.mp3");
+          setBottlePickedUp(!bottlePickedUp);
+        }}
       />
       <Img width={windowWidth} to="/reception" src="/images/lobby/bar" />
 

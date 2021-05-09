@@ -26,7 +26,7 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
           setAction(false);
           setRadius(initCircleRadius);
         } else {
-          Synth.setVolume(radius / 3000 - 10);
+          //Synth.setVolume(radius / 3000 - 10);
         }
       }
     });
