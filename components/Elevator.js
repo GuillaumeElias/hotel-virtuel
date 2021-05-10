@@ -25,8 +25,6 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
           Synth.stopNote();
           setAction(false);
           setRadius(initCircleRadius);
-        } else {
-          //Synth.setVolume(radius / 3000 - 10);
         }
       }
     });
@@ -65,10 +63,12 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
         container.style.cursor = "default";
       }}
       onClick={(e) => {
-        circleRef.current.zIndex(18);
+        if (!action) {
+          circleRef.current.zIndex(18);
 
-        onClick();
-        setAction(true);
+          onClick();
+          setAction(true);
+        }
       }}
     />
   );

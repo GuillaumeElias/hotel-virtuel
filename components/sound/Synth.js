@@ -1,6 +1,7 @@
 import * as Tone from "tone";
 
 export const Synth = {
+  inRamp: false,
   synth: new Tone.Synth({
     /*oscillator: {
       type: "square",
@@ -18,7 +19,12 @@ export const Synth = {
   }).chain(new Tone.Reverb({ wet: 0.6 }).toDestination()),
 
   playNote: function () {
-    this.synth.triggerAttack(`A2`, "8n");
+    this.synth.triggerAttack(`A0`);
+    this.synth.oscillator.frequency.rampTo("A3", 0.6);
+    this.inRamp = true;
+    setTimeout(() => {
+      this.inRamp = false;
+    }, 600);
   },
 
   stopNote: function () {
@@ -26,9 +32,11 @@ export const Synth = {
   },
 
   setFreq: function (freq) {
-    this.synth.oscillator.set({
-      frequency: freq / 2 + 110
-    });
+    if (!this.inRamp) {
+      this.synth.oscillator.set({
+        frequency: freq / 2 + 220
+      });
+    }
   },
 
   setVolume: function (volume) {
