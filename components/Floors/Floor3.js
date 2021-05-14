@@ -5,10 +5,16 @@ import CanvasImage from "../ui/CanvasImage";
 import ScrollTop from "../utils/ScrollTop.js";
 
 import { windowWidth } from "../utils/screen.js";
+import { MusicPlayer } from "../sound/MusicPlayer";
 
 const Floor3 = ({ history }) => {
   console.log("render");
   const trapDoorRef = React.useRef();
+
+  React.useEffect(() => {
+     console.log("stop")
+     MusicPlayer.setPlaying(false);
+  }, []);
 
   return (
     <div>
@@ -49,6 +55,8 @@ const Floor3 = ({ history }) => {
             y={windowWidth * 0.34}
             width={windowWidth * 0.18}
             onClick={(e) => {
+              MusicPlayer.setMusic("https://hotelvirtuel.space/sound/OnTheRooftop.mp3")
+
               for (let i = 1; i < 3; i += 0.1) {
                 setTimeout(() => {
                   if (trapDoorRef.current) {

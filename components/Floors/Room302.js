@@ -129,7 +129,7 @@ class Room302 extends React.Component {
               }}
               onClick={(e) => {
                 SoundPlayer.playSound("/sounds/click.mp3");
-                this.props.history.push("/floor/1");
+                this.props.history.push("/floor/3");
               }}
             />
 
