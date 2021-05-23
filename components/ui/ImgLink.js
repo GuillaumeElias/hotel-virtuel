@@ -27,9 +27,19 @@ const StyledImgLink = styled.div`
   }
 `;
 
-const ImgLink = ({ width, to, src, onClick }) => {
+const ImgLink = ({
+  width,
+  to,
+  src,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  silent
+}) => {
   const linkClicked = () => {
-    SoundPlayer.playSound("/sounds/click.mp3");
+    if (!silent) {
+      SoundPlayer.playSound("/sounds/click.mp3");
+    }
     if (onClick) {
       onClick();
     }
@@ -37,7 +47,11 @@ const ImgLink = ({ width, to, src, onClick }) => {
 
   return (
     <StyledImgLink>
-      <div className="imgWrapper">
+      <div
+        className="imgWrapper"
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <Link to={to} background="" onClick={linkClicked}>
           <Img src={src} width={width} />
         </Link>
@@ -47,7 +61,8 @@ const ImgLink = ({ width, to, src, onClick }) => {
 };
 
 ImgLink.defaultProps = {
-  nbFrames: 2
+  nbFrames: 2,
+  silent: false
 };
 
 export default ImgLink;

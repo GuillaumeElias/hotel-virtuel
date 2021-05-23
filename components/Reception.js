@@ -5,6 +5,7 @@ import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
 import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import { MusicPlayer } from "./sound/MusicPlayer";
 
 const Reception = ({ history }) => {
   const [addX, setAddX] = React.useState(0);

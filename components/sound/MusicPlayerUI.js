@@ -8,10 +8,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import styled from "styled-components";
 
-import { useGlobalState } from "../utils/GlobalState";
 import { SoundPlayer } from "./SoundPlayer";
 import { Synth } from "./Synth";
-import { MusicPlayer } from "./MusicPlayer"
+import { MusicPlayer } from "./MusicPlayer";
 
 const StyledDiv = styled.div`
   background: #ffffff;
@@ -61,16 +60,13 @@ const VolumeSlider = withStyles({
 })(Slider);
 
 const MusicPlayerUI = ({ url }) => {
-  
-  const [musicVolume, setMusicVolume] = React.useState(MusicPlayer.volume * 100);
+  const [musicVolume, setMusicVolume] = React.useState(
+    MusicPlayer.volume * 100
+  );
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     changeVolume(musicVolume);
   }, [musicVolume]);
-
-  React.useEffect( () => {
-    MusicPlayer.setMusic("https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3");
-  }, []);
 
   const changeVolume = (newValue) => {
     var volume = parseFloat(newValue / 100);
@@ -89,7 +85,9 @@ const MusicPlayerUI = ({ url }) => {
         <Grid item xs>
           <VolumeSlider
             value={musicVolume}
-            onChange={(e, newValue) => {setMusicVolume(newValue)}}
+            onChange={(e, newValue) => {
+              setMusicVolume(newValue);
+            }}
             aria-labelledby="continuous-slider"
           />
         </Grid>
