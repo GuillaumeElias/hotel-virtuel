@@ -31,12 +31,21 @@ const Home = () => {
   }, [headsetOn, imgWidth]);
 
   if (!headsetOn) {
+    let instrImgWidth = null;
+    let instrImgHeight = window.innerHeight / 2;
+
+    if (windowWidth < 590) {
+      instrImgWidth = windowWidth;
+      instrImgHeight = null;
+    }
+
     return (
       <div>
         <img
           alt=""
           style={{ display: "block", margin: "auto" }}
-          height={window.innerHeight * 0.5}
+          width={instrImgWidth}
+          height={instrImgHeight}
           src={hover ? "/images/headset_1.png" : "/images/headset_0.png"}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}

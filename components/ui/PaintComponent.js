@@ -25,6 +25,7 @@ const PaintComponent = ({
   const isDrawing = React.useRef(false);
 
   const handleMouseDown = (e) => {
+    console.log("mouseDown");
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y] }]);
@@ -79,6 +80,9 @@ const PaintComponent = ({
         height={height}
         x={x}
         y={y}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
+        onTouchMove={handleMouseMove}
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}

@@ -12,3 +12,9 @@ p {
   position: relative;
   margin: auto;
 }
+
+@media (max-width: 500px) and (min-height: 600px) {
+  #content {
+    margin-top: 100px;
+  }
+}

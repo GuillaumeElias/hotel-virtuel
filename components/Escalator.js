@@ -81,13 +81,17 @@ class Escalator extends React.Component {
 
   onMouseDown = (e) => {
     SoundPlayer.playSound("/sounds/click.mp3");
-
     this.aimedPosX = e.pageX - windowLeftMargin - windowWidth / 30;
   };
 
   render() {
     return (
-      <div onMouseDown={this.onMouseDown}>
+      <div
+        onMouseDown={this.onMouseDown}
+        onTouchEnd={(e) => {
+          this.onMouseDown(e.changedTouches[0]);
+        }}
+      >
         <Stage width={window.innerWidth} height={window.innerHeight}>
           <Layer>
             <CanvasImage

@@ -36,6 +36,15 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
     };
   });
 
+  const handleClick = (e) => {
+    if (!action) {
+      circleRef.current.zIndex(18);
+
+      onClick();
+      setAction(true);
+    }
+  };
+
   return (
     <Circle
       ref={circleRef}
@@ -62,14 +71,8 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
         const container = e.target.getStage().container();
         container.style.cursor = "default";
       }}
-      onClick={(e) => {
-        if (!action) {
-          circleRef.current.zIndex(18);
-
-          onClick();
-          setAction(true);
-        }
-      }}
+      onClick={handleClick}
+      onTouchEnd={handleClick}
     />
   );
 };
@@ -256,6 +259,7 @@ const Elevator = ({ match, history }) => {
             height={buttonBoxWidth / 5}
             src="/images/elevator/openDoors"
             onClick={() => history.push(`/floor/${floorNb}`)}
+            onTouchEnd={() => history.push(`/floor/${floorNb}`)}
           />
 
           <ButtonCircle

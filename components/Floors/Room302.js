@@ -6,9 +6,15 @@ import CanvasImage from "../ui/CanvasImage";
 import ScrollTop from "../utils/ScrollTop.js";
 import UrlImg from "../ui/UrlImg.js";
 
-import { windowWidth, windowLeftMargin } from "../utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "../utils/screen.js";
 
 import { SoundPlayer } from "../sound/SoundPlayer";
+
+const bottomY = window.innerHeight - windowTopMargin;
 
 class Room302 extends React.Component {
   layer = null;
@@ -31,7 +37,7 @@ class Room302 extends React.Component {
     this.anim = new Konva.Animation((frame) => {
       let newY = this.state.manY + this.velY + this.gravity;
 
-      if (newY + this.imgRef.state.height >= window.innerHeight) {
+      if (newY + this.imgRef.state.height >= bottomY) {
         newY = this.state.manY;
         this.inAir = false;
       } else {
@@ -80,7 +86,7 @@ class Room302 extends React.Component {
 
   render() {
     return (
-      <div onMouseDown={this.onClick}>
+      <div onMouseDown={this.onClick} onTouchEnd={this.onClick}>
         <ScrollTop />
         <Stage width={windowWidth} height={window.innerHeight}>
           <Layer ref={(node) => (this.layer = node)}>
@@ -108,7 +114,7 @@ class Room302 extends React.Component {
               id="door"
               ref={(r) => (this.doorRef = r)}
               x={windowWidth * 0.7}
-              y={window.innerHeight - windowWidth / 3}
+              y={window.innerHeight - windowWidth / 3 - windowTopMargin}
               opacity={0.8}
               src="/images/floor1/roomobjects/door.png"
               scaleX={0.4}

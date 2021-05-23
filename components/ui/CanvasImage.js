@@ -123,12 +123,14 @@ class CanvasImage extends React.Component {
     this.imageNode.move(c);
   }
 
-  render() {
-    const handleClick = () => {
+  handleClick() {
+    if (this.props.onClick) {
       SoundPlayer.playSound("/sounds/click.mp3");
       this.props.onClick();
-    };
+    }
+  }
 
+  render() {
     return (
       <Image
         x={this.props.x + this.state.marginLeft}
@@ -141,7 +143,12 @@ class CanvasImage extends React.Component {
         }}
         onClick={() => {
           if (this.state.sizeRatio >= 1.1) {
-            handleClick();
+            this.handleClick();
+          }
+        }}
+        onTouchEnd={() => {
+          if (this.state.sizeRatio >= 1.0) {
+            this.handleClick();
           }
         }}
         onMouseEnter={(e) => {
