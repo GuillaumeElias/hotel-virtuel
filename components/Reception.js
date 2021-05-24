@@ -4,7 +4,11 @@ import { Stage, Layer } from "react-konva";
 import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
-import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "./utils/screen.js";
 import { MusicPlayer } from "./sound/MusicPlayer";
 
 const Reception = ({ history }) => {
@@ -19,7 +23,10 @@ const Reception = ({ history }) => {
   return (
     <div onMouseMove={handleMouseMove}>
       <ScrollTop />
-      <Stage width={windowWidth} height={window.innerHeight * 1.5}>
+      <Stage
+        width={windowWidth}
+        height={window.innerHeight * 1.5 - windowTopMargin}
+      >
         <Layer>
           <CanvasImage
             src="/images/frontdesk"

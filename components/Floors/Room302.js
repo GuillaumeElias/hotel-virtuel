@@ -80,7 +80,7 @@ class Room302 extends React.Component {
       SoundPlayer.playSound("/sounds/click.mp3");
       this.velY = -7;
     } else {
-      SoundPlayer.playSound("/sounds/voidClick.mp3");
+      SoundPlayer.playSound("/sounds/plant.mp3");
     }
   };
 
@@ -88,7 +88,10 @@ class Room302 extends React.Component {
     return (
       <div onMouseDown={this.onClick} onTouchEnd={this.onClick}>
         <ScrollTop />
-        <Stage width={windowWidth} height={window.innerHeight}>
+        <Stage
+          width={window.innerWidth}
+          height={window.innerHeight - windowTopMargin}
+        >
           <Layer ref={(node) => (this.layer = node)}>
             <UrlImg
               key="window"

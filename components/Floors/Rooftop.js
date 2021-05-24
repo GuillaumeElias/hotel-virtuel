@@ -6,6 +6,7 @@ import CanvasImage from "../ui/CanvasImage";
 import BackButton from "../ui/BackButton";
 
 import * as boids from "../utils/boids";
+import { windowTopMargin } from "../utils/screen";
 
 class Rooftop extends React.Component {
   state = {
@@ -168,7 +169,7 @@ class Rooftop extends React.Component {
       <div
         onMouseMove={this.mouseMoved}
         onTouchEnd={(e) => this.mouseMoved(e.nativeEvent.changedTouches[0])}
-        style={{ overflowX: "hidden" }}
+        style={{ overflowX: "hidden", marginTop: -windowTopMargin }}
       >
         <Stage width={window.innerWidth} height={window.innerHeight - 50}>
           <Layer>

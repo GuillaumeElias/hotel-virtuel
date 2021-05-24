@@ -127,6 +127,8 @@ class CanvasImage extends React.Component {
     if (this.props.onClick) {
       SoundPlayer.playSound("/sounds/click.mp3");
       this.props.onClick();
+    } else {
+      SoundPlayer.playSound("/sounds/voidClick.mp3");
     }
   }
 

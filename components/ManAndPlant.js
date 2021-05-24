@@ -5,7 +5,11 @@ import { Stage, Layer } from "react-konva";
 import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
-import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "./utils/screen.js";
 import { SoundPlayer } from "./sound/SoundPlayer";
 
 class ManAndPlant extends React.Component {
@@ -52,10 +56,16 @@ class ManAndPlant extends React.Component {
     return (
       <div
         onMouseMove={this.handleMouseMove}
+        onTouchMove={(e) => {
+          this.handleMouseMove(e.changedTouches[0]);
+        }}
         onClick={() => SoundPlayer.playSound("/sounds/voidClick.mp3")}
       >
         <ScrollTop />
-        <Stage width={windowWidth} height={window.innerHeight}>
+        <Stage
+          width={window.innerWidth}
+          height={window.innerHeight - windowTopMargin}
+        >
           <Layer ref={(node) => (this.layer = node)}>
             <CanvasImage
               ref={(node) => (this.imgRef = node)}
@@ -64,7 +74,11 @@ class ManAndPlant extends React.Component {
               y={this.state.y}
               interval={100}
               onClick={() => {
-                this.imgRef.setState({ sizeRatio: 10 });
+                this.anim.stop();
+                this.imgRef.setState({
+                  sizeRatio: windowWidth / this.imgRef.state.width
+                });
+                this.setState({ x: 0, y: 0 });
                 setTimeout(() => {
                   SoundPlayer.playSound("/sounds/click.mp3");
                   this.props.history.push("/lobby");

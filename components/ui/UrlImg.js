@@ -59,6 +59,7 @@ class UrlImg extends React.Component {
         ref={(node) => {
           this.imageNode = node;
         }}
+        onTouchEnd={this.props.onClick}
       />
     );
   }

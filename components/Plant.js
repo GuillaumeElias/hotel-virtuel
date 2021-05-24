@@ -5,6 +5,7 @@ import styled from "styled-components";
 import BackButton from "./ui/BackButton";
 
 import { windowWidth } from "./utils/screen.js";
+import { SoundPlayer } from "./sound/SoundPlayer";
 
 const StyledDiv = styled.div`
   display: "block";
@@ -28,7 +29,13 @@ const StyledDiv = styled.div`
 const Plant = ({ history }) => (
   <div>
     <StyledDiv>
-      <img className="plantImg" to="/Lobby" src="/images/lobby/plant_0.png" />
+      <img
+        alt=""
+        className="plantImg"
+        to="/Lobby"
+        src="/images/lobby/plant_0.png"
+        onClick={() => SoundPlayer.playSound("/sounds/plant.mp3")}
+      />
       <br />
     </StyledDiv>
     <BackButton path="/lobby" history={history} />

@@ -7,7 +7,11 @@ import CanvasImage from "./ui/CanvasImage.js";
 import { Stage, Layer, Text } from "react-konva";
 
 import { SoundPlayer } from "./sound/SoundPlayer";
-import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "./utils/screen.js";
 
 class Escalator extends React.Component {
   aimedPosX = 0;
@@ -92,7 +96,10 @@ class Escalator extends React.Component {
           this.onMouseDown(e.changedTouches[0]);
         }}
       >
-        <Stage width={window.innerWidth} height={window.innerHeight}>
+        <Stage
+          width={window.innerWidth}
+          height={window.innerHeight - windowTopMargin}
+        >
           <Layer>
             <CanvasImage
               x={windowWidth * 0.1}

@@ -3,7 +3,11 @@ import React from "react";
 import Konva from "konva";
 import { Stage, Layer, Circle, Text, Line } from "react-konva";
 
-import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "./utils/screen.js";
 import UrlImg from "./ui/UrlImg.js";
 import CanvasImage from "./ui/CanvasImage.js";
 import { SoundPlayer } from "./sound/SoundPlayer.js";
@@ -49,7 +53,7 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
     <Circle
       ref={circleRef}
       x={circle.x}
-      y={circle.y}
+      y={windowTopMargin + circle.y}
       radius={radius}
       fillLinearGradientStartPoint={{ x: 0, y: 0 }}
       fillLinearGradientEndPoint={{
@@ -163,78 +167,18 @@ const Elevator = ({ match, history }) => {
   };
 
   return (
-    <div onMouseMove={onMouseMove}>
-      <Stage width={window.innerWidth} height={window.innerHeight}>
-        <Layer>
-          {/* top lines */}
-          <Line
-            points={[points[0].x, points[0].y, points[1].x, points[1].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[2].x, points[2].y, points[3].x, points[3].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[0].x, points[0].y, points[2].x, points[2].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[1].x, points[1].y, points[3].x, points[3].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-
-          {/* vertical lines */}
-          <Line
-            points={[points[2].x, points[2].y, points[4].x, points[4].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[3].x, points[3].y, points[5].x, points[5].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[0].x, points[0].y, points[6].x, points[6].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[1].x, points[1].y, points[7].x, points[7].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-
-          {/* bottom lines */}
-          <Line
-            points={[points[6].x, points[6].y, points[7].x, points[7].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[4].x, points[4].y, points[5].x, points[5].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[4].x, points[4].y, points[6].x, points[6].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-          <Line
-            points={[points[5].x, points[5].y, points[7].x, points[7].y]}
-            stroke="black"
-            strokeWidth={3}
-          />
-
+    <div
+      onMouseMove={onMouseMove}
+      onTouchMove={(e) => {
+        onMouseMove(e.changedTouches[0]);
+      }}
+      style={{ marginTop: -windowTopMargin }}
+    >
+      <Stage width={window.innerWidth} height={window.innerHeight - 100}>
+        <Layer zIndex={1}>
           <Text
             x={buttonsPos.x + buttonBoxWidth / 2 - 10}
-            y={buttonsPos.y - windowWidth / 40}
+            y={windowTopMargin + buttonsPos.y - windowWidth / 40}
             fontFamily="courier"
             fill="green"
             shadowColor="black"
@@ -246,7 +190,7 @@ const Elevator = ({ match, history }) => {
 
           <UrlImg
             x={buttonsPos.x}
-            y={buttonsPos.y}
+            y={windowTopMargin + buttonsPos.y}
             width={buttonBoxWidth}
             height={buttonBoxWidth * 1.4}
             src="/images/elevator/elevatorButtons.png"
@@ -254,7 +198,7 @@ const Elevator = ({ match, history }) => {
 
           <CanvasImage
             x={buttonsPos.x + buttonBoxWidth + 10}
-            y={buttonsPos.y + buttonBoxWidth + 10}
+            y={windowTopMargin + buttonsPos.y + buttonBoxWidth + 10}
             width={buttonBoxWidth / 5}
             height={buttonBoxWidth / 5}
             src="/images/elevator/openDoors"
@@ -293,6 +237,133 @@ const Elevator = ({ match, history }) => {
             }}
             mousePos={mousePos}
             circle={circles[3]}
+          />
+        </Layer>
+        <Layer zIndex={2}>
+          {/* top lines */}
+          <Line
+            points={[
+              points[0].x,
+              points[0].y + windowTopMargin,
+              points[1].x,
+              points[1].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[2].x,
+              points[2].y + windowTopMargin,
+              points[3].x,
+              points[3].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[0].x,
+              points[0].y + windowTopMargin,
+              points[2].x,
+              points[2].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[1].x,
+              points[1].y + windowTopMargin,
+              points[3].x,
+              points[3].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+
+          {/* vertical lines */}
+          <Line
+            points={[
+              points[2].x,
+              points[2].y + windowTopMargin,
+              points[4].x,
+              points[4].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[3].x,
+              points[3].y + windowTopMargin,
+              points[5].x,
+              points[5].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[0].x,
+              points[0].y + windowTopMargin,
+              points[6].x,
+              points[6].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[1].x,
+              points[1].y + windowTopMargin,
+              points[7].x,
+              points[7].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+
+          {/* bottom lines */}
+          <Line
+            points={[
+              points[6].x,
+              points[6].y + windowTopMargin,
+              points[7].x,
+              points[7].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[4].x,
+              points[4].y + windowTopMargin,
+              points[5].x,
+              points[5].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[4].x,
+              points[4].y + windowTopMargin,
+              points[6].x,
+              points[6].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
+          />
+          <Line
+            points={[
+              points[5].x,
+              points[5].y + windowTopMargin,
+              points[7].x,
+              points[7].y + windowTopMargin
+            ]}
+            stroke="black"
+            strokeWidth={3}
           />
         </Layer>
       </Stage>

@@ -3,13 +3,17 @@ import CanvasImage from "../ui/CanvasImage";
 import Img from "../ui/Img";
 import PaintComponent from "../ui/PaintComponent";
 
-import { windowWidth, windowLeftMargin } from "../utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "../utils/screen.js";
 
 import BackButton from "../ui/BackButton";
 
 const JanitorRoom = ({ history }) => {
   let width = windowWidth - (windowWidth / 8 > 40 ? windowWidth / 8 : 40);
-  let height = window.innerHeight - 40;
+  let height = window.innerHeight - 40 - windowTopMargin;
 
   const [lines, setLines] = React.useState([]);
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });

@@ -5,13 +5,16 @@ import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 import BackButton from "./ui/BackButton";
 
-import { windowWidth } from "./utils/screen.js";
+import { windowTopMargin, windowWidth } from "./utils/screen.js";
 
 const Lobby = ({ history }) => {
   return (
     <div>
       <ScrollTop />
-      <Stage width={windowWidth} height={window.innerHeight * 0.8}>
+      <Stage
+        width={windowWidth}
+        height={window.innerHeight * 0.8 - windowTopMargin}
+      >
         <Layer>
           <CanvasImage
             src="/images/lobby/bar"

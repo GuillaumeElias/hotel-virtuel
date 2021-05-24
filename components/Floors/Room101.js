@@ -4,7 +4,7 @@ import UrlImg from "../ui/UrlImg";
 
 import CanvasImage from "../ui/CanvasImage";
 
-import { windowWidth } from "../utils/screen.js";
+import { windowTopMargin, windowWidth } from "../utils/screen.js";
 import { SoundPlayer } from "../sound/SoundPlayer";
 
 function generateObjects() {
@@ -39,7 +39,7 @@ const Room101 = ({ history }) => {
   };
 
   const handleDragStart = (e) => {
-    SoundPlayer.playSound("/sounds/voidClick.mp3");
+    SoundPlayer.playSound("/sounds/click.mp3");
 
     const id = e.target.id();
     setObjects(
@@ -68,7 +68,10 @@ const Room101 = ({ history }) => {
   const doorRef = React.useRef();
 
   return (
-    <Stage width={window.innerWidth} height={window.innerHeight}>
+    <Stage
+      width={window.innerWidth}
+      height={window.innerHeight - windowTopMargin}
+    >
       <Layer>
         <UrlImg
           key="window"
@@ -94,7 +97,7 @@ const Room101 = ({ history }) => {
           id="door"
           ref={doorRef}
           x={windowWidth * 0.7}
-          y={window.innerHeight - windowWidth / 3}
+          y={window.innerHeight - windowWidth / 3 - windowTopMargin}
           opacity={0.8}
           src="/images/floor1/roomobjects/door.png"
           scaleX={0.4}
