@@ -47,7 +47,7 @@ const Bar = ({ history }) => {
         className="bottle"
         src="/images/lobby/bottle.png"
         onClick={() => {
-          SoundPlayer.playSound("/sounds/voidClick.mp3");
+          SoundPlayer.playSound("/sounds/silentClick.mp3");
           setBottlePickedUp(!bottlePickedUp);
         }}
       />

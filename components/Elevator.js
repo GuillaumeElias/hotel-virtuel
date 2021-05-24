@@ -52,7 +52,7 @@ const ButtonCircle = ({ circle, mousePos, onClick }) => {
   return (
     <Circle
       ref={circleRef}
-      x={circle.x}
+      x={windowLeftMargin + circle.x}
       y={windowTopMargin + circle.y}
       radius={radius}
       fillLinearGradientStartPoint={{ x: 0, y: 0 }}
@@ -172,12 +172,12 @@ const Elevator = ({ match, history }) => {
       onTouchMove={(e) => {
         onMouseMove(e.changedTouches[0]);
       }}
-      style={{ marginTop: -windowTopMargin }}
+      style={{ marginTop: -windowTopMargin, marginLeft: -windowLeftMargin }}
     >
       <Stage width={window.innerWidth} height={window.innerHeight - 100}>
         <Layer zIndex={1}>
           <Text
-            x={buttonsPos.x + buttonBoxWidth / 2 - 10}
+            x={windowLeftMargin + buttonsPos.x + buttonBoxWidth / 2 - 10}
             y={windowTopMargin + buttonsPos.y - windowWidth / 40}
             fontFamily="courier"
             fill="green"
@@ -189,7 +189,7 @@ const Elevator = ({ match, history }) => {
           />
 
           <UrlImg
-            x={buttonsPos.x}
+            x={windowLeftMargin + buttonsPos.x}
             y={windowTopMargin + buttonsPos.y}
             width={buttonBoxWidth}
             height={buttonBoxWidth * 1.4}
@@ -197,7 +197,7 @@ const Elevator = ({ match, history }) => {
           />
 
           <CanvasImage
-            x={buttonsPos.x + buttonBoxWidth + 10}
+            x={windowLeftMargin + buttonsPos.x + buttonBoxWidth + 10}
             y={windowTopMargin + buttonsPos.y + buttonBoxWidth + 10}
             width={buttonBoxWidth / 5}
             height={buttonBoxWidth / 5}
@@ -243,9 +243,9 @@ const Elevator = ({ match, history }) => {
           {/* top lines */}
           <Line
             points={[
-              points[0].x,
+              points[0].x + windowLeftMargin,
               points[0].y + windowTopMargin,
-              points[1].x,
+              points[1].x + windowLeftMargin,
               points[1].y + windowTopMargin
             ]}
             stroke="black"
@@ -253,9 +253,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[2].x,
+              points[2].x + windowLeftMargin,
               points[2].y + windowTopMargin,
-              points[3].x,
+              points[3].x + windowLeftMargin,
               points[3].y + windowTopMargin
             ]}
             stroke="black"
@@ -263,9 +263,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[0].x,
+              points[0].x + windowLeftMargin,
               points[0].y + windowTopMargin,
-              points[2].x,
+              points[2].x + windowLeftMargin,
               points[2].y + windowTopMargin
             ]}
             stroke="black"
@@ -273,9 +273,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[1].x,
+              points[1].x + windowLeftMargin,
               points[1].y + windowTopMargin,
-              points[3].x,
+              points[3].x + windowLeftMargin,
               points[3].y + windowTopMargin
             ]}
             stroke="black"
@@ -285,9 +285,9 @@ const Elevator = ({ match, history }) => {
           {/* vertical lines */}
           <Line
             points={[
-              points[2].x,
+              points[2].x + windowLeftMargin,
               points[2].y + windowTopMargin,
-              points[4].x,
+              points[4].x + windowLeftMargin,
               points[4].y + windowTopMargin
             ]}
             stroke="black"
@@ -295,9 +295,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[3].x,
+              points[3].x + windowLeftMargin,
               points[3].y + windowTopMargin,
-              points[5].x,
+              points[5].x + windowLeftMargin,
               points[5].y + windowTopMargin
             ]}
             stroke="black"
@@ -305,9 +305,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[0].x,
+              points[0].x + windowLeftMargin,
               points[0].y + windowTopMargin,
-              points[6].x,
+              points[6].x + windowLeftMargin,
               points[6].y + windowTopMargin
             ]}
             stroke="black"
@@ -315,9 +315,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[1].x,
+              points[1].x + windowLeftMargin,
               points[1].y + windowTopMargin,
-              points[7].x,
+              points[7].x + windowLeftMargin,
               points[7].y + windowTopMargin
             ]}
             stroke="black"
@@ -327,9 +327,9 @@ const Elevator = ({ match, history }) => {
           {/* bottom lines */}
           <Line
             points={[
-              points[6].x,
+              points[6].x + windowLeftMargin,
               points[6].y + windowTopMargin,
-              points[7].x,
+              points[7].x + windowLeftMargin,
               points[7].y + windowTopMargin
             ]}
             stroke="black"
@@ -337,9 +337,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[4].x,
+              points[4].x + windowLeftMargin,
               points[4].y + windowTopMargin,
-              points[5].x,
+              points[5].x + windowLeftMargin,
               points[5].y + windowTopMargin
             ]}
             stroke="black"
@@ -347,9 +347,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[4].x,
+              points[4].x + windowLeftMargin,
               points[4].y + windowTopMargin,
-              points[6].x,
+              points[6].x + windowLeftMargin,
               points[6].y + windowTopMargin
             ]}
             stroke="black"
@@ -357,9 +357,9 @@ const Elevator = ({ match, history }) => {
           />
           <Line
             points={[
-              points[5].x,
+              points[5].x + windowLeftMargin,
               points[5].y + windowTopMargin,
-              points[7].x,
+              points[7].x + windowLeftMargin,
               points[7].y + windowTopMargin
             ]}
             stroke="black"

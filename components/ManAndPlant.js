@@ -59,7 +59,7 @@ class ManAndPlant extends React.Component {
         onTouchMove={(e) => {
           this.handleMouseMove(e.changedTouches[0]);
         }}
-        onClick={() => SoundPlayer.playSound("/sounds/voidClick.mp3")}
+        onClick={() => SoundPlayer.playSound("/sounds/silentClick.mp3")}
       >
         <ScrollTop />
         <Stage
