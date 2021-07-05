@@ -10,6 +10,7 @@ import {
   windowTopMargin
 } from "./utils/screen.js";
 import { MusicPlayer } from "./sound/MusicPlayer";
+import { VoicePlayer } from "./sound/VoicePlayer";
 
 const Reception = ({ history }) => {
   const [addX, setAddX] = React.useState(0);
@@ -34,6 +35,7 @@ const Reception = ({ history }) => {
             y={addY}
             width={windowWidth / 3}
             onClick={() => {
+              VoicePlayer.playVoice("/voice/felin.mp3");
               history.push("/frontdesk");
             }}
           />

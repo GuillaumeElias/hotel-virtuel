@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { SoundPlayer } from "./SoundPlayer";
 import { Synth } from "./Synth";
 import { MusicPlayer } from "./MusicPlayer";
+import { VoicePlayer } from "./VoicePlayer";
 
 const StyledDiv = styled.div`
   background: #ffffff;
@@ -72,6 +73,7 @@ const MusicPlayerUI = ({ url }) => {
     var volume = parseFloat(newValue / 100);
     MusicPlayer.setVolume(volume);
     SoundPlayer.setVolume(volume);
+    VoicePlayer.setVolume(volume);
     Synth.setVolume(volume);
   };
 

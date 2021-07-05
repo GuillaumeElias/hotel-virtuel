@@ -4,6 +4,7 @@ import Konva from "konva";
 
 import { windowWidth } from "./utils/screen.js";
 import { MusicPlayer } from "./sound/MusicPlayer";
+import { VoicePlayer } from "./sound/VoicePlayer";
 
 const divStyle = {
   display: "block"
@@ -60,6 +61,7 @@ const Home = () => {
             MusicPlayer.setMusic(
               "https://hotelvirtuel.space/sound/HotelVirtuel_0.mp3"
             );
+            VoicePlayer.playVoice("/voice/bienvenue.mp3");
           }}
           silent
         />

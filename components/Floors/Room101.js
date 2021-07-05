@@ -39,7 +39,7 @@ const Room101 = ({ history }) => {
   };
 
   const handleDragStart = (e) => {
-    SoundPlayer.playSound("/sounds/click.mp3");
+    SoundPlayer.playSound("/sounds/silentClick.mp3");
 
     const id = e.target.id();
     setObjects(

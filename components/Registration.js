@@ -9,7 +9,7 @@ import { uploadImage } from "./utils/ImageUploader";
 
 const Registration = ({ history }) => {
   let width = windowWidth;
-  let height = window.innerHeight / 2;
+  let height = window.innerHeight / 2.2;
 
   const [state, dispatch] = useGlobalState();
 
