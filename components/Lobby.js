@@ -7,6 +7,8 @@ import BackButton from "./ui/BackButton";
 
 import { windowTopMargin, windowWidth } from "./utils/screen.js";
 
+import { VoicePlayer } from "./sound/VoicePlayer";
+
 const Lobby = ({ history }) => {
   return (
     <div>
@@ -22,6 +24,7 @@ const Lobby = ({ history }) => {
             y={0}
             width={windowWidth / 1.5}
             onClick={() => {
+              VoicePlayer.playVoice("/voice/bar.mp3");
               history.push("/bar");
             }}
           />
@@ -31,6 +34,7 @@ const Lobby = ({ history }) => {
             y={windowWidth / 3}
             width={windowWidth / 4.2}
             onClick={() => {
+              VoicePlayer.playVoice("/voice/hommeSeul.mp3");
               history.push("/manandplant");
             }}
           />
@@ -40,6 +44,7 @@ const Lobby = ({ history }) => {
             y={windowWidth / 3}
             width={windowWidth / 3}
             onClick={() => {
+              VoicePlayer.playVoice("/voice/arrosoir.mp3");
               history.push("/plant");
             }}
           />

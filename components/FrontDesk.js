@@ -9,6 +9,7 @@ import BackButton from "./ui/BackButton";
 
 import { windowWidth } from "./utils/screen.js";
 import { SoundPlayer } from "./sound/SoundPlayer";
+import { VoicePlayer } from "./sound/VoicePlayer";
 
 const imgY = windowWidth / 5;
 const imgX = windowWidth * 0.2;
@@ -112,6 +113,7 @@ const FrontDesk = ({ history }) => {
         src="images/frontdesk/frontdeskguy.png"
         onClick={() => {
           SoundPlayer.playSound("/sounds/click.mp3");
+          VoicePlayer.playVoice("/voice/felin.mp3");
           history.push("/registration");
         }}
         map={{

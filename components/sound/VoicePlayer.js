@@ -9,8 +9,6 @@ export const VoicePlayer = {
     if (this.loadedVoices.has(url)) {
       this.currentVoice = this.loadedVoices.get(url);
       if (this.currentVoice.loaded) {
-        /*this.currentVoice.currentTime = 0;
-        this.currentVoice.play();*/
         console.log("voice already played");
         return;
       }
@@ -42,21 +40,26 @@ export const VoicePlayer = {
     this.audioVolumeIn(this.currentVoice, this.volume);
 
     this.currentVoice.addEventListener("canplaythrough", (event) => {
-      //this.currentVoice.play();
       this.currentVoice.loaded = true;
     });
   },
 
   audioVolumeIn: function (a, maxVolume) {
     if (a.volume) {
+      if (this.fadeIn) {
+        clearInterval(this.fadeIn);
+        this.fadeIn = null;
+      }
+
       var InT = 0;
-      var speed = 0.02; // Rate of increase
+      var speed = 0.06; // Rate of increase
       a.volume = InT;
-      var eAudio = setInterval(function () {
+      this.fadeIn = setInterval(() => {
         InT += speed;
         let newVolume = InT.toFixed(2);
         if (newVolume >= maxVolume) {
-          clearInterval(eAudio);
+          clearInterval(this.fadeIn);
+          this.fadeIn = null;
         } else {
           a.volume = newVolume;
         }
@@ -69,11 +72,11 @@ export const VoicePlayer = {
       var InT = a.volume;
       var speed = 0.06; // Rate of decrease
       a.volume = InT;
-      var eAudio = setInterval(function () {
+      this.fadeOut = setInterval(() => {
         InT -= speed;
         let newVolume = InT.toFixed(2);
         if (newVolume <= 0.01) {
-          clearInterval(eAudio);
+          clearInterval(this.fadeOut);
           a.pause();
           atEnd();
         } else {

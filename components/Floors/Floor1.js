@@ -5,6 +5,7 @@ import CanvasImage from "../ui/CanvasImage";
 import ScrollTop from "../utils/ScrollTop.js";
 
 import { windowWidth } from "../utils/screen.js";
+import { VoicePlayer } from "../sound/VoicePlayer";
 
 const Floor1 = ({ history }) => (
   <div>
@@ -17,6 +18,7 @@ const Floor1 = ({ history }) => (
           y={0}
           width={windowWidth * 0.3}
           onClick={() => {
+            VoicePlayer.playVoice("/voice/chambre.mp3");
             history.push("/room/101");
           }}
         />
@@ -34,6 +36,7 @@ const Floor1 = ({ history }) => (
           y={windowWidth * 0.4}
           width={windowWidth * 0.2}
           onClick={() => {
+            VoicePlayer.playVoice("/voice/cageMetallique.mp3");
             history.push("/elevator/1");
           }}
         />
@@ -43,6 +46,7 @@ const Floor1 = ({ history }) => (
           y={windowWidth * 0.4}
           width={windowWidth * 0.3}
           onClick={() => {
+            VoicePlayer.playVoice("/voice/escalierMagnetique.mp3");
             history.push("/escalator/1");
           }}
         />

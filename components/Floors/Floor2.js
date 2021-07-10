@@ -5,6 +5,7 @@ import CanvasImage from "../ui/CanvasImage";
 import ScrollTop from "../utils/ScrollTop.js";
 
 import { windowWidth } from "../utils/screen.js";
+import { VoicePlayer } from "../sound/VoicePlayer";
 
 const Floor3 = ({ history }) => (
   <div>
@@ -41,6 +42,7 @@ const Floor3 = ({ history }) => (
           y={windowWidth * 0.34}
           width={windowWidth * 0.18}
           onClick={() => {
+            VoicePlayer.playVoice("/voice/sortezDIci.mp3");
             history.push("/room/janitor");
           }}
         />
