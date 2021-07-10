@@ -10,6 +10,7 @@ import BackButton from "./ui/BackButton";
 import { windowWidth } from "./utils/screen.js";
 import { SoundPlayer } from "./sound/SoundPlayer";
 import { VoicePlayer } from "./sound/VoicePlayer";
+import { Synth } from "./sound/Synth";
 
 const imgY = windowWidth / 5;
 const imgX = windowWidth * 0.2;
@@ -65,13 +66,20 @@ const FrontDesk = ({ history }) => {
           width={windowWidth / 2}
           imgWidth={446}
           src="images/frontdesk/frontdeskguy_registered.png"
-          onClick={() => {
-            SoundPlayer.playSound("/sounds/click.mp3");
-            history.push("/registration");
+          onClick={(e) => {
+            if (e.coords[0] === 384) {
+              Synth.playShortNote();
+            } else {
+              SoundPlayer.playSound("/sounds/click.mp3");
+              history.push("/registration");
+            }
           }}
           map={{
             name: "register",
-            areas: [{ href: "#", coords: [252, 243, 173, 142], shape: "rect" }]
+            areas: [
+              { href: "#", coords: [252, 243, 173, 142], shape: "rect" },
+              { href: "#", coords: [384, 175, 329, 146], shape: "rect" }
+            ]
           }}
           onMouseEnter={() => {}}
         />
@@ -111,14 +119,21 @@ const FrontDesk = ({ history }) => {
         width={windowWidth * imgRatio}
         imgWidth={446}
         src="images/frontdesk/frontdeskguy.png"
-        onClick={() => {
-          SoundPlayer.playSound("/sounds/click.mp3");
-          VoicePlayer.playVoice("/voice/felin.mp3");
-          history.push("/registration");
+        onClick={(e) => {
+          if (e.coords[0] === 384) {
+            Synth.playShortNote();
+          } else {
+            SoundPlayer.playSound("/sounds/click.mp3");
+            VoicePlayer.playVoice("/voice/felin.mp3");
+            history.push("/registration");
+          }
         }}
         map={{
           name: "register",
-          areas: [{ href: "#", coords: [63, 62, 143, 167], shape: "rect" }]
+          areas: [
+            { href: "#", coords: [63, 62, 143, 167], shape: "rect" },
+            { href: "#", coords: [384, 175, 329, 146], shape: "rect" }
+          ]
         }}
       />
     </div>
