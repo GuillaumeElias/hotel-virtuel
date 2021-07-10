@@ -20,8 +20,8 @@ const StyledDiv = styled.div`
   right: 0;
   width: 100px;
   border-radius: 5px;
-  padding: 10px;
-  border: 1px solid #ccc !important;
+  padding: 0px;
+  border: 0px solid #ccc !important;
   z-index: 2;
 `;
 
@@ -79,7 +79,6 @@ const MusicPlayerUI = ({ url }) => {
 
   return (
     <StyledDiv>
-      <button onClick={() => MusicPlayer.togglePlaying()}>Play/Pause</button>
       <Grid container spacing={1}>
         <Grid item>
           <VolumeDown style={iconStyle} />

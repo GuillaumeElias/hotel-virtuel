@@ -1,7 +1,11 @@
 import React from "react";
 import Img from "./ui/Img";
 
-import { windowWidth, windowLeftMargin } from "./utils/screen.js";
+import {
+  windowWidth,
+  windowLeftMargin,
+  windowTopMargin
+} from "./utils/screen.js";
 
 import BackButton from "./ui/BackButton";
 
@@ -35,12 +39,17 @@ const Bar = ({ history }) => {
   const onMouseMove = (e) => {
     if (bottlePickedUp) {
       setBottleX(e.pageX - windowLeftMargin - bottleWidth / 2);
-      setBottleY(e.pageY - bottleWidth);
+      setBottleY(e.pageY - bottleWidth - windowTopMargin);
     }
   };
 
   return (
-    <BarDivStyle onMouseMove={onMouseMove}>
+    <BarDivStyle
+      onMouseMove={onMouseMove}
+      onTouchMove={(e) => {
+        onMouseMove(e.touches[0]);
+      }}
+    >
       <img
         style={divStyle}
         alt=""
