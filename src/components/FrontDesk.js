@@ -35,6 +35,7 @@ const FrontDesk = ({ history }) => {
   const [state] = useGlobalState();
   const imageMapper = React.useRef();
   const [imgRatio, setImgRatio] = React.useState(0.1);
+  const [hoveredCatImage, setHoveredCatImage] = React.useState(false);
 
   React.useEffect(() => {
     const anim = new Konva.Animation((frame) => {
@@ -57,7 +58,6 @@ const FrontDesk = ({ history }) => {
 
     const computeArea = (e) => {
       let area = imageMapper.current.state.map.areas[0];
-      e.nativeEvent.target = area;
       return area;
     };
 
@@ -83,7 +83,8 @@ const FrontDesk = ({ history }) => {
               { href: "#", coords: [384, 175, 329, 146], shape: "rect" }
             ]
           }}
-          onMouseEnter={() => {}}
+          onMouseEnter={(e) => { if(e.coords[0] == 252) setHoveredCatImage(true) }}
+          onMouseLeave={(e) => { if(e.coords[0] == 252) console.log(e); setHoveredCatImage(false) }}
         />
         <img
           alt=""
@@ -93,7 +94,7 @@ const FrontDesk = ({ history }) => {
             SoundPlayer.playSound("/sounds/click.mp3");
             history.push("/registration");
           }}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer" , opacity: hoveredCatImage ? 0.5 : 1}}
           onMouseEnter={(e) => {
             if (imageMapper.current) {
               let area = computeArea(e);
