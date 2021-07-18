@@ -7,7 +7,8 @@ import ScrollTop from "./utils/ScrollTop.js";
 import {
   windowWidth,
   windowLeftMargin,
-  windowTopMargin
+  windowTopMargin,
+  computeElementY
 } from "./utils/screen.js";
 import { MusicPlayer } from "./sound/MusicPlayer";
 import { VoicePlayer } from "./sound/VoicePlayer";
@@ -32,7 +33,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/frontdesk"
             x={0 + addX}
-            y={addY}
+            y={computeElementY(446, 313, windowWidth / 3, 1) + addY}
             width={windowWidth / 3}
             onClick={() => {
               history.push("/frontdesk");
@@ -41,7 +42,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/lobby"
             x={windowWidth / 2 + addX / 3}
-            y={addY / 3}
+            y={computeElementY(544, 502, windowWidth / 3, 1) + addY}
             width={windowWidth / 3}
             onClick={() => {
               history.push("/lobby");
@@ -50,7 +51,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/elevator"
             x={10 + addX / 3}
-            y={window.innerHeight / 2 + addY / 3}
+            y={computeElementY(544, 502, windowWidth / 3, 3) + addY}
             width={windowWidth / 4}
             onClick={() => {
               VoicePlayer.playVoice("/voice/cageMetallique.mp3");
@@ -60,7 +61,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/escalator"
             x={windowWidth / 2 + addX / 2}
-            y={window.innerHeight / 2 + addY / 2}
+            y={computeElementY(544, 502, windowWidth / 3, 3) + addY}
             width={windowWidth / 3.2}
             onClick={() => {
               VoicePlayer.playVoice("/voice/escalierMagnetique.mp3");

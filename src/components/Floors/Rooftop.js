@@ -6,7 +6,7 @@ import CanvasImage from "../ui/CanvasImage";
 import BackButton from "../ui/BackButton";
 
 import * as boids from "../utils/boids";
-import { windowTopMargin } from "../utils/screen";
+import { windowHeight, windowTopMargin } from "../utils/screen";
 import { MusicPlayer } from "../sound/MusicPlayer";
 import { VoicePlayer } from "../sound/VoicePlayer";
 
@@ -169,7 +169,7 @@ class Rooftop extends React.Component {
       VoicePlayer.playWord("/voice/words/oiseau.mp3");
     } else if (e.pageY < window.innerHeight * 0.6) {
       VoicePlayer.playWord("/voice/words/maison.mp3");
-    } else {
+    } else if( e.pageY < windowHeight - 50){
       VoicePlayer.playWord("/voice/words/arbre.mp3");
     }
   };
