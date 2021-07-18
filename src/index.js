@@ -27,6 +27,20 @@ import MusicPlayerUI from "./components/sound/MusicPlayerUI.js";
 import "./style.css";
 
 const BaseRoute = () => {
+  const [resize, setResize] = React.useState({})
+
+  React.useEffect(() => {
+    function handleResize() {
+      setResize({})
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return _ => {
+      window.removeEventListener('resize', handleResize);
+    }
+  })
+
   return (
     <GlobalStateProvider>
       <BrowserRouter>
