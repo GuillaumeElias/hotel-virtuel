@@ -1,0 +1,20 @@
+h1,
+p {
+  font-family: Lato;
+}
+
+#root {
+  overflow-x: hidden;
+}
+
+#content {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+}
+
+@media (max-width: 500px) and (min-height: 600px) {
+  #content {
+    margin-top: 100px;
+  }
+}
