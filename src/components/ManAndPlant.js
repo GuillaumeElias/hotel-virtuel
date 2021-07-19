@@ -8,7 +8,8 @@ import ScrollTop from "./utils/ScrollTop.js";
 import {
   windowWidth,
   windowLeftMargin,
-  windowTopMargin
+  windowTopMargin,
+  windowHeight
 } from "./utils/screen.js";
 import { SoundPlayer } from "./sound/SoundPlayer";
 
@@ -55,7 +56,7 @@ class ManAndPlant extends React.Component {
   render() {
     return (
       <div 
-        style={{overflowY: 'hidden'}}
+        style={{overflow: 'hidden', marginLeft: -windowLeftMargin}}
         onMouseMove={this.handleMouseMove}
         onTouchMove={(e) => {
           this.handleMouseMove(e.changedTouches[0]);
@@ -64,8 +65,8 @@ class ManAndPlant extends React.Component {
       >
         <ScrollTop />
         <Stage
-          width={windowWidth}
-          height={window.innerHeight * 0.8 - windowTopMargin}
+          width={window.innerWidth}
+          height={windowHeight}
         >
           <Layer ref={(node) => (this.layer = node)}>
             <CanvasImage

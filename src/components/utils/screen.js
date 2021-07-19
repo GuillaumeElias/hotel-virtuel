@@ -31,3 +31,7 @@ export const computeElementY = (originalWidth, originalHeight, width, row) => {
   
   return (windowHeight / 4) * row - height / 2;
 }
+
+export const computeElementX = (width, column) => {  
+  return (windowWidth / 4) * column - width / 2;
+}

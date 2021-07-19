@@ -43,6 +43,7 @@ export const VoicePlayer = {
 
     this.currentVoice = new Audio(url);
     this.loadedVoices.set(url, this.currentVoice);
+    this.currentVoice.volume = this.volume;
     this.currentVoice.autoplay = true;
 
     this.currentVoice.addEventListener("canplaythrough", (event) => {

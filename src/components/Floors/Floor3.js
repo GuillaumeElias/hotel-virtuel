@@ -4,7 +4,7 @@ import { Stage, Layer } from "react-konva";
 import CanvasImage from "../ui/CanvasImage";
 import ScrollTop from "../utils/ScrollTop.js";
 
-import { computeElementY, windowHeight, windowWidth } from "../utils/screen.js";
+import { computeElementX, computeElementY, windowHeight, windowWidth } from "../utils/screen.js";
 import { MusicPlayer } from "../sound/MusicPlayer";
 import { VoicePlayer } from "../sound/VoicePlayer";
 
@@ -23,14 +23,14 @@ const Floor3 = ({ history }) => {
         <Layer>
           <CanvasImage
             src="/images/floor3/room301"
-            x={windowWidth / 8}
+            x={computeElementX(windowWidth * 0.25, 1)}
             y={computeElementY(834, 1040, windowWidth * 0.25, 1)}
             width={windowWidth * 0.25}
           />
 
           <CanvasImage
             src="/images/floor3/room302"
-            x={windowWidth / 2}
+            x={computeElementX(windowWidth * 0.25, 3)}
             y={computeElementY(834, 1040, windowWidth * 0.25, 1)}
             width={windowWidth * 0.25}
             onClick={() => {
@@ -41,7 +41,7 @@ const Floor3 = ({ history }) => {
 
           <CanvasImage
             src="/images/elevator"
-            x={windowWidth / 8}
+            x={computeElementX(windowWidth * 0.18, 1)}
             y={computeElementY(612, 1006, windowWidth * 0.18, 3)}
             width={windowWidth * 0.18}
             onClick={() => {
@@ -52,7 +52,7 @@ const Floor3 = ({ history }) => {
           <CanvasImage
             ref={trapDoorRef}
             src="/images/floor3/trapdoor"
-            x={windowWidth / 2}
+            x={computeElementX(windowWidth * 0.18, 3)}
             y={computeElementY(393, 341, windowWidth * 0.18, 3)}
             width={windowWidth * 0.18}
             onClick={(e) => {

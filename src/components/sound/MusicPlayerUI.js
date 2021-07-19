@@ -83,7 +83,7 @@ const MusicPlayerUI = ({ url }) => {
     <StyledDiv>
       <Grid container spacing={1}>
         <Grid item>
-          <VolumeDown style={iconStyle} />
+          <VolumeDown style={iconStyle} onClick={() => setMusicVolume(musicVolume - 1)}/>
         </Grid>
         <Grid item xs>
           <VolumeSlider
@@ -95,7 +95,7 @@ const MusicPlayerUI = ({ url }) => {
           />
         </Grid>
         <Grid item>
-          <VolumeUp style={iconStyle} />
+          <VolumeUp style={iconStyle} onClick={() => setMusicVolume(musicVolume + 1)}/>
         </Grid>
       </Grid>
     </StyledDiv>

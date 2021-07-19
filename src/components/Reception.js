@@ -8,7 +8,8 @@ import {
   windowWidth,
   windowLeftMargin,
   windowTopMargin,
-  computeElementY
+  computeElementY,
+  computeElementX
 } from "./utils/screen.js";
 import { MusicPlayer } from "./sound/MusicPlayer";
 import { VoicePlayer } from "./sound/VoicePlayer";
@@ -32,7 +33,7 @@ const Reception = ({ history }) => {
         <Layer>
           <CanvasImage
             src="/images/frontdesk"
-            x={0 + addX}
+            x={computeElementX(windowWidth / 3, 1) + addX}
             y={computeElementY(446, 313, windowWidth / 3, 1) + addY}
             width={windowWidth / 3}
             onClick={() => {
@@ -41,7 +42,7 @@ const Reception = ({ history }) => {
           />
           <CanvasImage
             src="/images/lobby"
-            x={windowWidth / 2 + addX / 3}
+            x={computeElementX(windowWidth / 3, 3) + addX}
             y={computeElementY(544, 502, windowWidth / 3, 1) + addY}
             width={windowWidth / 3}
             onClick={() => {
@@ -50,8 +51,8 @@ const Reception = ({ history }) => {
           />
           <CanvasImage
             src="/images/elevator"
-            x={10 + addX / 3}
-            y={computeElementY(544, 502, windowWidth / 3, 3) + addY}
+            x={computeElementX(windowWidth / 4, 1) + addX}
+            y={computeElementY(544, 502, windowWidth / 4, 3) + addY}
             width={windowWidth / 4}
             onClick={() => {
               VoicePlayer.playVoice("/voice/cageMetallique.mp3");
@@ -60,8 +61,8 @@ const Reception = ({ history }) => {
           />
           <CanvasImage
             src="/images/escalator"
-            x={windowWidth / 2 + addX / 2}
-            y={computeElementY(544, 502, windowWidth / 3, 3) + addY}
+            x={computeElementX(windowWidth / 3.2, 3) + addX}
+            y={computeElementY(544, 502, windowWidth / 3.2, 3) + addY}
             width={windowWidth / 3.2}
             onClick={() => {
               VoicePlayer.playVoice("/voice/escalierMagnetique.mp3");
@@ -70,7 +71,7 @@ const Reception = ({ history }) => {
           />
           <CanvasImage
             src="/images/exit"
-            x={10}
+            x={computeElementX(windowWidth / 6, 1) + addX}
             y={window.innerHeight}
             width={windowWidth / 6}
             onClick={() => {
