@@ -6,6 +6,7 @@ import { useGlobalState } from "./utils/GlobalState";
 
 import { windowWidth } from "./utils/screen.js";
 import { uploadImage } from "./utils/ImageUploader";
+import { SoundPlayer } from "./sound/SoundPlayer";
 
 const Registration = ({ history }) => {
   let width = windowWidth;
@@ -20,7 +21,7 @@ const Registration = ({ history }) => {
   }, []);
 
   return (
-    <div>
+    <div onKeyDown={() => SoundPlayer.playSound("/sounds/silentClick.mp3")}>
       <table>
         <tbody>
           <tr>
