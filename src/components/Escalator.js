@@ -10,13 +10,15 @@ import { SoundPlayer } from "./sound/SoundPlayer";
 import {
   windowWidth,
   windowLeftMargin,
-  windowTopMargin
+  windowTopMargin,
+  windowHeight
 } from "./utils/screen.js";
 
 class Escalator extends React.Component {
   aimedPosX = 0;
   floorNb = 0;
   nextFloorNb = 0;
+  topY = windowHeight / 2 - 456 / 2;
 
   constructor(props) {
     super(props);
@@ -40,7 +42,12 @@ class Escalator extends React.Component {
     this.aimedPosY = this.state.characterY;
   }
 
+  componentDidUpdate() {
+    this.topY = windowHeight / 2 - 456 / 2;
+  }
+
   componentDidMount() {
+
     this.anim = new Konva.Animation((frame) => {
       let deltaX = this.aimedPosX - this.state.characterX;
 
@@ -103,27 +110,27 @@ class Escalator extends React.Component {
           <Layer>
             <CanvasImage
               x={windowWidth * 0.1}
-              y={0}
+              y={this.topY}
               width={windowWidth * 0.8}
               src="/images/escalator"
             />
 
             <CanvasImage
               x={this.state.characterX}
-              y={this.state.characterY}
+              y={this.topY + this.state.characterY}
               width={windowWidth / 15}
               src="/images/escalator/character"
             />
 
             <Text
               x={windowWidth * 0.18}
-              y={windowWidth * 0.35}
+              y={this.topY + windowWidth * 0.35}
               text={this.floorNb}
             />
 
             <Text
               x={windowWidth * 0.65}
-              y={windowWidth * 0.06}
+              y={this.topY + windowWidth * 0.06}
               text={this.nextFloorNb}
             />
           </Layer>

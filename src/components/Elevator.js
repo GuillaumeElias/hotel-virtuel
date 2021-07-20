@@ -6,7 +6,8 @@ import { Stage, Layer, Circle, Text, Line } from "react-konva";
 import {
   windowWidth,
   windowLeftMargin,
-  windowTopMargin
+  windowTopMargin,
+  windowHeight
 } from "./utils/screen.js";
 import UrlImg from "./ui/UrlImg.js";
 import CanvasImage from "./ui/CanvasImage.js";
@@ -105,27 +106,42 @@ const circle3Y = windowWidth * 0.45;
 const Elevator = ({ match, history }) => {
   const floorNb = parseInt(match.params.floorNb, 10);
 
+  const topY = window.innerHeight * 0.46 - (exteriorBottomY - exteriorTopY) / 2;
+
+  const initCircles = [
+    { x: circlesX, y: circle0Y + topY, active: floorNb === 3 },
+    { x: circlesX, y: circle1Y + topY, active: floorNb === 2 },
+    { x: circlesX, y: circle2Y + topY, active: floorNb === 1 },
+    { x: circlesX, y: circle3Y + topY, active: floorNb === 0 }
+  ];
+
+  const initPoints = [
+    { x: exteriorLeftX, y: exteriorTopY + topY},
+    { x: exteriorRightX, y: exteriorTopY + topY},
+    { x: interiorLeftX, y: interiorTopY + topY},
+    { x: interiorRightX, y: interiorTopY + topY},
+    { x: interiorLeftX, y: interiorBottomY + topY},
+    { x: interiorRightX, y: interiorBottomY + topY},
+    { x: exteriorLeftX, y: exteriorBottomY + topY},
+    { x: exteriorRightX, y: exteriorBottomY + topY}
+  ];
+
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
-  const [circles, setCircles] = React.useState([
-    { x: circlesX, y: circle0Y, active: floorNb === 3 },
-    { x: circlesX, y: circle1Y, active: floorNb === 2 },
-    { x: circlesX, y: circle2Y, active: floorNb === 1 },
-    { x: circlesX, y: circle3Y, active: floorNb === 0 }
-  ]);
+  const [circles, setCircles] = React.useState(initCircles);
   const [buttonsPos, setButtonsPos] = React.useState({
     x: initButtonsPosX,
     y: initButtonsPosY
   });
-  const [points, setPoints] = React.useState([
-    { x: exteriorLeftX, y: exteriorTopY },
-    { x: exteriorRightX, y: exteriorTopY },
-    { x: interiorLeftX, y: interiorTopY },
-    { x: interiorRightX, y: interiorTopY },
-    { x: interiorLeftX, y: interiorBottomY },
-    { x: interiorRightX, y: interiorBottomY },
-    { x: exteriorLeftX, y: exteriorBottomY },
-    { x: exteriorRightX, y: exteriorBottomY }
-  ]);
+  const [points, setPoints] = React.useState(initPoints);
+
+  React.useEffect(() => { //re-renders if window size changes
+    setPoints(initPoints);
+    setCircles(initCircles);
+    setButtonsPos({
+      x: initButtonsPosX,
+      y: initButtonsPosY
+    });
+  },[topY]);
 
   const onMouseMove = (e) => {
     setMousePos({ x: e.pageX - windowLeftMargin, y: e.pageY });
@@ -133,21 +149,21 @@ const Elevator = ({ match, history }) => {
     let addX = (e.pageX - windowLeftMargin - windowWidth / 2) / 5;
     let addY = (e.pageY - window.innerHeight / 2) / 5;
     setPoints([
-      { x: exteriorLeftX, y: exteriorTopY },
-      { x: exteriorRightX, y: exteriorTopY },
-      { x: interiorLeftX + addX, y: interiorTopY + addY },
-      { x: interiorRightX + addX, y: interiorTopY + addY },
-      { x: interiorLeftX + addX, y: interiorBottomY + addY },
-      { x: interiorRightX + addX, y: interiorBottomY + addY },
-      { x: exteriorLeftX, y: exteriorBottomY },
-      { x: exteriorRightX, y: exteriorBottomY }
+      { x: exteriorLeftX, y: exteriorTopY + topY },
+      { x: exteriorRightX, y: exteriorTopY+ topY },
+      { x: interiorLeftX + addX, y: interiorTopY + addY + topY},
+      { x: interiorRightX + addX, y: interiorTopY + addY + topY},
+      { x: interiorLeftX + addX, y: interiorBottomY + addY + topY},
+      { x: interiorRightX + addX, y: interiorBottomY + addY + topY},
+      { x: exteriorLeftX, y: exteriorBottomY + topY},
+      { x: exteriorRightX, y: exteriorBottomY + topY}
     ]);
 
     setCircles([
-      { x: circlesX + addX, y: circle0Y + addY, active: floorNb === 3 },
-      { x: circlesX + addX, y: circle1Y + addY, active: floorNb === 2 },
-      { x: circlesX + addX, y: circle2Y + addY, active: floorNb === 1 },
-      { x: circlesX + addX, y: circle3Y + addY, active: floorNb === 0 }
+      { x: circlesX + addX, y: circle0Y + addY + topY, active: floorNb === 3 },
+      { x: circlesX + addX, y: circle1Y + addY + topY, active: floorNb === 2 },
+      { x: circlesX + addX, y: circle2Y + addY + topY, active: floorNb === 1 },
+      { x: circlesX + addX, y: circle3Y + addY + topY, active: floorNb === 0 }
     ]);
 
     setButtonsPos({ x: initButtonsPosX + addX, y: initButtonsPosY + addY });
@@ -176,9 +192,10 @@ const Elevator = ({ match, history }) => {
     >
       <Stage width={window.innerWidth} height={window.innerHeight - 20}>
         <Layer zIndex={1}>
+
           <Text
             x={windowLeftMargin + buttonsPos.x + buttonBoxWidth / 2 - 10}
-            y={windowTopMargin + buttonsPos.y - windowWidth / 40}
+            y={windowTopMargin + topY + buttonsPos.y - windowWidth / 40}
             fontFamily="courier"
             fill="green"
             shadowColor="black"
@@ -190,7 +207,7 @@ const Elevator = ({ match, history }) => {
 
           <UrlImg
             x={windowLeftMargin + buttonsPos.x}
-            y={windowTopMargin + buttonsPos.y}
+            y={windowTopMargin + topY +buttonsPos.y}
             width={buttonBoxWidth}
             height={buttonBoxWidth * 1.4}
             src="/images/elevator/elevatorButtons.png"
@@ -198,7 +215,7 @@ const Elevator = ({ match, history }) => {
 
           <CanvasImage
             x={windowLeftMargin + buttonsPos.x + buttonBoxWidth + 10}
-            y={windowTopMargin + buttonsPos.y + buttonBoxWidth + 10}
+            y={windowTopMargin + topY + buttonsPos.y + buttonBoxWidth + 10}
             width={buttonBoxWidth / 5}
             height={buttonBoxWidth / 5}
             src="/images/elevator/openDoors"
