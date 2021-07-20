@@ -14,7 +14,7 @@ class CanvasImage extends React.Component {
     sizeRatio: 0.2
   };
 
-  interval = 1000;
+  interval = 800;
   maxSizeRatio = 1;
   shrink = false;
 
@@ -123,10 +123,10 @@ class CanvasImage extends React.Component {
     this.imageNode.move(c);
   }
 
-  handleClick() {
+  handleClick(e) {
     if (this.props.onClick) {
       SoundPlayer.playSound("/sounds/click.mp3");
-      this.props.onClick();
+      this.props.onClick(e);
     } else {
       SoundPlayer.playSound("/sounds/voidClick.mp3");
     }
@@ -143,9 +143,9 @@ class CanvasImage extends React.Component {
         ref={(node) => {
           this.imageNode = node;
         }}
-        onClick={() => {
+        onClick={(e) => {
           if (this.state.sizeRatio >= 1.1) {
-            this.handleClick();
+            this.handleClick(e);
           }
         }}
         onTouchEnd={() => {

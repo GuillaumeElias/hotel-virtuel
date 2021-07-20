@@ -6,9 +6,10 @@ import CanvasImage from "../ui/CanvasImage";
 import BackButton from "../ui/BackButton";
 
 import * as boids from "../utils/boids";
-import { windowHeight, windowTopMargin } from "../utils/screen";
+import { windowHeight, windowTopMargin, windowWidth } from "../utils/screen";
 import { MusicPlayer } from "../sound/MusicPlayer";
 import { VoicePlayer } from "../sound/VoicePlayer";
+import { CollectionsBookmarkRounded } from "@material-ui/icons";
 
 class Rooftop extends React.Component {
   state = {
@@ -19,7 +20,8 @@ class Rooftop extends React.Component {
     height: 0,
     width: 0,
     mousePos: { x: 0, y: 0 },
-    birds: []
+    birds: [],
+    flyingGuy: {x: window.innerWidth * 1.4, y: 30}
   };
 
   interval = 1000;
@@ -27,7 +29,7 @@ class Rooftop extends React.Component {
   followDistance = window.innerWidth * 0.5;
 
   componentDidMount() {
-    window.addEventListener("focus", this.onWindowFocus);
+    window.addEventListener("resize", this.onWindowResize)
     this.loadImage();
   }
 
@@ -47,8 +49,7 @@ class Rooftop extends React.Component {
     this.image.addEventListener("load", this.handleLoad);
   }
 
-  handleLoad = () => {
-    //COMPUTE WIDTH & HEIGHT
+  computeWidthAndHeight = () => {
     let height = window.innerHeight - 50;
     let ratio = height / this.image.height;
 
@@ -57,6 +58,10 @@ class Rooftop extends React.Component {
       height,
       width
     });
+  }
+
+  handleLoad = () => {
+    this.computeWidthAndHeight();
 
     //START ANIMATION
     this.anim = new Konva.Animation((frame) => {
@@ -101,6 +106,7 @@ class Rooftop extends React.Component {
 
   tick() {
     this.moveBirds();
+    this.moveFlyingGuy();
   }
 
   lastThink = 0;
@@ -142,6 +148,21 @@ class Rooftop extends React.Component {
     this.setState({ birds });
   };
 
+  moveFlyingGuy = () => {
+
+    let addY = Math.random() * 10 - 5;
+    if(this.state.flyingGuy && (
+      this.state.flyingGuy.y + addY < 0 
+      || this.state.flyingGuy.y + addY > window.innerHeight - 50)){
+      addY = -addY;
+    }
+
+    this.setState({flyingGuy: {
+      x: (this.state.flyingGuy.x + 3 ),
+      y: this.state.flyingGuy.y + addY
+    }})
+  };
+
   mouseMoved = (e) => {
     const centerX = window.innerWidth / 2;
     let vel = Math.abs(e.pageX - centerX) / 400;
@@ -162,6 +183,10 @@ class Rooftop extends React.Component {
     });
 
     this.birdsThink();
+
+    if(!MusicPlayer.currentMusic || MusicPlayer.currentMusic.paused){
+      MusicPlayer.setMusic("/music/OnTheRooftop.mp3");
+    }
   };
 
   handleClick = (e) => {
@@ -174,7 +199,9 @@ class Rooftop extends React.Component {
     }
   };
 
-  onWindowFocus() {}
+  onWindowResize = () => {
+    this.computeWidthAndHeight();
+  }
 
   render() {
     return (
@@ -206,12 +233,23 @@ class Rooftop extends React.Component {
               <CanvasImage
                 key={i}
                 src="/images/rooftop/bird"
-                x={this.state.birds[i].posX + this.state.viewAngle}
+                x={(this.state.birds[i].posX + this.state.viewAngle) % this.state.width}
                 y={this.state.birds[i].posY}
                 width={this.state.birds[i].size}
                 interval={this.state.birds[i].interval}
               />
             ))}
+
+            <CanvasImage
+                src="/images/rooftop/flyingguy"
+                x={(this.state.flyingGuy.x + this.state.viewAngle ) % this.state.width}
+                y={this.state.flyingGuy.y}
+                width={windowWidth / 12}
+                interval={300}
+                onClick={(e) => {
+                  e.target.attrs.width = e.target.attrs.width * 2;
+                }}
+              />
           </Layer>
         </Stage>
         <div style={{ position: "absolute", bottom: "8px", left: "8px" }}>
