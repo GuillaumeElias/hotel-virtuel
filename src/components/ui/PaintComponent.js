@@ -1,5 +1,7 @@
 import React from "react";
 import { Stage, Layer, Line } from "react-konva";
+import { SoundPlayer } from "../sound/SoundPlayer";
+import { Synth } from "../sound/Synth";
 
 const PaintComponent = ({
   x,
@@ -29,6 +31,7 @@ const PaintComponent = ({
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y] }]);
+    SoundPlayer.startDraw();
   };
 
   const handleMouseMove = (e) => {
@@ -53,10 +56,12 @@ const PaintComponent = ({
     if (!!onImageBuilt) {
       buildImage();
     }
+    SoundPlayer.stopDraw();
   };
 
   const clear = () => {
     setLines([]);
+    SoundPlayer.playSound("/sounds/dragEnd.mp3");
   };
 
   const buildImage = () => {
@@ -98,6 +103,7 @@ const PaintComponent = ({
             const container = e.target.getStage().container();
             container.style.cursor = "default";
           }
+          handleMouseUp();
         }}
       >
         <Layer>

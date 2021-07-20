@@ -39,6 +39,18 @@ export const Synth = {
     });
   },
 
+  playVeryShortNote: function (noteNb) {
+
+    const notes = ["A", "D", "C", "F"];
+    const note = notes[noteNb % 4];
+
+    const rndInt = Math.floor(Math.random() * 2) + 3;
+    this.synth.triggerAttackRelease(note + "" + rndInt, "128n");
+    this.synth.oscillator.set({
+      frequency: this.synth.oscillator.frequency.value * 0.98
+    });
+  },
+
   stopNote: function () {
     this.synth.triggerRelease();
   },
