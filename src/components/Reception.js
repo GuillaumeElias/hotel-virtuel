@@ -14,12 +14,44 @@ import {
 import { VoicePlayer } from "./sound/VoicePlayer";
 
 const Reception = ({ history }) => {
-  const [addX, setAddX] = React.useState(0);
-  const [addY, setAddY] = React.useState(0);
+  const [addX, setAddX] = React.useState(0.0);
+
+  const aimX = React.useRef();
+  const anim = React.useRef()
+  const prevTime = React.useRef();
+
+  const animate = time => {
+
+    if (prevTime.current == undefined) {
+      prevTime.current = time;
+    }
+
+    const timeDiff = time - prevTime.current;
+
+    if(aimX.current != null){
+      let deltaX = aimX.current - addX;
+      let valX = addX + Math.sign(deltaX) * (timeDiff / 30.0);
+
+      if  ((deltaX > 0 && valX >= aimX.current) 
+        || (deltaX < 0 && valX <= aimX.current)){
+        aimX.current = null;
+      }else{
+        setAddX( valX );
+      }     
+    }
+      
+    prevTime.current = time;
+    anim.current = requestAnimationFrame(animate);
+  }
+
+  React.useEffect(() => {
+    anim.current = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(anim.current);
+  }, [addX, aimX, prevTime]);
 
   const handleMouseMove = (e) => {
-    setAddX((e.pageX - windowLeftMargin) / 30);
-    setAddY((e.pageY - windowTopMargin ) / 30);
+    aimX.current = (e.pageX - windowLeftMargin) / 30;
   };
 
   return (
@@ -33,7 +65,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/frontdesk"
             x={computeElementX(windowWidth / 3, 1) + addX}
-            y={computeElementY(446, 313, windowWidth / 3, 1) + addY}
+            y={computeElementY(446, 313, windowWidth / 3, 1) - addX}
             width={windowWidth / 3}
             onClick={() => {
               history.push("/frontdesk");
@@ -42,7 +74,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/lobby"
             x={computeElementX(windowWidth / 3, 3) + addX}
-            y={computeElementY(544, 502, windowWidth / 3, 1) + addY}
+            y={computeElementY(544, 502, windowWidth / 3, 1)  - addX}
             width={windowWidth / 3}
             onClick={() => {
               history.push("/lobby");
@@ -51,7 +83,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/elevator"
             x={computeElementX(windowWidth / 4, 1) + addX}
-            y={computeElementY(544, 502, windowWidth / 4, 3) + addY}
+            y={computeElementY(544, 502, windowWidth / 4, 3)  - addX}
             width={windowWidth / 4}
             onClick={() => {
               VoicePlayer.playVoice("/voice/cageMetallique.mp3");
@@ -61,7 +93,7 @@ const Reception = ({ history }) => {
           <CanvasImage
             src="/images/escalator"
             x={computeElementX(windowWidth / 3.2, 3) + addX}
-            y={computeElementY(544, 502, windowWidth / 3.2, 3) + addY}
+            y={computeElementY(544, 502, windowWidth / 3.2, 3)}
             width={windowWidth / 3.2}
             onClick={() => {
               VoicePlayer.playVoice("/voice/escalierMagnetique.mp3");
