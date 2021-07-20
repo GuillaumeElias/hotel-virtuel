@@ -1,3 +1,5 @@
+import { MusicPlayer } from "./MusicPlayer";
+
 export const VoicePlayer = {
   currentVoice: null,
   volume: 1,
@@ -28,6 +30,10 @@ export const VoicePlayer = {
       });
     } else {
       this.doPlayVoice(url);
+    }
+
+    if(!MusicPlayer.currentMusic || MusicPlayer.currentMusic.paused){
+      MusicPlayer.setMusic("/music/HotelVirtuel_0.mp3");
     }
   },
 

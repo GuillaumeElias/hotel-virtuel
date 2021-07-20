@@ -45,7 +45,7 @@ export const Synth = {
     const note = notes[noteNb % 4];
 
     const rndInt = Math.floor(Math.random() * 2) + 3;
-    this.synth.triggerAttackRelease(note + "" + rndInt, "128n");
+    this.synth.triggerAttackRelease(note + "" + rndInt, "128n", undefined, 0.4);
     this.synth.oscillator.set({
       frequency: this.synth.oscillator.frequency.value * 0.98
     });

@@ -61,7 +61,7 @@ const Floor3 = ({ history }) => {
               for (let i = 1; i < 3; i += 0.1) {
                 setTimeout(() => {
                   if (trapDoorRef.current) {
-                    trapDoorRef.current.setState({ sizeRatio: i });
+                    trapDoorRef.current.setState({ sizeRatio: i});
                   }
                 }, i * 1000);
               }

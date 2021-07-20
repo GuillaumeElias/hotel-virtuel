@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Stage, Layer, Star } from "react-konva";
+import { Stage, Layer } from "react-konva";
 import CanvasImage from "./ui/CanvasImage";
 import ScrollTop from "./utils/ScrollTop.js";
 
@@ -11,35 +11,19 @@ import {
   computeElementY,
   computeElementX
 } from "./utils/screen.js";
-import { MusicPlayer } from "./sound/MusicPlayer";
 import { VoicePlayer } from "./sound/VoicePlayer";
-import { Synth } from "./sound/Synth";
 
 const Reception = ({ history }) => {
   const [addX, setAddX] = React.useState(0);
   const [addY, setAddY] = React.useState(0);
-
-  const [stars, setStars] = React.useState([]);
 
   const handleMouseMove = (e) => {
     setAddX((e.pageX - windowLeftMargin) / 30);
     setAddY((e.pageY - windowTopMargin ) / 30);
   };
 
-  const addStar = (e) => {
-    const newStars = [...stars];
-    newStars.push({
-      id: newStars.length,
-      x: e.pageX - windowLeftMargin - addX + 6,
-      y: e.pageY - windowTopMargin - addY - 6,
-      rotation: Math.random() * 360
-    })
-    setStars(newStars);
-    Synth.playVeryShortNote(newStars.length);
-  }
-
   return (
-    <div onMouseMove={handleMouseMove} onMouseUp={addStar}>
+    <div onMouseMove={handleMouseMove}>
       <ScrollTop />
       <Stage
         width={windowWidth}
@@ -93,20 +77,6 @@ const Reception = ({ history }) => {
               history.push("/");
             }}
           />
-          {stars.map((star) => (
-            <Star
-              key={star.id}
-              id={star.id}
-              x={star.x + addX}
-              y={star.y + addY}
-              numPoints={3}
-              innerRadius={2}
-              outerRadius={4}
-              fill="#000000"
-              opacity={0.7}
-              rotation={star.rotation}
-            />
-          ))}
         </Layer>
       </Stage>
     </div>

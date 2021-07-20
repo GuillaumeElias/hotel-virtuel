@@ -14,8 +14,6 @@ import {
 
 import { SoundPlayer } from "../sound/SoundPlayer";
 
-const bottomY = window.innerHeight - windowTopMargin;
-
 class Room302 extends React.Component {
   layer = null;
   gravity = 2;
@@ -23,6 +21,7 @@ class Room302 extends React.Component {
   velY = 0;
   inAir = true;
   decisionCounter = 1000;
+  bottomY = window.innerHeight - windowTopMargin;
 
   constructor(props) {
     super(props);
@@ -33,11 +32,17 @@ class Room302 extends React.Component {
     };
   }
 
+  componentDidUpdate(){
+    this.bottomY = window.innerHeight - windowTopMargin;
+  }
+
   componentDidMount() {
+
+
     this.anim = new Konva.Animation((frame) => {
       let newY = this.state.manY + this.velY + this.gravity;
 
-      if (newY + this.imgRef.state.height >= bottomY) {
+      if (newY + this.imgRef.state.height >= this.bottomY) {
         newY = this.state.manY;
         this.inAir = false;
       } else {

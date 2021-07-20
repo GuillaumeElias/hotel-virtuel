@@ -1,3 +1,5 @@
+import { MusicPlayer } from "./MusicPlayer";
+
 export const SoundPlayer = {
   currentSound: null,
   volume: 1,
@@ -26,6 +28,10 @@ export const SoundPlayer = {
       //this.currentSound.play();
       this.currentSound.loaded = true;
     });
+
+    if(!MusicPlayer.currentMusic || MusicPlayer.currentMusic.paused){
+      MusicPlayer.setMusic("/music/HotelVirtuel_0.mp3");
+    }
   },
 
   startDraw : function(){
