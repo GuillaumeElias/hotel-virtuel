@@ -23,6 +23,10 @@ const StyledDiv = styled.div`
   padding: 0px;
   border: 0px solid #ccc !important;
   z-index: 2;
+
+  @media (max-width: 1000px) {
+    width: 40%;
+  }
 `;
 
 const iconStyle = {
@@ -44,6 +48,11 @@ const VolumeSlider = withStyles({
     marginLeft: '-5',
     "&:focus, &:hover, &$active": {
       boxShadow: "inherit"
+    },
+    "@media (max-width: 1000px)": {
+      marginTop: '-8',
+      height: 20,
+      width: 20
     }
   },
   active: {},
@@ -53,12 +62,21 @@ const VolumeSlider = withStyles({
   track: {
     marginTop: '-4',
     height: '8',
-    borderRadius: 4
+    borderRadius: 4,
+    "@media (max-width: 1000px)": {
+      marginTop: '-6',
+      height: 15,
+      width: 15
+    }
   },
   rail: {
     marginTop: '-4',
     height: '8',
-    borderRadius: '4'
+    borderRadius: '4',
+    "@media (max-width: 1000px)": {
+      marginTop: '-6',
+      height: 15,
+    }
   }
 })(Slider);
 
