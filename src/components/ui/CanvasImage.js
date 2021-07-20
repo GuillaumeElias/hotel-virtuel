@@ -148,9 +148,9 @@ class CanvasImage extends React.Component {
             this.handleClick(e);
           }
         }}
-        onTouchEnd={() => {
+        onTouchEnd={(e) => {
           if (this.state.sizeRatio >= 1.0) {
-            this.handleClick();
+            this.handleClick(e);
           }
         }}
         onMouseEnter={(e) => {
