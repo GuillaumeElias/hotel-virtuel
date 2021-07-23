@@ -1,9 +1,14 @@
-const uploadImage = (imgData, name) => {
+const uploadImage = (imgData, forename, name) => {
+  
   if (!name) {
-    name = "" + new Date().getTime();
+    name = "";
   }
 
-  fetch("uploadImage.php", {
+  if(!forename){
+    forename = "";
+  }
+
+  fetch("https://localhost:3501/picture", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -11,7 +16,8 @@ const uploadImage = (imgData, name) => {
     },
     body: JSON.stringify({
       imageData: imgData,
-      name: name
+      name: name,
+      forename: forename,
     })
   });
 };

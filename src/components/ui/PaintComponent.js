@@ -27,7 +27,6 @@ const PaintComponent = ({
   const isDrawing = React.useRef(false);
 
   const handleMouseDown = (e) => {
-    console.log("mouseDown");
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y] }]);

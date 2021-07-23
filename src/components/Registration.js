@@ -14,11 +14,11 @@ const Registration = ({ history }) => {
 
   const [state, dispatch] = useGlobalState();
 
-  React.useEffect(() => {
-    return () => {
-      uploadImage(state.catImage, state.name);
-    };
-  }, []);
+  const handleOk = () => {          
+    state.registered = true;
+    dispatch(state);
+    uploadImage(state.catImage, state.forename, state.name);
+  };
 
   return (
     <div onKeyDown={() => SoundPlayer.playSound("/sounds/silentClick.mp3")}>
@@ -81,10 +81,7 @@ const Registration = ({ history }) => {
       <ImgLink
         to="/frontdesk"
         src="images/frontdesk/ok"
-        onClick={() => {
-          state.registered = true;
-          dispatch(state);
-        }}
+        onClick={handleOk}
       />
     </div>
   );
