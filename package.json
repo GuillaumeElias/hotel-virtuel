@@ -1,6 +1,6 @@
 {
   "name": "hotel-virtuel",
-  "version": "0.0.0",
+  "version": "0.0.3447",
   "private": true,
   "dependencies": {
     "@material-ui/core": "4.11.2",
@@ -25,5 +25,17 @@
     "react-scripts": "latest"
   },
   "keywords": [],
-  "description": "This is a virtual hotel"
+  "description": "This is a virtual hotel",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
