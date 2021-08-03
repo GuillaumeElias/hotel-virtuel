@@ -13,6 +13,11 @@ const Floor3 = ({ history }) => {
 
   React.useEffect(() => {
     VoicePlayer.playVoice("/voice/dernierEtage.mp3");
+
+    if(MusicPlayer.layers.length){
+      MusicPlayer.removeAllLayers();
+    }
+
     //MusicPlayer.setPlaying(false);
   }, []);
 

@@ -21,7 +21,7 @@ export const MusicPlayer = {
     if (this.currentMusic != null) {
       this.currentMusic.volume = newVolume;
     }
-    this.setAllLayersVolume(newVolume);
+    this.setAllLayersVolume();
   },
 
   setPlaying(playing) {
@@ -49,11 +49,13 @@ export const MusicPlayer = {
 
     const layerId = this.layers.length;
 
-    this.layers[layerId] = new Player(url).toDestination();
-    this.layers[layerId].autostart = true;
-    this.layers[layerId].loop = true;
-    this.layers[layerId].layerVolume = 0;
-    this.layers[layerId].volume.value = 0;
+    let layer = new Player(url).toDestination();
+    layer.autostart = true;
+    layer.loop = true;
+    layer.layerVolume = 0;
+    layer.volume.value = 0;
+
+    this.layers.push(layer);
 
     return layerId;
   },
@@ -61,7 +63,8 @@ export const MusicPlayer = {
   setLayerVolume(layerId, volume){
 
     if(isNaN(volume)){
-      return;
+      console.error("not a number");
+      volume = 0;
     }
 
     if(volume < 0){
@@ -72,13 +75,20 @@ export const MusicPlayer = {
 
     if(this.layers[layerId]){
       this.layers[layerId].layerVolume = volume;
-      this.layers[layerId].volume.rampTo(ratioToDb(volume * this.volume));
+
+      let db = ratioToDb(volume * this.volume * 1.2);
+
+      if(layerId == 3){
+        console.log("layerVolume:", volume, "  this ", this.volume + " db: "+db);
+      }
+
+      this.layers[layerId].volume.rampTo(db, 0.3);
     }
   },
 
-  setAllLayersVolume(volume) {
+  setAllLayersVolume() {
     for(var i in this.layers){
-      this.layers[i].volume.rampTo(ratioToDb(this.layers[i].layerVolume * volume));
+      this.layers[i].volume.rampTo(ratioToDb(this.layers[i].layerVolume * this.volume * 1.2), 0.3);
     }
   },
 
@@ -91,5 +101,9 @@ export const MusicPlayer = {
 };
 
 function ratioToDb(ratio){
-  return ratio * 25 - 25;
+  if(ratio > 1)ratio = 1;
+
+  ratio = Math.log(1 + ratio)/Math.log(2);
+
+  return ratio * 60 - 60;
 }

@@ -8,7 +8,7 @@ const uploadImage = (imgData, forename, name) => {
     forename = "";
   }
 
-  fetch("https://localhost:3501/picture", {
+  fetch("https://www.monstresbprod.be:3501/picture", {
     method: "POST",
     headers: {
       Accept: "application/json",

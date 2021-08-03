@@ -230,9 +230,9 @@ class Rooftop extends React.Component {
     this.birdsThink();
 
     if(MusicPlayer.layers.length == 0){
-      setTimeout(() => { this.initializeMusic(); }, 0);
-    }else if(MusicPlayer.layers.length == 4){
-        MusicPlayer.setLayerVolume(1, e.pageY / window.innerHeight - 0.1);
+      /*setTimeout(() => { */ this.initializeMusic(); /*}, 0)*/;
+    }else{
+        MusicPlayer.setLayerVolume(1, e.pageY / window.innerHeight);
         MusicPlayer.setLayerVolume(3, e.pageX / window.innerWidth);
     }
   };
