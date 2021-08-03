@@ -1,4 +1,4 @@
-import { Player } from "tone";
+import { Player, Gain } from "tone";
 
 export const MusicPlayer = {
   currentMusic: null,
@@ -49,11 +49,19 @@ export const MusicPlayer = {
 
     const layerId = this.layers.length;
 
-    let layer = new Player(url).toDestination();
+    const gainNode = new Gain(0).toDestination();
+
+    let layer = new Player(url);
+    layer.connect(gainNode);
     layer.autostart = true;
     layer.loop = true;
     layer.layerVolume = 0;
-    layer.volume.value = 0;
+
+    layer.gainNode = gainNode;
+
+    gainNode.gain.value = 0;
+
+
 
     this.layers.push(layer);
 
@@ -75,20 +83,13 @@ export const MusicPlayer = {
 
     if(this.layers[layerId]){
       this.layers[layerId].layerVolume = volume;
-
-      let db = ratioToDb(volume * this.volume * 1.2);
-
-      if(layerId == 3){
-        console.log("layerVolume:", volume, "  this ", this.volume + " db: "+db);
-      }
-
-      this.layers[layerId].volume.rampTo(db, 0.3);
+      this.layers[layerId].gainNode.gain.rampTo(volume * this.volume, 0.3);
     }
   },
 
   setAllLayersVolume() {
     for(var i in this.layers){
-      this.layers[i].volume.rampTo(ratioToDb(this.layers[i].layerVolume * this.volume * 1.2), 0.3);
+      this.layers[i].gainNode.gain.rampTo(this.layers[i].layerVolume * this.volume, 0.3);
     }
   },
 
@@ -99,11 +100,3 @@ export const MusicPlayer = {
     this.layers.splice(0, this.layers.length);
   }
 };
-
-function ratioToDb(ratio){
-  if(ratio > 1)ratio = 1;
-
-  ratio = Math.log(1 + ratio)/Math.log(2);
-
-  return ratio * 60 - 60;
-}
