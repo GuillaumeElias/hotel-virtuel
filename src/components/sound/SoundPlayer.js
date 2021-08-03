@@ -29,7 +29,7 @@ export const SoundPlayer = {
       this.currentSound.loaded = true;
     });
 
-    if(!MusicPlayer.currentMusic || MusicPlayer.currentMusic.paused){
+    if((!MusicPlayer.currentMusic || MusicPlayer.currentMusic.paused) && MusicPlayer.layers.length == 0){
       MusicPlayer.setMusic("/music/HotelVirtuel_0.mp3");
     }
   },

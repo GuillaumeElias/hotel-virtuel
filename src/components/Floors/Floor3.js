@@ -56,8 +56,6 @@ const Floor3 = ({ history }) => {
             y={computeElementY(393, 341, windowWidth * 0.18, 3)}
             width={windowWidth * 0.18}
             onClick={(e) => {
-              MusicPlayer.setMusic("/music/OnTheRooftop.mp3");
-
               for (let i = 1; i < 3; i += 0.1) {
                 setTimeout(() => {
                   if (trapDoorRef.current) {

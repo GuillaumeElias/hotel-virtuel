@@ -11,6 +11,10 @@ import { MusicPlayer } from "../sound/MusicPlayer";
 import { VoicePlayer } from "../sound/VoicePlayer";
 import { CollectionsBookmarkRounded } from "@material-ui/icons";
 
+Number.prototype.mod = function(n) {
+  return ((this%n)+n)%n;
+};
+
 class Rooftop extends React.Component {
   state = {
     img1_X: 0,
@@ -84,6 +88,13 @@ class Rooftop extends React.Component {
         img2_X: image2X,
         viewAngle: viewAngle
       });
+
+      let ratio = Math.abs(this.state.viewAngle) / this.state.width;
+      if(ratio > 0.5){
+        ratio = 0.5 - (ratio - 0.5);
+      }
+      ratio *= 2;
+      MusicPlayer.setLayerVolume(2, ratio);
     });
 
     //INITIALIZE BIRDS
@@ -122,8 +133,12 @@ class Rooftop extends React.Component {
             this.state.mousePos.x - birds[i].posX - this.state.viewAngle
           ) > this.followDistance
         ) {
-          birds[i].deltaX = boids.random(birds[i].deltaX) - birds[i].deltaX / 2;
-          birds[i].deltaY = boids.random(birds[i].deltaY) - birds[i].deltaY / 2;
+          birds[i].deltaX = boids.random(2) - 4;
+          birds[i].deltaY = boids.random(2) - 4;
+
+          if(birds[i].posY <= 50 && birds[i].deltaY <= 0){
+            birds[i].deltaY = -birds[i].deltaY;
+          }
         } else {
           let aimedPosX = this.state.mousePos.x + boids.random(0, 20) - 10;
           let aimedPosY = this.state.mousePos.y + boids.random(0, 20) - 10;
@@ -184,9 +199,25 @@ class Rooftop extends React.Component {
 
     this.birdsThink();
 
-    if(!MusicPlayer.currentMusic || MusicPlayer.currentMusic.paused){
-      MusicPlayer.setMusic("/music/OnTheRooftop.mp3");
+    if(MusicPlayer.layers.length == 0){
+      setTimeout(() => { this.initializeMusic(); }, 0);
+    }else if(MusicPlayer.layers.length == 4){
+        MusicPlayer.setLayerVolume(1, e.pageY / window.innerHeight - 0.1);
+        MusicPlayer.setLayerVolume(3, e.pageX / window.innerWidth);
     }
+  };
+
+  initializeMusic(){
+
+    if(MusicPlayer.currentMusic){
+      MusicPlayer.currentMusic.pause();
+    }
+
+    const firstLayer = MusicPlayer.addLayer("/music/layers/layer_main.mp3");
+    MusicPlayer.addLayer("/music/layers/layer_1.mp3");
+    MusicPlayer.addLayer("/music/layers/layer_2.mp3");
+    MusicPlayer.addLayer("/music/layers/layer_3.mp3");
+    MusicPlayer.setLayerVolume(firstLayer, 0.8);
   };
 
   handleClick = (e) => {
@@ -204,6 +235,11 @@ class Rooftop extends React.Component {
   }
 
   render() {
+
+    if(!this.state.width){
+      return <div></div>
+    }
+
     return (
       <div
         onMouseMove={this.mouseMoved}
@@ -233,7 +269,7 @@ class Rooftop extends React.Component {
               <CanvasImage
                 key={i}
                 src="/images/rooftop/bird"
-                x={(this.state.birds[i].posX + this.state.viewAngle) % this.state.width}
+                x={(this.state.birds[i].posX + this.state.viewAngle).mod(this.state.width)}
                 y={this.state.birds[i].posY}
                 width={this.state.birds[i].size}
                 interval={this.state.birds[i].interval}
@@ -242,7 +278,7 @@ class Rooftop extends React.Component {
 
             <CanvasImage
                 src="/images/rooftop/flyingguy"
-                x={(this.state.flyingGuy.x + this.state.viewAngle ) % this.state.width}
+                x={(this.state.flyingGuy.x + this.state.viewAngle ).mod(this.state.width)}
                 y={this.state.flyingGuy.y}
                 width={windowWidth / 12}
                 interval={300}
@@ -257,6 +293,7 @@ class Rooftop extends React.Component {
             path="/floor/3"
             history={this.props.history}
             onClick={() => {
+              MusicPlayer.removeAllLayers();
               MusicPlayer.setMusic("/music/HotelVirtuel_0.mp3");
             }}
           />
