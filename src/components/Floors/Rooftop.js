@@ -1,6 +1,6 @@
 import React from "react";
 import Konva from "konva";
-import { Stage, Layer, Image } from "react-konva";
+import { Stage, Layer, Image, Rect } from "react-konva";
 
 import CanvasImage from "../ui/CanvasImage";
 import BackButton from "../ui/BackButton";
@@ -25,16 +25,25 @@ class Rooftop extends React.Component {
     width: 0,
     mousePos: { x: 0, y: 0 },
     birds: [],
+    dots: [],
     flyingGuy: {x: window.innerWidth * 1.4, y: 30}
   };
 
   interval = 1000;
   numberOfBirds = 10;
+  numberOfDots = 6;
   followDistance = window.innerWidth * 0.5;
 
   componentDidMount() {
     window.addEventListener("resize", this.onWindowResize)
     this.loadImage();
+
+    let dots = [];
+    for (let i = 0; i < this.numberOfDots; i++) {
+      dots[i] = {x: 0, y: 0};
+    }
+
+    this.setState({dots});
   }
 
   componentWillUnmount() {
@@ -118,6 +127,7 @@ class Rooftop extends React.Component {
   tick() {
     this.moveBirds();
     this.moveFlyingGuy();
+    this.moveDots();
   }
 
   lastThink = 0;
@@ -161,6 +171,26 @@ class Rooftop extends React.Component {
       birds[i].posY += birds[i].deltaY;
     }
     this.setState({ birds });
+  };
+
+  moveDots = () => { 
+
+    let x = this.state.mousePos.x;
+    let y = this.state.mousePos.y;
+
+    let dots = [...this.state.dots];
+
+    dots.forEach((dot, index, dots) => {
+      var nextDot =  dots[index + 1] || dots[0];
+      
+      dot.x = x;
+      dot.y = y;
+      
+      x += (nextDot.x - dot.x) * .6;
+      y += (nextDot.y - dot.y) * .6;
+    });
+
+    this.setState({dots});
   };
 
   moveFlyingGuy = () => {
@@ -273,6 +303,17 @@ class Rooftop extends React.Component {
                 y={this.state.birds[i].posY}
                 width={this.state.birds[i].size}
                 interval={this.state.birds[i].interval}
+              />
+            ))}
+
+            {this.state.dots.map((name, i) => (
+              <Rect
+                key={i}
+                x={this.state.dots[i].x}
+                y={this.state.dots[i].y}
+                width={1}
+                height={2}
+                fill="#B97A57"
               />
             ))}
 
