@@ -19,7 +19,7 @@ class CanvasImage extends React.Component {
   shrink = false;
 
   componentDidMount() {
-    window.addEventListener("focus", this.onWindowFocus);
+    //window.addEventListener("focus", this.onWindowFocus);
 
     this.loadImages();
     if (this.props.interval && this.props.interval > 0) {
@@ -67,7 +67,7 @@ class CanvasImage extends React.Component {
   };
 
   componentWillUnmount() {
-    window.removeEventListener("focus", this.onWindowFocus);
+    //window.removeEventListener("focus", this.onWindowFocus);
     this.image1.removeEventListener("load", this.handleLoad);
     this.image2.removeEventListener("load", this.handleLoad2);
     clearInterval(this.timerID);
