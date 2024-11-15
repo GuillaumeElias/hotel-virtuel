@@ -12,7 +12,7 @@ There is no particular purpose aside from playing around with React and Konva.
 ## Try it
 
 (french only)
-[https://hotelvirtuel.space](https://hotelvirtuel.space)
+[https://hotelvirtuel.timmyotoole.art](https://hotelvirtuel.timmyotoole.art)
 
 ## Build front-end
 
